@@ -87,14 +87,8 @@
 
         <el-table-column label="操作" min-width="60" align="center">
           <template slot-scope="scope">
-            <i
-              class="el-icon-document-copy xiugai"
-              @click="updateqiye1(scope.$index, scope.row)"
-            ></i>
-            <i
-              class="el-icon-user-solid xiugai"
-              @click="updatelxren(scope.$index, scope.row)"
-            ></i>
+            <i class="el-icon-document-copy xiugai" @click="updateqiye1(scope.$index, scope.row)"></i>
+            <i class="el-icon-user-solid xiugai" @click="updatelxren(scope.$index, scope.row)"></i>
             <!-- <i class="el-icon-document-copy" @click="updateqiye1(scope.$index, scope.row)"></i> -->
             <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"> -->
             <!-- </el-button> -->
@@ -242,9 +236,7 @@
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')"
-              >立即注册</el-button
-            >
+            <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -289,12 +281,7 @@
           <!-- 行业 -->
           <div class="selectHangye">
             <span class="newscover">选择行业</span>
-            <el-select
-              v-model="value1"
-              placeholder="请选择"
-              @click="b1"
-              @change="a1"
-            >
+            <el-select v-model="value1" placeholder="请选择" @click="b1" @change="a1">
               <el-option
                 v-for="item in options1"
                 :key="item.value"
@@ -352,16 +339,11 @@
           </div>
 
           <el-form-item label="备注信息" prop="beizhu">
-            <el-input
-              type="textarea"
-              v-model="updataqiyelist.beizhu"
-            ></el-input>
+            <el-input type="textarea" v-model="updataqiyelist.beizhu"></el-input>
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm1('ruleForm')"
-              >提交</el-button
-            >
+            <el-button type="primary" @click="submitForm1('ruleForm')">提交</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -385,9 +367,7 @@
             <el-input v-model="updatelxrenlist.lxtel"></el-input>
           </el-form-item>
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm2('ruleForm')"
-              >修改</el-button
-            >
+            <el-button type="primary" @click="submitForm2('ruleForm')">修改</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -857,7 +837,7 @@ export default {
     // 分页改变
     tab(page) {
       this.page = page
-      this.getnewslist()
+      this.getfirmlist()
     }
   },
   mounted() {
