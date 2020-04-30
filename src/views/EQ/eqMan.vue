@@ -48,72 +48,136 @@
     <!-- :data="tableData.filter(data => !search || hexCharCodeToStr(data.mzid).toLowerCase().includes(search.toLowerCase()))" -->
     <div class="mymain">
       <template>
-        <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
-          <el-table-column label="产品迭代" align="center" show-overflow-tooltip min-width="100">
+        <el-table
+          :data="tableData"
+          stripe
+          :header-cell-style="headClass"
+          style="width: 100%"
+        >
+          <el-table-column
+            label="产品迭代"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
-              <el-tag size="medium">{{ scope.row.code == 1 ? '第一代' : '第二代' }}</el-tag>
+              <el-tag size="medium">{{
+                scope.row.code == 1 ? '第一代' : '第二代'
+              }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="模组名称" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="模组名称"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
-              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.mozu) }}</el-tag>
+              <el-tag size="medium">{{
+                hexCharCodeToStr(scope.row.mozu)
+              }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="电箱号" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="电箱号"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
-              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.mzid) }}</el-tag>
+              <el-tag size="medium">{{
+                hexCharCodeToStr(scope.row.mzid)
+              }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="分机个数" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="分机个数"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.fen + '个' }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="安装地址" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="安装地址"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.jianzhu }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="电箱名称" align="center" show-overflow-tooltip min-width="110">
+          <el-table-column
+            label="电箱名称"
+            align="center"
+            show-overflow-tooltip
+            min-width="110"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.mzname }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="版本号" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="版本号"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
-              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.banben) }}</el-tag>
+              <el-tag size="medium">{{
+                hexCharCodeToStr(scope.row.banben)
+              }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="设备号" align="center" show-overflow-tooltip min-width="70">
+          <el-table-column
+            label="设备号"
+            align="center"
+            show-overflow-tooltip
+            min-width="70"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.txfs }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="是否使能" align="center" show-overflow-tooltip min-width="80">
+          <el-table-column
+            label="是否使能"
+            align="center"
+            show-overflow-tooltip
+            min-width="80"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">
-                {{
-                scope.row.neng == '01' ? '使能' : '不使能'
-                }}
+                {{ scope.row.neng == '01' ? '使能' : '不使能' }}
               </el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" align="center" show-overflow-tooltip min-width="70">
+          <el-table-column
+            label="操作"
+            align="center"
+            show-overflow-tooltip
+            min-width="70"
+          >
             <!-- <template slot="header" slot-scope="scope">
               <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
             </template>-->
             <template slot-scope="scope">
               <!-- <i class="el-icon-document-copy xiugai" @click="edit(scope.$index, scope.row)"></i> -->
-              <i class="el-icon-delete xiugai" @click="deleteeq(scope.$index, scope.row)"></i>
+              <i
+                class="el-icon-delete xiugai"
+                @click="deleteeq(scope.$index, scope.row)"
+              ></i>
 
               <!-- <el-button size="mini" @click="edit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="deleteeq(scope.$index, scope.row)">删除</el-button>-->
@@ -142,7 +206,11 @@
 
     <!-- 设备入库 -->
     <div class="zhuce">
-      <el-dialog title="设备入库" :visible.sync="dialogFormVisible2" width="38%">
+      <el-dialog
+        title="设备入库"
+        :visible.sync="dialogFormVisible2"
+        width="38%"
+      >
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -159,7 +227,11 @@
               <el-form-item label="产品版本" prop="code">
                 <el-select v-model="ruleForm.code" placeholder="请选择产品代码">
                   <template v-for="(item, index) in code">
-                    <el-option :label="item.name" :value="item.id" :key="index"></el-option>
+                    <el-option
+                      :label="item.name"
+                      :value="item.id"
+                      :key="index"
+                    ></el-option>
                   </template>
                 </el-select>
               </el-form-item>
@@ -167,16 +239,26 @@
 
             <div class="two">
               <el-form-item label="是否带漏电" prop="loudian">
-                <el-select v-model="ruleForm.loudian" placeholder="请选择活动区域">
+                <el-select
+                  v-model="ruleForm.loudian"
+                  placeholder="请选择活动区域"
+                >
                   <el-option label="带漏电" value="1"></el-option>
                   <el-option label="不带漏电" value="2"></el-option>
                 </el-select>
               </el-form-item>
 
               <el-form-item label="设备型号" prop="region">
-                <el-select v-model="ruleForm.region" placeholder="请选择设备型号">
+                <el-select
+                  v-model="ruleForm.region"
+                  placeholder="请选择设备型号"
+                >
                   <template v-for="(item, index) in region">
-                    <el-option :label="item.name" :value="item.name" :key="index"></el-option>
+                    <el-option
+                      :label="item.name"
+                      :value="item.name"
+                      :key="index"
+                    ></el-option>
                   </template>
                 </el-select>
               </el-form-item>
@@ -225,7 +307,11 @@
             <el-form-item label="设备极数" prop="jishu">
               <el-select v-model="ruleForm.jishu" placeholder="请选择极数">
                 <template v-for="(item, index) in jishu">
-                  <el-option :label="item.name" :value="item.id" :key="index"></el-option>
+                  <el-option
+                    :label="item.name"
+                    :value="item.id"
+                    :key="index"
+                  ></el-option>
                 </template>
               </el-select>
             </el-form-item>
@@ -251,7 +337,9 @@
           </el-form-item>-->
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">立即入库</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')"
+              >立即入库</el-button
+            >
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>

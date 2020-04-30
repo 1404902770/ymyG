@@ -17,38 +17,73 @@
 
     <div class="mymain">
       <template>
-        <el-table :data="tableData" :header-cell-style="headClass" stripe style="width: 100%">
-          <el-table-column label="企业名称" align="center" show-overflow-tooltip min-width="60">
+        <el-table
+          :data="tableData"
+          :header-cell-style="headClass"
+          stripe
+          style="width: 100%"
+        >
+          <el-table-column
+            label="企业名称"
+            align="center"
+            show-overflow-tooltip
+            min-width="60"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.name }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="账号昵称" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column
+            label="账号昵称"
+            align="center"
+            show-overflow-tooltip
+            min-width="60"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.nick }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="用户名" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column
+            label="用户名"
+            align="center"
+            show-overflow-tooltip
+            min-width="60"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.username }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="电话" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column
+            label="电话"
+            align="center"
+            show-overflow-tooltip
+            min-width="60"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.phone }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="紧急联系人" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column
+            label="紧急联系人"
+            align="center"
+            show-overflow-tooltip
+            min-width="60"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.lianxiren }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="紧急联系人电话" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column
+            label="紧急联系人电话"
+            align="center"
+            show-overflow-tooltip
+            min-width="60"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.lxtel }}</el-tag>
             </template>
@@ -56,20 +91,39 @@
 
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">
-                <el-button type="text" size="mini" @click="dialogFormVisible = true">绑定设备</el-button>
+              <el-button
+                size="mini"
+                @click="handleEdit(scope.$index, scope.row)"
+              >
+                <el-button
+                  type="text"
+                  size="mini"
+                  @click="dialogFormVisible = true"
+                  >绑定设备</el-button
+                >
               </el-button>
-              <el-button type="text" @click="getbandeq(scope.$index, scope.row)">查看</el-button>
+              <el-button type="text" @click="getbandeq(scope.$index, scope.row)"
+                >查看</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
 
         <!-- 设备绑定 -->
         <div class="bindbox">
-          <el-dialog title="设备绑定" :visible.sync="dialogFormVisible" width="60%" @close="closed1">
+          <el-dialog
+            title="设备绑定"
+            :visible.sync="dialogFormVisible"
+            width="60%"
+            @close="closed1"
+          >
             <el-form :model="form">
               <el-form-item label="带漏电" :label-width="formLabelWidth">
-                <el-select v-model="form.lou" placeholder="请选择活动区域" @change="geteqtype">
+                <el-select
+                  v-model="form.lou"
+                  placeholder="请选择活动区域"
+                  @change="geteqtype"
+                >
                   <el-option label="带漏电" value="1"></el-option>
                   <el-option label="不带漏电" value="2"></el-option>
                 </el-select>
@@ -107,13 +161,27 @@
 
               <div class="bangding">
                 <template>
-                  <el-table :data="tablebang" style="width: 100%" empty-text="暂无设备">
-                    <el-table-column label="设备号" align="center" min-width="180">
+                  <el-table
+                    :data="tablebang"
+                    style="width: 100%"
+                    empty-text="暂无设备"
+                  >
+                    <el-table-column
+                      label="设备号"
+                      align="center"
+                      min-width="180"
+                    >
                       <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ hexCharCodeToStr(scope.row.mzid) }}</span>
+                        <span style="margin-left: 10px">{{
+                          hexCharCodeToStr(scope.row.mzid)
+                        }}</span>
                       </template>
                     </el-table-column>
-                    <el-table-column label="型号" align="center" min-width="180">
+                    <el-table-column
+                      label="型号"
+                      align="center"
+                      min-width="180"
+                    >
                       <template slot-scope="scope">
                         <span>{{ scope.row.xinghao }}</span>
                       </template>
@@ -126,30 +194,45 @@
                       min-width="90"
                     >
                       <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ scope.row.guige }}</span>
+                        <span style="margin-left: 10px">{{
+                          scope.row.guige
+                        }}</span>
                       </template>
                     </el-table-column>
                     <el-table-column label="规格" align="center" min-width="90">
                       <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ scope.row.guige + 'A' }}</span>
+                        <span style="margin-left: 10px">{{
+                          scope.row.guige + 'A'
+                        }}</span>
                       </template>
                     </el-table-column>
                     <el-table-column label="极数" align="center" min-width="90">
                       <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ scope.row.jishu + 'P' }}</span>
+                        <span style="margin-left: 10px">{{
+                          scope.row.jishu + 'P'
+                        }}</span>
                       </template>
                     </el-table-column>
 
-                    <el-table-column label="操作" align="center" min-width="160">
+                    <el-table-column
+                      label="操作"
+                      align="center"
+                      min-width="160"
+                    >
                       <template slot-scope="scope">
                         <!-- <el-button size="mini" @click="handlebang(scope.$index, scope.row)">编辑</el-button> -->
-                        <el-button size="mini" @click="bangidng(scope.$index, scope.row)">绑定</el-button>
+                        <el-button
+                          size="mini"
+                          @click="bangidng(scope.$index, scope.row)"
+                          >绑定</el-button
+                        >
                         <el-button
                           size="mini"
                           type="danger"
                           @click="unband(scope.$index, scope.row)"
                           v-if="code == 41 || code == 42 || code == 43"
-                        >解除绑定</el-button>
+                          >解除绑定</el-button
+                        >
                       </template>
                     </el-table-column>
                   </el-table>
@@ -177,10 +260,16 @@
       <el-dialog :visible.sync="dialogFormVisible3" width="95%">
         <div class="look">
           <template>
-            <el-table :data="bangeqlist" style="width: 100%" empty-text="暂无设备">
+            <el-table
+              :data="bangeqlist"
+              style="width: 100%"
+              empty-text="暂无设备"
+            >
               <el-table-column label=" 版本" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.code == '1' ? '第一代' : '第二代' }}</span>
+                  <span style="margin-left: 10px">{{
+                    scope.row.code == '1' ? '第一代' : '第二代'
+                  }}</span>
                 </template>
               </el-table-column>
               <el-table-column label="模组" align="center" min-width="180">
@@ -190,12 +279,16 @@
               </el-table-column>
               <el-table-column label="模组ID" align="center" min-width="180">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ hexCharCodeToStr(scope.row.mzid) }}</span>
+                  <span style="margin-left: 10px">{{
+                    hexCharCodeToStr(scope.row.mzid)
+                  }}</span>
                 </template>
               </el-table-column>
               <el-table-column label="漏电" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.lou == 1 ? '带漏电' : '不带漏电' }}</span>
+                  <span style="margin-left: 10px">{{
+                    scope.row.lou == 1 ? '带漏电' : '不带漏电'
+                  }}</span>
                 </template>
               </el-table-column>
               <el-table-column label=" 型号" align="center" min-width="90">
@@ -205,12 +298,16 @@
               </el-table-column>
               <el-table-column label="规格" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.guige + 'A' }}</span>
+                  <span style="margin-left: 10px">{{
+                    scope.row.guige + 'A'
+                  }}</span>
                 </template>
               </el-table-column>
               <el-table-column label="极数" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.jishu + 'P' }}</span>
+                  <span style="margin-left: 10px">{{
+                    scope.row.jishu + 'P'
+                  }}</span>
                 </template>
               </el-table-column>
               <el-table-column label="地址" align="center" min-width="130">
@@ -228,20 +325,20 @@
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">
                     {{
-                    scope.row.bz == '11'
-                    ? '正常运行'
-                    : scope.row.bz == '12'
-                    ? '已删除'
-                    : '未激活'
+                      scope.row.bz == '11'
+                        ? '正常运行'
+                        : scope.row.bz == '12'
+                        ? '已删除'
+                        : '未激活'
                     }}
                   </span>
                 </template>
               </el-table-column>
               <el-table-column label="时间" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span
-                    style="margin-left: 10px"
-                  >{{ new Date(scope.row.jihuo * 1000).Format('yy-MM-dd ') }}</span>
+                  <span style="margin-left: 10px">{{
+                    new Date(scope.row.jihuo * 1000).Format('yy-MM-dd ')
+                  }}</span>
                 </template>
               </el-table-column>
 
@@ -249,7 +346,12 @@
                 <template slot-scope="scope">
                   <!-- <el-button size="mini" @click="handlebang(scope.$index, scope.row)">编辑</el-button> -->
                   <!-- <el-button size="mini" @click="bangidng(scope.$index, scope.row)">绑定</el-button> -->
-                  <el-button size="mini" type="danger" @click="unband(scope.$index, scope.row)">解除绑定</el-button>
+                  <el-button
+                    size="mini"
+                    type="danger"
+                    @click="unband(scope.$index, scope.row)"
+                    >解除绑定</el-button
+                  >
                 </template>
               </el-table-column>
             </el-table>
@@ -260,7 +362,11 @@
 
     <!-- 注册弹框 -->
     <div class="zhuce">
-      <el-dialog title="开通企业账户" :visible.sync="dialogFormVisible2" width="40%">
+      <el-dialog
+        title="开通企业账户"
+        :visible.sync="dialogFormVisible2"
+        width="40%"
+      >
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -293,7 +399,9 @@
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')"
+              >立即注册</el-button
+            >
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>

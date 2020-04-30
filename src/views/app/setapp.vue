@@ -14,7 +14,8 @@
           <!-- <span v-if="filename" class="selectText">{{ filename }}</span>
           <span v-else class="selectText">请选择文件上传</span>-->
           <a href="javascript:;" class="file">
-            选择文件
+            <i class="el-icon-upload"></i>
+            选择安装包
             <input type="file" @change="upload" />
           </a>
           <!-- <input
@@ -36,7 +37,7 @@
           type="circle"
           color="teal"
           :percentage="Number(uploadNum)"
-          v-show="uploadNum!=0?true:false"
+          v-show="uploadNum != 0 ? true : false"
         ></el-progress>
       </div>
 
@@ -63,7 +64,9 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即上传</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')"
+          >立即上传</el-button
+        >
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -237,12 +240,12 @@ export default {
 .file {
   position: relative;
   display: inline-block;
-  background: #d0eeff;
+  background: teal;
   border: 1px solid #99d3f5;
   border-radius: 4px;
-  padding: 4px 12px;
+  padding: 10px 12px;
   overflow: hidden;
-  color: #1e88c7;
+  color: #fff;
   text-decoration: none;
   text-indent: 0;
   line-height: 20px;
