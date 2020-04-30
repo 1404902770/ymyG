@@ -7,27 +7,34 @@
         <el-breadcrumb-item>企业用户</el-breadcrumb-item>
         <el-breadcrumb-item>企业列表</el-breadcrumb-item>
       </el-breadcrumb>
+
+      <div class="zhuce">
+        <el-button type="primary" size="small" @click="gotozhuce">
+          <i class="el-icon-plus"></i>企业注册
+        </el-button>
+      </div>
     </div>
 
-    <template>
-      <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column
-          prop="name"
-          label="企业名称"
-          align="center"
-          min-width="160"
-          show-overflow-tooltip
-        ></el-table-column>
+    <div class="mymain">
+      <template>
+        <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
+          <el-table-column
+            prop="name"
+            label="企业名称"
+            align="center"
+            min-width="160"
+            show-overflow-tooltip
+          ></el-table-column>
 
-        <el-table-column
-          prop="zjhao"
-          label="企业证件号"
-          align="center"
-          min-width="160"
-          show-overflow-tooltip
-        ></el-table-column>
+          <el-table-column
+            prop="zjhao"
+            label="企业证件号"
+            align="center"
+            min-width="160"
+            show-overflow-tooltip
+          ></el-table-column>
 
-        <el-table-column label="地址" min-width="250" align="center">
+          <!-- <el-table-column label="地址" min-width="250" align="center"> -->
           <el-table-column
             prop="priv"
             label="省份"
@@ -59,52 +66,44 @@
             min-width="150"
             show-overflow-tooltip
           ></el-table-column>
-        </el-table-column>
+          <!-- </el-table-column> -->
 
-        <el-table-column
-          prop="lianxiren"
-          label="紧急联系人"
-          align="center"
-          min-width="100"
-          show-overflow-tooltip
-        ></el-table-column>
+          <el-table-column
+            prop="lianxiren"
+            label="紧急联系人"
+            align="center"
+            min-width="100"
+            show-overflow-tooltip
+          ></el-table-column>
 
-        <el-table-column
-          prop="lxtel"
-          label="紧急联系人电话"
-          align="center"
-          min-width="100"
-          show-overflow-tooltip
-        ></el-table-column>
+          <el-table-column
+            prop="lxtel"
+            label="紧急联系人电话"
+            align="center"
+            min-width="100"
+            show-overflow-tooltip
+          ></el-table-column>
 
-        <el-table-column
-          prop="beizhu"
-          label="备注信息"
-          align="center"
-          min-width="100"
-          show-overflow-tooltip
-        ></el-table-column>
+          <el-table-column
+            prop="beizhu"
+            label="备注信息"
+            align="center"
+            min-width="100"
+            show-overflow-tooltip
+          ></el-table-column>
 
-        <el-table-column label="操作" min-width="60" align="center">
-          <template slot-scope="scope">
-            <i class="el-icon-document-copy xiugai" @click="updateqiye1(scope.$index, scope.row)"></i>
-            <i class="el-icon-user-solid xiugai" @click="updatelxren(scope.$index, scope.row)"></i>
-            <!-- <i class="el-icon-document-copy" @click="updateqiye1(scope.$index, scope.row)"></i> -->
-            <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"> -->
-            <!-- </el-button> -->
-            <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
-          </template>
-        </el-table-column>
-      </el-table>
-    </template>
-
-    <div class="zhuce">
-      <el-button type="primary" size="small" @click="gotozhuce">
-        <i class="el-icon-plus"></i>企业注册
-      </el-button>
-      <!-- <el-button round size="small" @click="gotozhuce">
-        <i class="el-icon-plus"></i>注册账户
-      </el-button>-->
+          <el-table-column label="操作" min-width="60" align="center">
+            <template slot-scope="scope">
+              <i class="el-icon-document-copy xiugai" @click="updateqiye1(scope.$index, scope.row)"></i>
+              <i class="el-icon-user-solid xiugai" @click="updatelxren(scope.$index, scope.row)"></i>
+              <!-- <i class="el-icon-document-copy" @click="updateqiye1(scope.$index, scope.row)"></i> -->
+              <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"> -->
+              <!-- </el-button> -->
+              <!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
     </div>
 
     <!-- 企业注册 -->
@@ -535,6 +534,11 @@ export default {
   components: { VDistpicker },
 
   methods: {
+    // 表头样式设置
+    headClass() {
+      return 'background:#fafafa;height:60px'
+    },
+
     // 编辑按钮
     handleEdit(index, row) {
       // console.log(index, row)
@@ -850,6 +854,11 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.el-table--border,
+.el-table--group {
+  border-left: none;
+}
+
 .el-tag {
   border: none !important;
   padding: 0 !important;
@@ -857,19 +866,18 @@ export default {
   color: #333 !important;
 }
 // 注册按钮
-.zhuce {
-  position: absolute;
-  right: 90px;
-  top: 80px;
+// .zhuce {
+//   position: absolute;
+//   right: 90px;
+//   top: 80px;
+// }
+.el-breadcrumb {
+  line-height: 32px;
 }
 .bread {
-  margin: 20px 0;
-}
-.page {
-  position: absolute;
-  bottom: 95px;
-  left: 50%;
-  transform: translate(-50%, 0px);
+  margin: 12px 35px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .block {
@@ -906,20 +914,32 @@ export default {
   cursor: pointer;
 }
 .xiugai:hover {
-  color: #409eff;
+  color: teal;
+}
+
+.mymain {
+  height: 49rem;
 }
 
 .page {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translate(-50%, 0px);
+  // position: relative;
+  // bottom: 200px;
+  // margin: 10% 0 0 50%;
+  // left: 50%;
+  // transform: translate(-50%, 0px);
+  margin: 0 0 0 39rem;
   display: flex;
   span {
     font-size: 14px;
     color: #666;
   }
 }
+
+.el-table /deep/ td {
+  padding: 15px 0 !important;
+  font-size: 13px;
+}
+
 // .el-form-item /deep/ .el-form-item__content {
 //   margin-left: 360px !important;
 // }

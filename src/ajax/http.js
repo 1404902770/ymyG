@@ -311,11 +311,11 @@ class Http {
   }
 
   // 获取用户列表
-  static getuserlist({ type } = {}) {
+  static getuserlist({ type, page } = {}) {
     return this.common({
       url: GETUSERLIST,
       method: 'POST',
-      data: { type }
+      data: { type, page }
     })
   }
 

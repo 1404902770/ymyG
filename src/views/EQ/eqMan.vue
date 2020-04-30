@@ -1,25 +1,33 @@
 <template>
   <div>
     <!-- <h1>账号管理</h1> -->
-    <div class="bread">
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>设备管理</el-breadcrumb-item>
-        <el-breadcrumb-item>设备列表</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+    <div class="topbox">
+      <!-- <div class="bread">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>设备管理</el-breadcrumb-item>
+          <el-breadcrumb-item>设备列表</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>-->
 
-    <div class="leibei">
-      <template>
-        <el-select v-model="value" placeholder="请选择" @change="selectval">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </template>
+      <div class="leibei">
+        <template>
+          <el-select v-model="value" placeholder="请选择" @change="selectval">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </template>
+
+        <div class="zhuce">
+          <el-button type="primary" size="small" @click="puteq">
+            <i class="el-icon-plus"></i>设备入库
+          </el-button>
+        </div>
+      </div>
     </div>
     <!-- "data":{
         "code":"产品迭代：1、第一代产品，2、第二代产品",
@@ -37,88 +45,85 @@
         "neng":"是否使能：01 使能",
         "time":"入库时间"
     }-->
+    <!-- :data="tableData.filter(data => !search || hexCharCodeToStr(data.mzid).toLowerCase().includes(search.toLowerCase()))" -->
+    <div class="mymain">
+      <template>
+        <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
+          <el-table-column label="产品迭代" align="center" show-overflow-tooltip min-width="100">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ scope.row.code == 1 ? '第一代' : '第二代' }}</el-tag>
+            </template>
+          </el-table-column>
 
-    <template>
-      <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
-        <el-table-column label="产品迭代" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">
-              {{
-              scope.row.code == 1 ? '第一代' : '第二代'
-              }}
-            </el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="模组名称" align="center" show-overflow-tooltip min-width="100">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.mozu) }}</el-tag>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="模组名称" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">
-              {{
-              hexCharCodeToStr(scope.row.mozu)
-              }}
-            </el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="电箱号" align="center" show-overflow-tooltip min-width="100">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.mzid) }}</el-tag>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="电箱号" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">
-              {{
-              hexCharCodeToStr(scope.row.mzid)
-              }}
-            </el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="分机个数" align="center" show-overflow-tooltip min-width="100">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ scope.row.fen + '个' }}</el-tag>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="分机个数" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">{{ scope.row.fen + '个' }}</el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="安装地址" align="center" show-overflow-tooltip min-width="100">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ scope.row.jianzhu }}</el-tag>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="安装地址" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">{{ scope.row.jianzhu }}</el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="电箱名称" align="center" show-overflow-tooltip min-width="110">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ scope.row.mzname }}</el-tag>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="电箱名称" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">{{ scope.row.mzname }}</el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="版本号" align="center" show-overflow-tooltip min-width="100">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.banben) }}</el-tag>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="版本号" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">
-              {{
-              hexCharCodeToStr(scope.row.banben)
-              }}
-            </el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="设备号" align="center" show-overflow-tooltip min-width="70">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ scope.row.txfs }}</el-tag>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="设备号" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">{{ scope.row.txfs }}</el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="是否使能" align="center" show-overflow-tooltip min-width="80">
+            <template slot-scope="scope">
+              <el-tag size="medium">
+                {{
+                scope.row.neng == '01' ? '使能' : '不使能'
+                }}
+              </el-tag>
+            </template>
+          </el-table-column>
 
-        <el-table-column label="是否使能" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">{{ scope.row.neng == '01' ? '使能' : '不使能' }}</el-tag>
-          </template>
-        </el-table-column>
+          <el-table-column label="操作" align="center" show-overflow-tooltip min-width="70">
+            <!-- <template slot="header" slot-scope="scope">
+              <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
+            </template>-->
+            <template slot-scope="scope">
+              <!-- <i class="el-icon-document-copy xiugai" @click="edit(scope.$index, scope.row)"></i> -->
+              <i class="el-icon-delete xiugai" @click="deleteeq(scope.$index, scope.row)"></i>
 
-        <el-table-column label="操作" align="center" show-overflow-tooltip min-width="100">
-          <template slot-scope="scope">
-            <!-- <el-button size="mini" @click="edit(scope.$index, scope.row)">编辑</el-button> -->
-            <el-button size="mini" type="danger" @click="deleteeq(scope.$index, scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </template>
+              <!-- <el-button size="mini" @click="edit(scope.$index, scope.row)">编辑</el-button>
+              <el-button size="mini" type="danger" @click="deleteeq(scope.$index, scope.row)">删除</el-button>-->
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
+    </div>
 
+    <!-- 分页 -->
     <div class="page">
       <div style="line-height:32px;">
         <span>共 {{ total }} 条</span>
@@ -133,12 +138,6 @@
           @current-change="tab"
         ></el-pagination>
       </div>
-    </div>
-
-    <div class="zhuce">
-      <el-button type="primary" size="small" @click="puteq">
-        <i class="el-icon-plus"></i>设备入库
-      </el-button>
     </div>
 
     <!-- 设备入库 -->
@@ -350,6 +349,8 @@ export default {
         ]
       },
 
+      search: '',
+
       // 总条数
       total: '',
       // 每页条数
@@ -499,6 +500,7 @@ export default {
         })
         .catch(() => {
           this.$message({
+            showClose: true,
             type: 'info',
             message: '已取消删除'
           })
@@ -541,24 +543,28 @@ export default {
   background-color: transparent;
   color: #333;
 }
-.zhuce {
-  position: absolute;
-  right: 90px;
-  top: 119px;
-}
+// .zhuce {
+//   position: absolute;
+//   right: 90px;
+//   top: 119px;
+// }
 .bread {
-  margin: 0 0 20px 0;
+  margin: 20px 0 20px 35px;
 }
 .page {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translate(-50%, 0px);
+  // position: absolute;
+  // bottom: 20px;
+  // left: 50%;
+  // transform: translate(-50%, 0px);
+  margin: 0 0 0 39rem;
   display: flex;
   span {
     font-size: 14px;
     color: #666;
   }
+}
+.mymain {
+  height: 48.5rem;
 }
 
 .fun {
@@ -566,7 +572,23 @@ export default {
   margin-top: 26px;
 }
 .leibei {
-  margin-bottom: 20px;
+  margin: 12px 35px;
+  // margin-bottom: 20px;
+  // margin-left: 35px;
+  // margin-right: 35px;
+  display: flex;
+  justify-content: space-between;
+}
+.el-button--small {
+  margin-top: 4px;
+}
+
+.xiugai {
+  padding: 5px;
+  cursor: pointer;
+}
+.xiugai:hover {
+  color: teal;
 }
 
 .box {

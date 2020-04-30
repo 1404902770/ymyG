@@ -11,24 +11,33 @@
       <div id="uploadFile">
         <!-- <h4>上传文件：</h4> -->
         <p class="input-zone">
-          <span v-if="filename" class="selectText">{{ filename }}</span>
-          <span v-else class="selectText">请选择文件上传</span>
-
-          <input
+          <!-- <span v-if="filename" class="selectText">{{ filename }}</span>
+          <span v-else class="selectText">请选择文件上传</span>-->
+          <a href="javascript:;" class="file">
+            选择文件
+            <input type="file" @change="upload" />
+          </a>
+          <!-- <input
             type="file"
             name="file"
             value
             placeholder="请选择文件"
             @change="upload"
             multiple="multiple"
-          />
+          />-->
         </p>
 
-        <p>上传进度：</p>
+        <!-- <p>上传进度：</p>
         <div class="progress-wrapper">
           <div class="progress-progress" :style="uploadStyle"></div>
           <div class="progress-rate">{{ (uploadRate * 100).toFixed(2) }}%</div>
-        </div>
+        </div>-->
+        <el-progress
+          type="circle"
+          color="teal"
+          :percentage="Number(uploadNum)"
+          v-show="uploadNum!=0?true:false"
+        ></el-progress>
       </div>
 
       <el-form-item label="App版本" prop="name">
@@ -54,9 +63,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >立即上传</el-button
-        >
+        <el-button type="primary" @click="submitForm('ruleForm')">立即上传</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -110,12 +117,14 @@ export default {
         region: [{ required: true, message: '请选择类型', trigger: 'change' }],
         // 产品
         product: [{ required: true, message: '请选择类型', trigger: 'change' }]
-      }
+      },
+      // 上传进度
+      uploadNum: 0
     }
   },
   methods: {
     // 进度条和上传方法
-    upload: function(e) {
+    upload(e) {
       var vm = this
       var formData = new FormData()
       formData.append('name', 'Alax')
@@ -140,12 +149,9 @@ export default {
               //这里的进度只能表明文件已经上传到后台，但是后台有没有处理完还不知道
               //因此不能直接显示为100%，不然用户会误以为已经上传完毕，关掉浏览器的话就可能导致上传失败
               //等响应回来时，再将进度设为100%
-              vm.uploadRate = rate
+              // vm.uploadRate = rate
 
-              vm.uploadStyle.width = (rate * 100).toFixed(2) + '%'
-              if ((rate * 100).toFixed(2) > 96) {
-                vm.uploadStyle.width = '100' + '%'
-              }
+              vm.uploadNum = (rate * 100).toFixed(2)
             }
           }
         }
@@ -156,15 +162,15 @@ export default {
         .then(res => {
           // console.log(res)
           this.appurl = res.data.url
+          vm.uploadNum = 100
           this.$message({
             message: '上传成功',
             type: 'success'
           })
         })
         .catch(err => {
-          console.log(err)
           this.$message({
-            message: '上传失败',
+            message: err,
             type: 'success'
           })
         })
@@ -228,6 +234,33 @@ export default {
 }
 </script>
 <style lang="less">
+.file {
+  position: relative;
+  display: inline-block;
+  background: #d0eeff;
+  border: 1px solid #99d3f5;
+  border-radius: 4px;
+  padding: 4px 12px;
+  overflow: hidden;
+  color: #1e88c7;
+  text-decoration: none;
+  text-indent: 0;
+  line-height: 20px;
+}
+.file input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+}
+.file:hover {
+  background: #aadffd;
+  border-color: #78c3f3;
+  color: #004974;
+  text-decoration: none;
+}
+
 .appbox {
   width: 560px;
 }

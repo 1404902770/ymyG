@@ -24,8 +24,8 @@ import 'font-awesome/css/font-awesome.css'
 // import '../public/static/ueditor/lang/zh-cn/zh-cn'
 
 // 引入使用elementUi
-// import './element-variables.scss'
-import 'element-ui/lib/theme-chalk/index.css'
+import './element-variables.scss'
+// import 'element-ui/lib/theme-chalk/index.css'
 import elementUi from 'element-ui'
 Vue.use(elementUi)
 

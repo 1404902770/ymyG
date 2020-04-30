@@ -10,6 +10,7 @@
       <el-menu
         :default-active="activeIndex"
         class="el-menu-demo"
+        active-text-color="teal"
         mode="horizontal"
         @select="handleSelect"
         router
@@ -142,7 +143,7 @@ export default {
   width: 400px;
 }
 .topnav {
-  border-bottom: solid 1px #e6e6e6;
+  border-bottom: solid 1px teal;
 }
 // logo
 .logo {
@@ -153,14 +154,17 @@ export default {
   margin-top: 6px;
 }
 .logopic {
-  width: 35px;
-  height: 35px;
-  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
   vertical-align: bottom;
 }
 .logotitle {
-  font-weight: bold;
-  font-size: 26px;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
 }
 // 用户头像
 .userheadpic {
@@ -179,6 +183,10 @@ export default {
 .userName {
   margin-top: 4px;
   margin-right: 5px;
+}
+
+.el-menu--horizontal > .el-menu-item.is-active {
+  border: none !important;
 }
 
 .el-header {

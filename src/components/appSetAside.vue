@@ -13,20 +13,17 @@
             <template v-if="item.twoTitle">
               <el-submenu :index="item.oneTitle" :key="item.oneTitle" style="text-align: left;">
                 <template slot="title">
-                  <i v-if="item.oneTitle=='App设置'" class="el-icon-setting"></i>
-                  <i v-if="item.oneTitle=='轮播图管理'" class="el-icon-picture-outline"></i>
-                  <i v-if="item.oneTitle=='新闻管理'" class="el-icon-news"></i>
-                  <i v-if="item.oneTitle=='公告管理'" class="el-icon-reading"></i>
+                  <i v-if="item.oneTitle == 'App设置'" class="el-icon-setting"></i>
+                  <i v-if="item.oneTitle == '轮播图管理'" class="el-icon-picture-outline"></i>
+                  <i v-if="item.oneTitle == '新闻管理'" class="el-icon-news"></i>
+                  <i v-if="item.oneTitle == '公告管理'" class="el-icon-reading"></i>
                   <span>{{ item.oneTitle }}</span>
                 </template>
                 <el-menu-item
                   v-for="(item, index) in item.twoTitle"
                   :key="index"
                   :index="item.path"
-                >
-                  <i v-if="item.title=='版本更新'" class="el-icon-upload2"></i>
-                  {{ item.title }}
-                </el-menu-item>
+                >{{ item.title }}</el-menu-item>
               </el-submenu>
             </template>
             <template v-else>
@@ -97,6 +94,7 @@ export default {
 .el-aside {
   /* font-weight: bold; */
   width: 210px !important;
+  z-index: 10;
 }
 .el-col-12 {
   width: 100% !important;

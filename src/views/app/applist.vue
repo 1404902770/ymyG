@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <h1>上传App</h1>
     <!-- <input type="file" ref="fileInt" @change="changeHandle" /> -->
     <div id="uploadFile">
@@ -27,6 +28,7 @@
   </div>
 </template>
 <script>
+// import elementUi from 'element-ui'
 import Vue from 'vue'
 import http from '../../ajax/http'
 export default {

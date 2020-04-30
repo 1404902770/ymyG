@@ -58,6 +58,7 @@ export default {
   position: fixed;
   top: 61px;
   left: 0;
+  z-index: 10;
 }
 .el-main {
   margin-top: 61px;

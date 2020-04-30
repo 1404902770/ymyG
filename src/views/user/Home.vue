@@ -36,7 +36,7 @@ export default {
 <style lang="less" scoped>
 .home {
   width: 100%;
-  height: 100%;
+  // height: 100%;
   background-size: 100% auto;
 }
 .el-aside {
@@ -55,11 +55,12 @@ export default {
   position: fixed;
   top: 61px;
   left: 0;
+  z-index: 10;
 }
-.el-main {
-  margin-top: 61px;
-  margin-left: 210px;
-}
+// .el-main {
+//   margin-top: 61px;
+//   margin-left: 210px;
+// }
 .el-col-12 {
   height: 100%;
 }

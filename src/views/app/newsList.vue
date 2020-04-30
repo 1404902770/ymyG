@@ -7,101 +7,161 @@
         <el-breadcrumb-item>App设置</el-breadcrumb-item>
         <el-breadcrumb-item>新闻列表</el-breadcrumb-item>
       </el-breadcrumb>
-    </div>
-
-    <template>
-      <el-table
-        :data="tableData"
-        stripe
-        :header-cell-style="headClass"
-        style="width: 100%"
-      >
-        <el-table-column label="日期" align="center" min-width="100">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{
-              new Date(scope.row.time * 1000).Format('yyyy-MM-dd')
-            }}</span>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="日期" align="center" min-width="100">
-          <template slot-scope="scope">
-            <img
-              class="bannerimg"
-              :src="
-                'http://b.yumaoyou.cn:8008/static/fengmian/' + scope.row.img
-              "
-              alt
-            />
-          </template>
-        </el-table-column>
-
-        <el-table-column
-          label="标题"
-          align="center"
-          min-width="150"
-          show-overflow-tooltip
-        >
-          <template slot-scope="scope">
-            <el-tag size="medium">{{ scope.row.title }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="发布者" align="center" min-width="100">
-          <template slot-scope="scope">
-            <el-tag size="medium">{{ scope.row.fabu }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" align="center" min-width="100">
-          <template slot-scope="scope">
-            <!-- <el-button size="mini" @click="edit(scope.$index, scope.row)">修改</el-button> -->
-            <i
-              class="el-icon-edit xiugai"
-              @click="edit(scope.$index, scope.row)"
-            ></i>
-            <i
-              class="el-icon-picture-outline xiugai"
-              @click="updatepic(scope.row)"
-            ></i>
-            <i
-              class="el-icon-delete xiugai"
-              @click="deletenews(scope.$index, scope.row)"
-            ></i>
-            <!-- <el-button size="mini" type="danger" @click="deletenews(scope.$index, scope.row)">删除</el-button> -->
-          </template>
-        </el-table-column>
-      </el-table>
 
       <div class="add">
         <el-button type="primary" size="small" @click="addnews">
           <i class="el-icon-plus"></i>发布新闻
         </el-button>
       </div>
+    </div>
 
-      <!-- 新增新闻弹框 -->
-      <div class="updatenews">
-        <el-dialog
-          title="发布新闻"
-          :visible.sync="dialogFormVisible2"
-          @close="closed1"
-        >
-          <div class="news">
-            <el-form
-              :model="ruleForm"
-              :rules="rules"
-              ref="ruleForm"
-              label-width="100px"
-              class="demo-ruleForm"
-            >
+    <div class="mymain">
+      <template>
+        <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
+          <el-table-column label="日期" align="center" min-width="100">
+            <template slot-scope="scope">
+              <span
+                style="margin-left: 10px"
+              >{{ new Date(scope.row.time * 1000).Format('yyyy-MM-dd') }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="封面" align="center" min-width="100">
+            <template slot-scope="scope">
+              <img
+                class="bannerimg"
+                :src="
+                  'http://b.yumaoyou.cn:8008/static/fengmian/' + scope.row.img
+                "
+                alt
+              />
+            </template>
+          </el-table-column>
+
+          <el-table-column label="标题" align="center" min-width="150" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ scope.row.title }}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="发布者" align="center" min-width="100">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ scope.row.fabu }}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center" min-width="100">
+            <template slot-scope="scope">
+              <!-- <el-button size="mini" @click="edit(scope.$index, scope.row)">修改</el-button> -->
+              <i class="el-icon-edit xiugai" @click="edit(scope.$index, scope.row)"></i>
+              <i class="el-icon-picture-outline xiugai" @click="updatepic(scope.row)"></i>
+              <i class="el-icon-delete xiugai" @click="deletenews(scope.$index, scope.row)"></i>
+              <!-- <el-button size="mini" type="danger" @click="deletenews(scope.$index, scope.row)">删除</el-button> -->
+            </template>
+          </el-table-column>
+        </el-table>
+
+        <!-- 新增新闻弹框 -->
+        <div class="updatenews">
+          <el-dialog title="发布新闻" :visible.sync="dialogFormVisible2" @close="closed1">
+            <div class="news">
+              <el-form
+                :model="ruleForm"
+                :rules="rules"
+                ref="ruleForm"
+                label-width="100px"
+                class="demo-ruleForm"
+              >
+                <div class="upload-demo">
+                  <span class="newscover">新闻封面</span>
+                  <el-upload
+                    action
+                    :auto-upload="false"
+                    list-type="picture-card"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    :on-change="aaa"
+                    :on-success="sendimg"
+                  >
+                    <i class="el-icon-plus"></i>
+                  </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl" alt />
+                  </el-dialog>
+                </div>
+                <el-form-item label="新闻标题" prop="name">
+                  <el-input v-model="ruleForm.name"></el-input>
+                </el-form-item>
+
+                <el-form-item label="发布者" prop="senduser">
+                  <el-input v-model="ruleForm.senduser"></el-input>
+                </el-form-item>
+              </el-form>
+
+              <!-- 名字，图片，网址，状态，备注，描述 -->
+            </div>
+
+            <!-- <div style="width: 100%; height: 470px;">
+            <script id="editor" type="text/plain" style="width: 100%; height: 300px;"></script>
+            </div>-->
+            <div ref="editor" id="editor" class="editor">
+              <!-- <p>欢迎使用 wangEditor 富文本编辑器</p> -->
+            </div>
+            <div class="subbtn">
+              <el-button @click="onSubmit1">发布新闻</el-button>
+            </div>
+          </el-dialog>
+        </div>
+
+        <!-- 修改新闻弹框 -->
+        <div class="updatenews">
+          <el-dialog title="修改新闻" :visible.sync="dialogFormVisible" @close="closed1">
+            <div class="news">
+              <el-form
+                :model="ruleForm"
+                :rules="rules"
+                ref="ruleForm"
+                label-width="100px"
+                class="demo-ruleForm"
+              >
+                <el-form-item label="新闻标题" prop="name">
+                  <el-input v-model="ruleForm.name"></el-input>
+                </el-form-item>
+
+                <el-form-item label="发布者" prop="senduser">
+                  <el-input v-model="ruleForm.senduser"></el-input>
+                </el-form-item>
+              </el-form>
+
+              <!-- 名字，图片，网址，状态，备注，描述 -->
+            </div>
+
+            <!-- <div style="width: 100%; height: 470px;">
+            <script id="editor1" type="text/plain" style="width: 100%; height: 300px;"></script>
+            </div>-->
+            <div ref="editor" id="editor" style="width: 100%;">
+              <!-- <p>欢迎使用 wangEditor 富文本编辑器</p> -->
+            </div>
+
+            <div class="subbtn">
+              <el-button @click="onSubmit">修改新闻</el-button>
+            </div>
+          </el-dialog>
+        </div>
+
+        <!-- 修该新闻封面弹框 -->
+        <div class="updatenews">
+          <el-dialog title="修该新闻封面" :visible.sync="dialogFormVisible3" width="30%">
+            <div class="news">
               <div class="upload-demo">
                 <span class="newscover">新闻封面</span>
                 <el-upload
                   action
+                  :limit="1"
                   :auto-upload="false"
                   list-type="picture-card"
                   :on-preview="handlePictureCardPreview"
                   :on-remove="handleRemove"
+                  :on-exceed="beyond"
                   :on-change="aaa"
-                  :on-success="sendimg"
                 >
                   <i class="el-icon-plus"></i>
                 </el-upload>
@@ -109,114 +169,31 @@
                   <img width="100%" :src="dialogImageUrl" alt />
                 </el-dialog>
               </div>
-              <el-form-item label="新闻标题" prop="name">
-                <el-input v-model="ruleForm.name"></el-input>
-              </el-form-item>
-
-              <el-form-item label="发布者" prop="senduser">
-                <el-input v-model="ruleForm.senduser"></el-input>
-              </el-form-item>
-            </el-form>
-
-            <!-- 名字，图片，网址，状态，备注，描述 -->
-          </div>
-
-          <!-- <div style="width: 100%; height: 470px;">
-            <script id="editor" type="text/plain" style="width: 100%; height: 300px;"></script>
-          </div>-->
-          <div ref="editor" id="editor" class="editor">
-            <!-- <p>欢迎使用 wangEditor 富文本编辑器</p> -->
-          </div>
-          <div class="subbtn">
-            <el-button @click="onSubmit1">发布新闻</el-button>
-          </div>
-        </el-dialog>
-      </div>
-
-      <!-- 修改新闻弹框 -->
-      <div class="updatenews">
-        <el-dialog
-          title="修改新闻"
-          :visible.sync="dialogFormVisible"
-          @close="closed1"
-        >
-          <div class="news">
-            <el-form
-              :model="ruleForm"
-              :rules="rules"
-              ref="ruleForm"
-              label-width="100px"
-              class="demo-ruleForm"
-            >
-              <el-form-item label="新闻标题" prop="name">
-                <el-input v-model="ruleForm.name"></el-input>
-              </el-form-item>
-
-              <el-form-item label="发布者" prop="senduser">
-                <el-input v-model="ruleForm.senduser"></el-input>
-              </el-form-item>
-            </el-form>
-
-            <!-- 名字，图片，网址，状态，备注，描述 -->
-          </div>
-
-          <!-- <div style="width: 100%; height: 470px;">
-            <script id="editor1" type="text/plain" style="width: 100%; height: 300px;"></script>
-          </div>-->
-          <div ref="editor" id="editor" style="width: 100%;">
-            <!-- <p>欢迎使用 wangEditor 富文本编辑器</p> -->
-          </div>
-
-          <div class="subbtn">
-            <el-button @click="onSubmit">修改新闻</el-button>
-          </div>
-        </el-dialog>
-      </div>
-
-      <!-- 修该新闻封面弹框 -->
-      <div class="updatenews">
-        <el-dialog
-          title="修该新闻封面"
-          :visible.sync="dialogFormVisible3"
-          width="30%"
-        >
-          <div class="news">
-            <div class="upload-demo">
-              <span class="newscover">新闻封面</span>
-              <el-upload
-                action
-                :limit="1"
-                :auto-upload="false"
-                list-type="picture-card"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove"
-                :on-exceed="beyond"
-                :on-change="aaa"
-              >
-                <i class="el-icon-plus"></i>
-              </el-upload>
-              <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="dialogImageUrl" alt />
-              </el-dialog>
             </div>
-          </div>
 
-          <div style="text-align:end">
-            <el-button @click="onSubmit2">修改封面</el-button>
-          </div>
-        </el-dialog>
-      </div>
-    </template>
+            <div style="text-align:end">
+              <el-button @click="onSubmit2">修改封面</el-button>
+            </div>
+          </el-dialog>
+        </div>
+      </template>
+    </div>
 
     <!-- 分页 -->
     <div class="page">
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :pageSize="pageSize"
-        :total="Number(total)"
-        @current-change="tab"
-      ></el-pagination>
+      <div style="line-height:32px;">
+        <span>共 {{ total }} 条</span>
+      </div>
+
+      <div>
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :pageSize="pageSize"
+          :total="Number(total)"
+          @current-change="tab"
+        ></el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -285,7 +262,7 @@ export default {
       // 每页条数
       pageSize: 10,
       // 当前页
-      page: '1',
+      page: 0,
       as: ''
     }
   },
@@ -596,6 +573,7 @@ export default {
         })
         .catch(() => {
           this.$message({
+            showClose: true,
             type: 'info',
             message: '已取消删除'
           })
@@ -618,7 +596,7 @@ export default {
     },
     // 分页改变
     tab(page) {
-      this.page = page
+      this.page = page - 1
       this.getnewslist()
     }
   },
@@ -637,8 +615,14 @@ export default {
 .subbtn {
   margin-top: 20px;
 }
+
+.el-breadcrumb {
+  line-height: 32px;
+}
 .bread {
-  margin: 0 0 20px 0;
+  margin: 12px 35px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .newslist {
@@ -656,15 +640,15 @@ export default {
   cursor: pointer;
 }
 .xiugai:hover {
-  color: #409eff;
+  color: teal;
 }
 
 // 新增新闻
-.add {
-  position: absolute;
-  right: 90px;
-  top: 87px;
-}
+// .add {
+//   position: absolute;
+//   right: 90px;
+//   top: 87px;
+// }
 // 上传图片
 .upload-demo {
   width: 400px;
@@ -689,11 +673,22 @@ export default {
 .el-tag {
   display: contents;
 }
+
+.mymain {
+  height: 48rem;
+}
 .page {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translate(-50%, 0px);
+  // width: 40rem;
+  // position: relative;
+  // bottom: 0px;
+  // left: 50%;
+  // transform: translate(-50%, 0px);
+  margin: 0 0 0 39.5rem;
+  display: flex;
+  span {
+    font-size: 14px;
+    color: #666;
+  }
 }
 .el-dialog__wrapper /deep/ .el-dialog {
   margin-top: 6vh !important;
