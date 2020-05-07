@@ -142,7 +142,7 @@
 
     <!-- 设备入库 -->
     <div class="zhuce">
-      <el-dialog title="设备入库" :visible.sync="dialogFormVisible2" width="38%">
+      <el-dialog title="设备入库" :visible.sync="dialogFormVisible2" width="38%" @close="closeputeq">
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -539,6 +539,18 @@ export default {
     // 点击设备入库
     puteq() {
       this.dialogFormVisible2 = true
+    },
+
+    // 关闭设备入库弹框
+    closeputeq() {
+      this.$refs.ruleForm.resetFields()
+
+      this.ruleForm.code = ''
+      this.ruleForm.name = ''
+      this.ruleForm.region = ''
+      this.ruleForm.guige = ''
+      this.ruleForm.jishu = ''
+      this.ruleForm.loudian = ''
     }
   },
   mounted() {

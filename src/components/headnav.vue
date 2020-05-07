@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     // 点击用户管理按钮
     gotoUser(num) {

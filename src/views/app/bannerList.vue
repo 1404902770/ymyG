@@ -17,12 +17,7 @@
     </div>
 
     <template>
-      <el-table
-        :data="tableData"
-        stripe
-        :header-cell-style="headClass"
-        style="width: 100%"
-      >
+      <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
         <el-table-column label="名称" align="center" min-width="120">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.name }}</span>
@@ -76,22 +71,14 @@
 
         <el-table-column label="时间" align="center" min-width="100">
           <template slot-scope="scope">
-            <el-tag size="medium">
-              {{ new Date(scope.row.time * 1000).Format('yy-MM-dd') }}
-            </el-tag>
+            <el-tag size="medium">{{ new Date(scope.row.time * 1000).Format('yy-MM-dd') }}</el-tag>
           </template>
         </el-table-column>
 
         <el-table-column label="操作" align="center" min-width="100">
           <template slot-scope="scope">
-            <i
-              class="el-icon-edit xiugai"
-              @click="handedit(scope.$index, scope.row)"
-            ></i>
-            <i
-              class="el-icon-delete xiugai"
-              @click="handdelete(scope.$index, scope.row)"
-            ></i>
+            <i class="el-icon-edit xiugai" @click="handedit(scope.$index, scope.row)"></i>
+            <i class="el-icon-delete xiugai" @click="handdelete(scope.$index, scope.row)"></i>
 
             <!-- <el-button size="mini" @click="handedit(scope.$index, scope.row)">
               <el-button type="text" size="mini" @click="dialogFormVisible = true">修改</el-button>
@@ -128,9 +115,7 @@
               </el-form-item>
 
               <el-form-item class="fun">
-                <el-button type="primary" @click="submitForm('ruleForm')"
-                  >修改</el-button
-                >
+                <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
                 <el-button @click="resetForm('ruleForm')">取消</el-button>
               </el-form-item>
             </el-form>
@@ -141,7 +126,7 @@
       </div>
 
       <div class="addbanner">
-        <el-dialog :visible.sync="dialogFormVisible2" width="35%">
+        <el-dialog :visible.sync="dialogFormVisible2" width="35%" @close="closeaddbanner">
           <el-form
             :model="ruleFormadd"
             :rules="rulesadd"
@@ -212,9 +197,7 @@
             </el-form-item>
 
             <el-form-item align="right">
-              <el-button type="primary" @click="submitFormadd('ruleForm')"
-                >立即创建</el-button
-              >
+              <el-button type="primary" @click="submitFormadd('ruleForm')">立即创建</el-button>
               <el-button @click="resetFormadd('ruleForm')">取消</el-button>
             </el-form-item>
           </el-form>
@@ -388,6 +371,7 @@ export default {
     handdelete(index, row) {
       if (row.status == 1) {
         this.$message({
+          showClose: true,
           message: '请先禁用轮播图',
           type: 'warning'
         })
@@ -585,6 +569,18 @@ export default {
     // 点击新增
     addbanner() {
       this.dialogFormVisible2 = true
+    },
+
+    // 关闭轮播图新增弹窗
+    closeaddbanner() {
+      this.ruleFormadd.name2 = ''
+      this.ruleFormadd.desc2 = ''
+      this.ruleFormadd.note2 = ''
+      this.ruleFormadd.addressurl2 = ''
+      this.radio = ''
+      this.imgurl = ''
+
+      this.$refs.upload.clearFiles()
     }
   },
   mounted() {

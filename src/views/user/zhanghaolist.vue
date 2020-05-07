@@ -298,7 +298,7 @@
 
     <!-- 注册弹框 -->
     <div class="zhuce">
-      <el-dialog title="开通企业账户" :visible.sync="dialogFormVisible2" width="40%">
+      <el-dialog title="开通企业账户" :visible.sync="dialogFormVisible2" width="40%" @close="closezhuce">
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -697,6 +697,16 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+
+    // 注册弹框关闭清空内容
+    closezhuce() {
+      this.$refs.ruleForm.resetFields()
+
+      this.ruleForm.nickname = ''
+      this.ruleForm.username = ''
+      this.ruleForm.phone = ''
+      this.value = ''
     }
   },
   mounted() {

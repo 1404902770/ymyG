@@ -24,9 +24,15 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="证件号码" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column label="用户账号" align="center" show-overflow-tooltip min-width="100">
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.zjhao }}</el-tag>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="联系电话" align="center" show-overflow-tooltip min-width="100">
+            <template slot-scope="scope">
+              <el-tag size="medium">{{ scope.row.call }}</el-tag>
             </template>
           </el-table-column>
 
@@ -34,7 +40,7 @@
             <template slot-scope="scope">
               <el-tag size="medium">
                 {{
-                scope.row.priv + '/' + scope.row.shi + '/' + scope.row.xian
+                scope.row.priv + '-' + scope.row.shi + '-' + scope.row.xian
                 }}
               </el-tag>
             </template>
@@ -66,8 +72,10 @@
 
           <el-table-column label="操作" align="center" min-width="100">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              <i class="el-icon-edit xiugai" @click="handleEdit(scope.$index, scope.row)"></i>
+              <i class="el-icon-delete xiugai" @click="handleDelete(scope.$index, scope.row)"></i>
+              <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
             </template>
           </el-table-column>
         </el-table>
@@ -76,7 +84,7 @@
 
     <!-- 个人注册 -->
     <div class="zhuce">
-      <el-dialog title="开通个人账号" :visible.sync="dialogFormVisible2" width="45%" @close="closezhuce">
+      <el-dialog :visible.sync="dialogFormVisible" width="45%" @close="closezhuce">
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -89,7 +97,7 @@
               <el-form-item label="用户名称" prop="name">
                 <el-input v-model="ruleForm.name"></el-input>
               </el-form-item>
-              <el-form-item label="证件号码" prop="userid">
+              <el-form-item label="用户账号" prop="userid">
                 <el-input v-model="ruleForm.userid"></el-input>
               </el-form-item>
               <el-form-item label="联系电话" prop="call">
@@ -126,7 +134,7 @@
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">{{subtext}}</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -151,6 +159,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import http from '../../ajax/http'
 import VDistpicker from 'v-distpicker'
@@ -160,7 +169,26 @@ export default {
   data() {
     return {
       // 表单数据
-      tableData: [],
+      tableData: [
+        {
+          name: '俊熙',
+          zjhao: '123465',
+          priv: '河北省',
+          shi: '秦皇岛市',
+          xian: '海港区',
+          lianxiren: '白泽',
+          call: '123456',
+          xiang: '经济技术开发区',
+          lxtel: '123546',
+          beizhu: '暂无'
+        }
+      ],
+
+      // 提交注册或者修改
+      tag: '',
+
+      // 提交按钮的文字
+      subtext: '',
 
       // 总条数
       total: '',
@@ -173,7 +201,7 @@ export default {
       ruleForm: {
         // 账户名称
         name: '',
-        // 用户证件号
+        // 用户账号
         userid: '',
         // 用户电话
         call: '',
@@ -250,8 +278,8 @@ export default {
       },
 
       // search: ''
-      dialogTableVisible2: false,
-      dialogFormVisible2: false
+      // dialogTableVisible: false,
+      dialogFormVisible: false
     }
   },
 
@@ -265,7 +293,17 @@ export default {
 
     // 关闭注册
     closezhuce() {
+      console.log('123')
       this.$refs.ruleForm.resetFields()
+
+      this.ruleForm.name = ''
+      this.ruleForm.userid = ''
+      this.ruleForm.call = ''
+      this.ruleForm.address = ''
+      this.ruleForm.user = ''
+      this.ruleForm.alarmcall = ''
+      this.ruleForm.note = ''
+
       this.temp.address__province = ''
       this.temp.address__city = ''
       this.temp.address__dist = ''
@@ -273,8 +311,20 @@ export default {
 
     // 编辑按钮
     handleEdit(index, row) {
+      this.subtext = '立即修改'
+      this.tag = '1'
       console.log(index, row)
-      // this.$router.push({ name: 'Account', params: row })
+      this.dialogFormVisible = true
+      this.ruleForm.name = row.name
+      this.ruleForm.userid = row.zjhao
+      this.ruleForm.call = Number(row.call)
+      this.ruleForm.address = row.xiang
+      this.ruleForm.user = row.lianxiren
+      this.ruleForm.alarmcall = Number(row.lxtel)
+      this.ruleForm.note = row.beizhu
+      this.temp.address__province = row.priv
+      this.temp.address__city = row.shi
+      this.temp.address__dist = row.xian
     },
     // 删除按钮
     handleDelete(index, row) {
@@ -287,7 +337,7 @@ export default {
         .getlist({ page: this.page, type: 2, uid: localStorage.getItem('uid') })
         .then(res => {
           console.log(res)
-          this.tableData = res.data.data
+          // this.tableData = res.data.data
         })
         .catch(err => {
           console.log(err)
@@ -304,42 +354,90 @@ export default {
 
     // 点击注册
     gotozhuce() {
-      this.dialogFormVisible2 = true
+      this.subtext = '立即注册'
+      this.tag = '0'
+      this.dialogFormVisible = true
+    },
+
+    // 提交注册账号
+    sendregister() {
+      http
+        .registeruser({
+          name: this.ruleForm.name,
+          userid: this.ruleForm.userid,
+          call: this.ruleForm.call,
+          address: this.ruleForm.address,
+          user: this.ruleForm.user,
+          alarmcall: this.ruleForm.alarmcall,
+          note: this.ruleForm.note,
+          sheng: this.temp.address__province,
+          shi: this.temp.address__city,
+          xian: this.temp.address__dist
+        })
+        .then(res => {
+          console.log(res)
+          if (res.code == 13) {
+            this.$message({
+              showClose: true,
+              message: '注册成功',
+              type: 'success'
+            })
+            // 清空表单
+            this.$refs.ruleForm.resetFields()
+            // 关闭弹框
+            this.dialogFormVisible = false
+            // 清空省市区选择
+            this.temp.address__province = ''
+            this.temp.address__city = ''
+            this.temp.address__dist = ''
+          } else {
+            this.$message({
+              showClose: true,
+              message: '注册失败',
+              type: 'error'
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
 
     // 提交按钮
     submitForm(formName) {
       console.log(this.ruleForm)
       console.log(this.temp)
+
       this.$refs[formName].validate(valid => {
-        if (valid) {
-          if (this.temp.address__dist == '') {
-            this.$message({
-              showClose: true,
-              message: '请选择地区',
-              type: 'warning'
-            })
-          } else {
-            // this.send()
-            this.dialogFormVisible2 = false
-            this.$refs.ruleForm.resetFields()
-            this.temp.address__province = ''
-            this.temp.address__city = ''
-            this.temp.address__dist = ''
-          }
+        // if (valid) {
+        if (this.temp.address__dist == '') {
+          this.$message({
+            showClose: true,
+            message: '请选择地区',
+            type: 'warning'
+          })
         } else {
-          console.log('error submit!!')
-          return false
+          if (this.tag == '0') {
+            // this.sendregister()
+            console.log('注册成功')
+          } else {
+            console.log('修改成功')
+          }
         }
+        // } else {
+        //   console.log('error submit!!')
+        //   return false
+        // }
       })
     },
 
     // 重置按钮
     resetForm(formName) {
       // this.$refs[formName].resetFields()
+
       this.dialogFormVisible = false
-      this.dialogFormVisible2 = false
-      this.dialogFormVisible3 = false
+      // this.dialogFormVisible2 = false
+      // this.dialogFormVisible3 = false
 
       // this.temp.address__province = ''
       // this.temp.address__city = ''
@@ -374,6 +472,14 @@ export default {
   font-size: 14px;
   color: #606266;
   margin-right: 8px;
+}
+
+.xiugai {
+  padding: 5px;
+  cursor: pointer;
+}
+.xiugai:hover {
+  color: teal;
 }
 
 .mymain {

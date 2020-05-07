@@ -719,6 +719,9 @@ export default {
       this.options2 = ''
       this.options3 = ''
       this.options4 = ''
+      this.temp.address__province = ''
+      this.temp.address__city = ''
+      this.temp.address__dist = ''
       this.$refs.ruleForm.resetFields()
     },
 
@@ -734,6 +737,11 @@ export default {
       this.value4 = row2.xiaolei
       this.updataqiyelist = row2
       this.gid = row2.id
+
+      this.temp.address__province = row2.priv
+      this.temp.address__city = row2.shi
+      this.temp.address__dist = row2.xian
+
       this.dialogFormVisible = true
       // console.log(this.options1)
       // if (this.value1 != '') {

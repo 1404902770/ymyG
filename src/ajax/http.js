@@ -10,6 +10,8 @@ if (urlType == 1) {
 }
 // 用户登录
 const LOGIN = bapi + '/appv1/usdpc2/userLogin'
+
+// ---------------------------新闻图接口---------------------------
 // 新闻发布接口
 const SENDNEWS = bapi + '/appv1/usdpc2/zcfabu'
 // 获取新闻列表
@@ -21,9 +23,11 @@ const UPDATENEWSPIC = bapi + '/appv1/usdpc2/zcfabuImg'
 // 删除新闻
 const DELETENEW = bapi + '/appv1/usdpc2/delzcList'
 
+// ---------------------------App接口---------------------------
 // App更新发布
 const APPUPDATE = bapi + '/appv1/usdpc2/appUpdate'
 
+// ---------------------------企业接口---------------------------
 //企业注册登记
 const REGISTERED = aapi + '/push/pc/inputCompanyInfo'
 // 企业开通账号
@@ -40,11 +44,11 @@ const UPDATEQIYE = aapi + '/push/pc/updateCompanyInfo'
 // 更新企业联系人
 const UPDATEUSER = aapi + '/push/pc/updateCompanyUserInfo'
 
+// ---------------------------设备接口---------------------------
 // 设备入库
 const PUTEQ = aapi + '/push/app/rukushebei'
 // 入库查询
 const GETEQLIST = bapi + '/appv1/usdpc2/neteList'
-
 // 用户绑定设备
 const BANDEQ = aapi + '/push/pc/userBindMach'
 // 设备与用户解绑
@@ -60,6 +64,7 @@ const GETUSERLIST = bapi + '/appv1/usdpc2/userList'
 // 检索设备类型
 const GETEQTYPE = bapi + '/appv1/usdpc2/searchNeted'
 
+// ---------------------------轮播图接口---------------------------
 // 获取轮播图列表
 const GETBANNERLIST = bapi + '/appv1/usdpc2/bannerList'
 // 修改轮播图
@@ -70,6 +75,10 @@ const ISBANNER = bapi + '/appv1/usdpc2/isStartUse'
 const DELETEBANNER = bapi + '/appv1/usdpc2/delBanner'
 // 上传轮播图
 const ADDBANNER = bapi + '/appv1/usdpc2/addBanner'
+
+// ---------------------------个人用户接口---------------------------
+// 注册个人账号
+const REGISTERUSER = bapi + '/appv1/usdpc2/addBanner'
 
 class Http {
   static common({
@@ -104,6 +113,8 @@ class Http {
       data: { username, password }
     })
   }
+
+  // ---------------------------新闻接口---------------------------
   // 新闻发布接口
   static sendnews({ uid, title, txt, img, fabu } = {}) {
     return this.common({
@@ -138,6 +149,7 @@ class Http {
     })
   }
 
+  // ---------------------------App接口---------------------------
   // App更新接口
   static appupdate({ uid, type, version, url, des, hezuo } = {}) {
     return this.common({
@@ -147,6 +159,7 @@ class Http {
     })
   }
 
+  // ---------------------------企业接口---------------------------
   // 企业注册登记接口
   static registered({
     uid,
@@ -259,6 +272,7 @@ class Http {
     })
   }
 
+  // ---------------------------设备接口---------------------------
   // 设备入库
   static puteq({ code, nid, xinghao, guige, jishu, uid, lou } = {}) {
     return this.common({
@@ -337,6 +351,7 @@ class Http {
     })
   }
 
+  // ---------------------------轮播图接口---------------------------
   // 获取轮播图列表
   static getbannerlist() {
     return this.common({
@@ -377,6 +392,16 @@ class Http {
       url: ADDBANNER,
       method: 'POST',
       data: { uid, name, img, desc, beizhu, url, status }
+    })
+  }
+
+  // ---------------------------个人用户接口---------------------------
+  // 注册个人账号
+  static registeruser({} = {}) {
+    return this.common({
+      url: REGISTERUSER,
+      method: 'POST',
+      data: {}
     })
   }
 }
