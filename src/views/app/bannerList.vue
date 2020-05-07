@@ -1,6 +1,7 @@
 <template>
   <div class="bannerbox">
     <!-- <h1>轮播图列表</h1> -->
+    <!-- 顶部面包屑 -->
     <div class="bread">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -75,9 +76,9 @@
 
         <el-table-column label="时间" align="center" min-width="100">
           <template slot-scope="scope">
-            <el-tag size="medium">{{
-              new Date(scope.row.time * 1000).Format('yy-MM-dd')
-            }}</el-tag>
+            <el-tag size="medium">
+              {{ new Date(scope.row.time * 1000).Format('yy-MM-dd') }}
+            </el-tag>
           </template>
         </el-table-column>
 
@@ -191,6 +192,7 @@
             <div class="upload-demo">
               <span class="newscover">轮播图</span>
               <el-upload
+                ref="upload"
                 action
                 :auto-upload="false"
                 list-type="picture-card"
@@ -209,7 +211,7 @@
               <el-input type="textarea" v-model="ruleFormadd.desc2"></el-input>
             </el-form-item>
 
-            <el-form-item>
+            <el-form-item align="right">
               <el-button type="primary" @click="submitFormadd('ruleForm')"
                 >立即创建</el-button
               >
@@ -327,6 +329,17 @@ export default {
               message: '新增成功',
               type: 'success'
             })
+
+            this.radio = ''
+            // this.ruleFormadd.name2 = ''
+            // this.ruleFormadd.desc2 = ''
+            // this.ruleFormadd.note2 = ''
+            // this.ruleFormadd.addressurl2 = ''
+
+            this.$refs.ruleForm.resetFields()
+
+            this.$refs.upload.clearFiles()
+
             this.dialogFormVisible2 = false
             this.getbannerlist()
           } else {

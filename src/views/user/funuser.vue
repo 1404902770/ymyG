@@ -18,24 +18,27 @@
     <div class="mymain">
       <template>
         <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
-          <el-table-column
-            prop="name"
-            label="企业名称"
-            align="center"
-            min-width="160"
-            show-overflow-tooltip
-          ></el-table-column>
+          <el-table-column label="企业名称" align="left" min-width="160" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.name }}</span>
+            </template>
+          </el-table-column>
 
-          <el-table-column
-            prop="zjhao"
-            label="企业证件号"
-            align="center"
-            min-width="160"
-            show-overflow-tooltip
-          ></el-table-column>
+          <el-table-column label="企业证件号" align="left" min-width="160" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.zjhao }}</span>
+            </template>
+          </el-table-column>
 
           <!-- <el-table-column label="地址" min-width="250" align="center"> -->
-          <el-table-column
+
+          <el-table-column label="省市区" align="left" min-width="160" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.priv+'-'+scope.row.shi+'-'+scope.row.xian }}</span>
+            </template>
+          </el-table-column>
+
+          <!-- <el-table-column
             prop="priv"
             label="省份"
             align="center"
@@ -57,12 +60,12 @@
             align="center"
             min-width="100"
             show-overflow-tooltip
-          ></el-table-column>
+          ></el-table-column>-->
 
           <el-table-column
             prop="xiang"
             label="详细地址"
-            align="center"
+            align="left"
             min-width="150"
             show-overflow-tooltip
           ></el-table-column>
@@ -71,7 +74,7 @@
           <el-table-column
             prop="lianxiren"
             label="紧急联系人"
-            align="center"
+            align="left"
             min-width="100"
             show-overflow-tooltip
           ></el-table-column>
@@ -79,7 +82,7 @@
           <el-table-column
             prop="lxtel"
             label="紧急联系人电话"
-            align="center"
+            align="left"
             min-width="100"
             show-overflow-tooltip
           ></el-table-column>
@@ -87,15 +90,28 @@
           <el-table-column
             prop="beizhu"
             label="备注信息"
-            align="center"
+            align="left"
             min-width="100"
             show-overflow-tooltip
           ></el-table-column>
 
           <el-table-column label="操作" min-width="60" align="center">
             <template slot-scope="scope">
-              <i class="el-icon-document-copy xiugai" @click="updateqiye1(scope.$index, scope.row)"></i>
-              <i class="el-icon-user-solid xiugai" @click="updatelxren(scope.$index, scope.row)"></i>
+              <i
+                class="el-icon-document-copy xiugai"
+                title="修改企业信息"
+                @click="updateqiye1(scope.$index, scope.row)"
+              ></i>
+              <i
+                class="el-icon-user-solid xiugai"
+                title="修改联系人"
+                @click="updatelxren(scope.$index, scope.row)"
+              ></i>
+              <i
+                class="el-icon-delete xiugai"
+                title="删除企业信息"
+                @click="deleteeq(scope.$index, scope.row)"
+              ></i>
               <!-- <i class="el-icon-document-copy" @click="updateqiye1(scope.$index, scope.row)"></i> -->
               <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"> -->
               <!-- </el-button> -->
@@ -108,7 +124,7 @@
 
     <!-- 企业注册 -->
     <div class="zhuce">
-      <el-dialog :visible.sync="dialogFormVisible2" width="45%">
+      <el-dialog :visible.sync="dialogFormVisible2" width="45%" @close="closezhuce">
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -244,7 +260,7 @@
 
     <!-- 修改企业列表 -->
     <div class="updateqiye">
-      <el-dialog :visible.sync="dialogFormVisible">
+      <el-dialog :visible.sync="dialogFormVisible" @close="closeupdate">
         <el-form
           :model="updataqiyelist"
           :rules="rules"
@@ -402,10 +418,6 @@ export default {
     return {
       // 修改行业
       updatehangye: [],
-      // opt1: [],
-      // opt2: [],
-      // opt3: [],
-      // opt4: [],
 
       // 行业信息
       options1: [],
@@ -414,7 +426,7 @@ export default {
       options4: [],
 
       // 行业信息无选项提示信息
-      tiptext: '请先选择第一个',
+      tiptext: '请重新选择第一个',
 
       value1: '',
       value2: '',
@@ -539,6 +551,13 @@ export default {
       return 'background:#fafafa;height:60px'
     },
 
+    // 关闭修改弹框以后清空省市县选择
+    closeupdate() {
+      this.temp.address__province = ''
+      this.temp.address__city = ''
+      this.temp.address__dist = ''
+    },
+
     // 编辑按钮
     handleEdit(index, row) {
       // console.log(index, row)
@@ -586,6 +605,9 @@ export default {
           this.options2 = this.options1[i].children
         }
       }
+      this.value2 = ''
+      this.value3 = ''
+      this.value4 = ''
     },
     // 选择第二个行业
     a2(aa) {
@@ -594,6 +616,8 @@ export default {
           this.options3 = this.options2[i].children
         }
       }
+      this.value3 = ''
+      this.value4 = ''
     },
     // 选择第三个行业
     a3(aa) {
@@ -602,6 +626,8 @@ export default {
           this.options4 = this.options3[i].children
         }
       }
+      this.value4 = ''
+
       if (!this.options4) {
         this.value4 = ''
         this.tiptext = '无'
@@ -664,16 +690,36 @@ export default {
           .then(res => {
             // console.log(res)
             this.$message({
+              showClose: true,
               message: '企业注册成功',
               type: 'success'
             })
+
             this.dialogFormVisible2 = false
+
+            this.temp.address__province = ''
+            this.temp.address__city = ''
+            this.temp.address__dist = ''
+            this.value1 = ''
+            this.value2 = ''
+            this.value3 = ''
+            this.value4 = ''
+            this.$refs.ruleForm.resetFields()
+
             this.getfirmlist()
           })
           .catch(err => {
             this.$message.error('企业注册失败')
           })
       }
+    },
+
+    // 关闭注册弹框
+    closezhuce() {
+      this.options2 = ''
+      this.options3 = ''
+      this.options4 = ''
+      this.$refs.ruleForm.resetFields()
     },
 
     // 数据处理
@@ -749,6 +795,7 @@ export default {
           // console.log(res)
           if (res.data.code == 9) {
             this.$message({
+              showClose: true,
               message: '修改成功',
               type: 'success'
             })
@@ -756,6 +803,7 @@ export default {
             this.getfirmlist()
           } else {
             this.$message({
+              showClose: true,
               message: '请修改后提交',
               type: 'warning'
             })
@@ -836,6 +884,16 @@ export default {
       this.dialogFormVisible = false
       this.dialogFormVisible2 = false
       this.dialogFormVisible3 = false
+
+      // this.temp.address__province = ''
+      // this.temp.address__city = ''
+      // this.temp.address__dist = ''
+    },
+
+    // 删除企业
+    deleteeq(row, row2) {
+      console.log(row, row2)
+      console.log(row2.id)
     },
 
     // 分页改变
