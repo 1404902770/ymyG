@@ -17,14 +17,29 @@
 
     <div class="mymain">
       <template>
-        <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
-          <el-table-column label="企业名称" align="left" min-width="160" show-overflow-tooltip>
+        <el-table
+          :data="tableData"
+          stripe
+          :header-cell-style="headClass"
+          style="width: 100%"
+        >
+          <el-table-column
+            label="企业名称"
+            align="center"
+            min-width="160"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="企业证件号" align="left" min-width="160" show-overflow-tooltip>
+          <el-table-column
+            label="企业证件号"
+            align="center"
+            min-width="160"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <span>{{ scope.row.zjhao }}</span>
             </template>
@@ -32,9 +47,16 @@
 
           <!-- <el-table-column label="地址" min-width="250" align="center"> -->
 
-          <el-table-column label="省市区" align="left" min-width="160" show-overflow-tooltip>
+          <el-table-column
+            label="省市区"
+            align="center"
+            min-width="160"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
-              <span>{{ scope.row.priv+'-'+scope.row.shi+'-'+scope.row.xian }}</span>
+              <span>{{
+                scope.row.priv + '-' + scope.row.shi + '-' + scope.row.xian
+              }}</span>
             </template>
           </el-table-column>
 
@@ -65,7 +87,7 @@
           <el-table-column
             prop="xiang"
             label="详细地址"
-            align="left"
+            align="center"
             min-width="150"
             show-overflow-tooltip
           ></el-table-column>
@@ -74,7 +96,7 @@
           <el-table-column
             prop="lianxiren"
             label="紧急联系人"
-            align="left"
+            align="center"
             min-width="100"
             show-overflow-tooltip
           ></el-table-column>
@@ -82,7 +104,7 @@
           <el-table-column
             prop="lxtel"
             label="紧急联系人电话"
-            align="left"
+            align="center"
             min-width="100"
             show-overflow-tooltip
           ></el-table-column>
@@ -90,7 +112,7 @@
           <el-table-column
             prop="beizhu"
             label="备注信息"
-            align="left"
+            align="center"
             min-width="100"
             show-overflow-tooltip
           ></el-table-column>
@@ -103,7 +125,7 @@
                 @click="updateqiye1(scope.$index, scope.row)"
               ></i>
               <i
-                class="el-icon-user-solid xiugai"
+                class="el-icon-user xiugai"
                 title="修改联系人"
                 @click="updatelxren(scope.$index, scope.row)"
               ></i>
@@ -124,7 +146,11 @@
 
     <!-- 企业注册 -->
     <div class="zhuce">
-      <el-dialog :visible.sync="dialogFormVisible2" width="45%" @close="closezhuce">
+      <el-dialog
+        :visible.sync="dialogFormVisible2"
+        width="45%"
+        @close="closezhuce"
+      >
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -251,7 +277,9 @@
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')"
+              >立即注册</el-button
+            >
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -296,7 +324,12 @@
           <!-- 行业 -->
           <div class="selectHangye">
             <span class="newscover">选择行业</span>
-            <el-select v-model="value1" placeholder="请选择" @click="b1" @change="a1">
+            <el-select
+              v-model="value1"
+              placeholder="请选择"
+              @click="b1"
+              @change="a1"
+            >
               <el-option
                 v-for="item in options1"
                 :key="item.value"
@@ -354,11 +387,16 @@
           </div>
 
           <el-form-item label="备注信息" prop="beizhu">
-            <el-input type="textarea" v-model="updataqiyelist.beizhu"></el-input>
+            <el-input
+              type="textarea"
+              v-model="updataqiyelist.beizhu"
+            ></el-input>
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm1('ruleForm')">提交</el-button>
+            <el-button type="primary" @click="submitForm1('ruleForm')"
+              >提交</el-button
+            >
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -382,7 +420,9 @@
             <el-input v-model="updatelxrenlist.lxtel"></el-input>
           </el-form-item>
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm2('ruleForm')">修改</el-button>
+            <el-button type="primary" @click="submitForm2('ruleForm')"
+              >修改</el-button
+            >
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>

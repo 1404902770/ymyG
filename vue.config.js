@@ -3,7 +3,7 @@ module.exports = {
     proxy: {
       //配置跨域
       '/bapi': {
-        target: 'http://b.yumaoyou.cn:8008/index.php/',
+        target: 'http://a.yumaoyou.cn:8008/index.php/',
         ws: true,
         changeOrigin: true,
         pathRewrite: {

@@ -105,6 +105,7 @@ Vue.prototype.oninput = (num, limit) => {
 // 全局Loading
 const showLoading = () => {
   elementUi.Loading.service({
+    text: '正在加载请稍后',
     fullscreen: true,
     background: 'rgba(0,0,0,.4)'
   })

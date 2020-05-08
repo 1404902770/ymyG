@@ -41,12 +41,14 @@
         ></el-progress>
       </div>
 
+      <!-- v-show="uploadNum != 0 ? true : false" -->
+
       <el-form-item label="App版本" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
 
       <el-form-item label="更新说明" prop="des">
-        <el-input v-model="ruleForm.des"></el-input>
+        <el-input type="textarea" v-model="ruleForm.des"></el-input>
       </el-form-item>
 
       <el-form-item label="合作方" prop="product">

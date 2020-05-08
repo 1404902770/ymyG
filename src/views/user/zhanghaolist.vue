@@ -190,7 +190,7 @@
 
     <!-- 查看弹框 -->
     <div class="getbind">
-      <el-dialog :visible.sync="dialogFormVisible3" width="95%">
+      <el-dialog :visible.sync="dialogFormVisible3" width="95%" @close="closelookbind">
         <div class="look">
           <template>
             <el-table :data="bangeqlist" style="width: 100%" empty-text="暂无设备">
@@ -431,7 +431,16 @@ export default {
 
     // 关闭绑定设备刷新界面
     closed1() {
+      this.form.lou = ''
+      this.form.jishu = ''
+      this.form.xinghao = ''
+      this.tablebang = []
       //   this.$router.go(0)
+    },
+    // 关闭查看绑定设备弹框
+    closelookbind() {
+      console.log('123')
+      this.bangeqlist = []
     },
 
     // 获取全部企业
@@ -468,7 +477,7 @@ export default {
       // console.log(this.uid)
     },
 
-    // 点击绑定按钮
+    // 点击绑定按钮接口
     bangidng(index, row) {
       http
         .bangeq({
@@ -829,6 +838,10 @@ export default {
 
 .el-dialog {
   margin-top: 10vh !important;
+}
+
+.el-dialog__wrapper {
+  z-index: 1999 !important;
 }
 // .el-button {
 //   // padding: 0 0 !important;

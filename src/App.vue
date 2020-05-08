@@ -40,4 +40,8 @@ body,
 .el-submenu .el-menu-item {
   margin-left: 8px;
 }
+
+.v-modal {
+  z-index: 1998 !important;
+}
 </style>

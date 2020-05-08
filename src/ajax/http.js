@@ -3,10 +3,10 @@ const urlType = 1
 let aapi, bapi
 if (urlType == 1) {
   aapi = '/aapi'
-  bapi = '/bapi'
+  bapi = '/aapi'
 } else {
   aapi = 'http://a.yumaoyou.cn:8008/index.php'
-  bapi = 'http://b.yumaoyou.cn:8008/index.php'
+  bapi = 'http://a.yumaoyou.cn:8008/index.php'
 }
 // 用户登录
 const LOGIN = bapi + '/appv1/usdpc2/userLogin'

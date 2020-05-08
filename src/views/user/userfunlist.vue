@@ -17,54 +17,99 @@
 
     <div class="mymain">
       <template>
-        <el-table :data="tableData" :header-cell-style="headClass" style="width: 100%">
-          <el-table-column label="用户名称" align="center" show-overflow-tooltip min-width="100">
+        <el-table
+          :data="tableData"
+          :header-cell-style="headClass"
+          stripe
+          style="width: 100%"
+        >
+          <el-table-column
+            label="用户名称"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.name }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="用户账号" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="用户账号"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.zjhao }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="联系电话" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="联系电话"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.call }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="地区" align="center" min-width="100" show-overflow-tooltip>
+          <el-table-column
+            label="地区"
+            align="center"
+            min-width="100"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <el-tag size="medium">
                 {{
-                scope.row.priv + '-' + scope.row.shi + '-' + scope.row.xian
+                  scope.row.priv + '-' + scope.row.shi + '-' + scope.row.xian
                 }}
               </el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="详细地址" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="详细地址"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.xiang }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="紧急联系人" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="紧急联系人"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.lianxiren }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="紧急联系人电话" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="紧急联系人电话"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.lxtel }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="备注信息" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="备注信息"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.beizhu }}</el-tag>
             </template>
@@ -72,8 +117,33 @@
 
           <el-table-column label="操作" align="center" min-width="100">
             <template slot-scope="scope">
-              <i class="el-icon-edit xiugai" @click="handleEdit(scope.$index, scope.row)"></i>
-              <i class="el-icon-delete xiugai" @click="handleDelete(scope.$index, scope.row)"></i>
+              <i
+                class="el-icon-edit xiugai"
+                title="修改信息"
+                @click="handleEdit(scope.$index, scope.row)"
+              ></i>
+
+              <i
+                class="el-icon-delete xiugai"
+                title="删除账号"
+                @click="handleDelete(scope.$index, scope.row)"
+              ></i>
+
+              <i
+                class="el-icon-connection xiugai"
+                title="绑定设备"
+                @click="bindeq(scope.$index, scope.row)"
+              ></i>
+
+              <i
+                class="el-icon-view xiugai"
+                title="查看绑定设备"
+                @click="getbandeq(scope.$index, scope.row)"
+              ></i>
+
+              <!-- <el-button type="text" size="mini" @click="bindeq(scope.$index, scope.row)">绑定设备</el-button>
+              <el-button type="text" @click="getbandeq(scope.$index, scope.row)">查看</el-button>-->
+
               <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
             </template>
@@ -84,7 +154,11 @@
 
     <!-- 个人注册 -->
     <div class="zhuce">
-      <el-dialog :visible.sync="dialogFormVisible" width="45%" @close="closezhuce">
+      <el-dialog
+        :visible.sync="dialogFormVisible"
+        width="45%"
+        @close="closezhuce"
+      >
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -134,15 +208,247 @@
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">{{subtext}}</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">
+              {{ subtext }}
+            </el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
     </div>
 
+    <!-- 设备绑定 -->
+    <div class="bindbox">
+      <el-dialog
+        title="设备绑定"
+        :visible.sync="dialogFormVisible2"
+        width="60%"
+        @close="closed1"
+      >
+        <el-form :model="form">
+          <el-form-item label="带漏电" :label-width="formLabelWidth">
+            <el-select
+              v-model="form.lou"
+              placeholder="请选择活动区域"
+              @change="geteqtype"
+            >
+              <el-option label="带漏电" value="1"></el-option>
+              <el-option label="不带漏电" value="2"></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="型号" :label-width="formLabelWidth">
+            <el-select
+              v-model="form.xinghao"
+              placeholder="请选择活动区域"
+              @change="geteqtype"
+              :disabled="form.lou == '' ? true : false"
+            >
+              <el-option label="20A" value="20"></el-option>
+              <el-option label="32A" value="32"></el-option>
+              <el-option label="40A" value="40"></el-option>
+              <el-option label="63A" value="63"></el-option>
+              <el-option label="80A" value="80"></el-option>
+              <el-option label="100A" value="100"></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="极数" :label-width="formLabelWidth">
+            <el-select
+              v-model="form.jishu"
+              placeholder="请选择活动区域"
+              @change="geteqtype"
+              :disabled="form.xinghao == '' ? true : false"
+            >
+              <el-option label="1P" value="1"></el-option>
+              <el-option label="2P" value="2"></el-option>
+              <el-option label="3P" value="3"></el-option>
+              <el-option label="4P" value="4"></el-option>
+            </el-select>
+          </el-form-item>
+
+          <div class="bangding">
+            <template>
+              <el-table
+                :data="tablebang"
+                style="width: 100%"
+                empty-text="暂无设备"
+              >
+                <el-table-column label="设备号" align="center" min-width="180">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">
+                      {{ hexCharCodeToStr(scope.row.mzid) }}
+                    </span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="型号" align="center" min-width="180">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.xinghao }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="
+                  
+                  漏电"
+                  align="center"
+                  min-width="90"
+                >
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">
+                      {{ scope.row.guige }}
+                    </span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="规格" align="center" min-width="90">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">
+                      {{ scope.row.guige + 'A' }}
+                    </span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="极数" align="center" min-width="90">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">
+                      {{ scope.row.jishu + 'P' }}
+                    </span>
+                  </template>
+                </el-table-column>
+
+                <el-table-column label="操作" align="center" min-width="160">
+                  <template slot-scope="scope">
+                    <!-- <el-button size="mini" @click="handlebang(scope.$index, scope.row)">编辑</el-button> -->
+                    <el-button
+                      size="mini"
+                      @click="bangidng(scope.$index, scope.row)"
+                      >绑定</el-button
+                    >
+                    <el-button
+                      size="mini"
+                      type="danger"
+                      @click="unband(scope.$index, scope.row)"
+                      v-if="code == 41 || code == 42 || code == 43"
+                      >解除绑定</el-button
+                    >
+                  </template>
+                </el-table-column>
+              </el-table>
+            </template>
+          </div>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 查看弹框 -->
+    <div class="getbind">
+      <el-dialog
+        :visible.sync="dialogFormVisible3"
+        width="95%"
+        @close="closelookbind"
+      >
+        <div class="look">
+          <template>
+            <el-table
+              :data="bangeqlist"
+              style="width: 100%"
+              empty-text="暂无设备"
+            >
+              <el-table-column label=" 版本" align="center" min-width="90">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">
+                    {{ scope.row.code == '1' ? '第一代' : '第二代' }}
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label="模组" align="center" min-width="180">
+                <template slot-scope="scope">
+                  <span>{{ hexCharCodeToStr(scope.row.mozu) }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="模组ID" align="center" min-width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">
+                    {{ hexCharCodeToStr(scope.row.mzid) }}
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label="漏电" align="center" min-width="90">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">
+                    {{ scope.row.lou == 1 ? '带漏电' : '不带漏电' }}
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label=" 型号" align="center" min-width="90">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.xinghao }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="规格" align="center" min-width="90">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">
+                    {{ scope.row.guige + 'A' }}
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label="极数" align="center" min-width="90">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">
+                    {{ scope.row.jishu + 'P' }}
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label="地址" align="center" min-width="130">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.jianzhu }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="部门" align="center" min-width="130">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.mzname }}</span>
+                </template>
+              </el-table-column>
+              <!-- 当前步骤：1入库，2保留，3出库，4保留，5地方仓库，6保留，7客户仓库，8保留，9故障，10保留，11正常运行中，12被删除 -->
+              <el-table-column label="状态" align="center" min-width="90">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">
+                    {{
+                      scope.row.bz == '11'
+                        ? '正常运行'
+                        : scope.row.bz == '12'
+                        ? '已删除'
+                        : '未激活'
+                    }}
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column label="时间" align="center" min-width="90">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">
+                    {{ new Date(scope.row.jihuo * 1000).Format('yy-MM-dd ') }}
+                  </span>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                  <!-- <el-button size="mini" @click="handlebang(scope.$index, scope.row)">编辑</el-button> -->
+                  <!-- <el-button size="mini" @click="bangidng(scope.$index, scope.row)">绑定</el-button> -->
+                  <el-button
+                    size="mini"
+                    type="danger"
+                    @click="unband(scope.$index, scope.row)"
+                    >解除绑定</el-button
+                  >
+                </template>
+              </el-table-column>
+            </el-table>
+          </template>
+        </div>
+      </el-dialog>
+    </div>
+
     <!-- 分页 -->
-    <div v-if="total!=''" class="page">
+    <div v-if="total != ''" class="page">
       <div style="line-height:32px;">
         <span>共 {{ total }} 条</span>
       </div>
@@ -164,6 +470,7 @@
 import http from '../../ajax/http'
 import VDistpicker from 'v-distpicker'
 import { Alert } from 'element-ui'
+import $ from 'jquery'
 
 export default {
   data() {
@@ -171,6 +478,7 @@ export default {
       // 表单数据
       tableData: [
         {
+          id: '1',
           name: '俊熙',
           zjhao: '123465',
           priv: '河北省',
@@ -181,8 +489,38 @@ export default {
           xiang: '经济技术开发区',
           lxtel: '123546',
           beizhu: '暂无'
+        },
+        {
+          id: '2',
+          name: '白浩',
+          zjhao: '666',
+          priv: '河北省',
+          shi: '秦皇岛市',
+          xian: '抚宁区',
+          lianxiren: '筱风',
+          call: '123456',
+          xiang: '北商业街65号',
+          lxtel: '123546',
+          beizhu: '暂无'
         }
       ],
+
+      // 查看绑定设备数据
+      bangeqlist: [],
+
+      // 设备绑定检索数据
+      form: {
+        lou: '',
+        jishu: '',
+        xinghao: ''
+      },
+      formLabelWidth: '72px',
+      // 绑定表格
+      tablebang: [],
+      // 用户id
+      uid: '',
+      // 绑定设备返回状态
+      code: '',
 
       // 提交注册或者修改
       tag: '',
@@ -279,7 +617,12 @@ export default {
 
       // search: ''
       // dialogTableVisible: false,
-      dialogFormVisible: false
+      // 注册个人账号弹框
+      dialogFormVisible: false,
+      // 设备绑定弹框
+      dialogFormVisible2: false,
+      // 查看绑定设备弹框
+      dialogFormVisible3: false
     }
   },
 
@@ -291,9 +634,22 @@ export default {
       return 'background:#fafafa;height:60px'
     },
 
+    // 关闭设备绑定弹框刷新界面
+    closed1() {
+      this.form.lou = ''
+      this.form.jishu = ''
+      this.form.xinghao = ''
+      this.tablebang = []
+      //   this.$router.go(0)
+    },
+    // 关闭查看绑定设备弹框
+    closelookbind() {
+      // console.log('123')
+      this.bangeqlist = []
+    },
+
     // 关闭注册
     closezhuce() {
-      console.log('123')
       this.$refs.ruleForm.resetFields()
 
       this.ruleForm.name = ''
@@ -352,7 +708,7 @@ export default {
       this.temp.address__dist = data.area.value
     },
 
-    // 点击注册
+    // 点击注册按钮
     gotozhuce() {
       this.subtext = '立即注册'
       this.tag = '0'
@@ -403,10 +759,148 @@ export default {
         })
     },
 
+    // 点击绑定设备按钮
+    bindeq(index, row) {
+      this.dialogFormVisible2 = true
+      this.uid = this.tableData[index].id
+    },
+    // 检索设备类型
+    geteqtype() {
+      http
+        .geteqtype({
+          uid: this.uid,
+          lou: this.form.lou,
+          jishu: this.form.jishu == '' ? 0 : this.form.jishu,
+          guige: this.form.xinghao == '' ? 0 : this.form.xinghao
+        })
+        .then(res => {
+          // console.log(res)
+          this.tablebang = res.data.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    // 检所完成点击绑定按钮和接口
+    bangidng(index, row) {
+      http
+        .bangeq({
+          uid: this.uid,
+          gid: localStorage.getItem('uid'),
+          nid: this.tablebang[index].mzid
+        })
+        .then(res => {
+          console.log(res)
+          this.code = res.data.code
+          if (res.data.code == '41') {
+            this.$message({
+              showClose: true,
+              message: '设备绑定成功',
+              type: 'success'
+            })
+            // this.dialogFormVisible = false
+          } else if (res.data.code == '43') {
+            this.$message({
+              showClose: true,
+              message: '该设备已绑定',
+              type: 'warning'
+            })
+          } else {
+            this.$message({
+              showClose: true,
+              message: '设备绑定失败',
+              type: 'error'
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    // 点击解除绑定按钮和接口
+    unband(index, row) {
+      // console.log(index, row)
+      // console.log(this.tableData[index])
+      // return false
+      http
+        .unbangeq({
+          uid: this.tableData[index].id,
+          gid: localStorage.getItem('uid'),
+          nid: row.mzid
+        })
+        .then(res => {
+          // console.log(res)
+          if (res.data.code == '41') {
+            this.code = ''
+            this.$message({
+              showClose: true,
+              message: '解除绑定成功',
+              type: 'success'
+            })
+            // this.getbandeq()
+            // this.dialogFormVisible = false
+          } else if (res.data.code == '43') {
+            this.$message({
+              showClose: true,
+              message: '该设备未绑定',
+              type: 'warning'
+            })
+          } else {
+            this.$message({
+              showClose: true,
+              message: '解除绑定失败',
+              type: 'error'
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    // 查看绑定设备
+    getbandeq(row, row2) {
+      // console.log(row2)
+      this.dialogFormVisible3 = true
+      let id = row2.id
+      http
+        .getbandeq({ uid: id })
+        .then(res => {
+          // console.log(res)
+          this.bangeqlist = res.data.data
+
+          // 查看设备是否出滚动条
+          setTimeout(() => {
+            // console.log(
+            //   $('.getbind')
+            //     .find($('.el-table__body-wrapper'))
+            //     .css('height')
+            // )
+            if (
+              Number(
+                $('.getbind')
+                  .find($('.el-table__body-wrapper'))
+                  .css('height')
+                  .substr(0, 3)
+              ) > 500
+            ) {
+              $('.getbind')
+                .find($('.el-table__body-wrapper'))
+                .css('overflow-y', 'scroll')
+            } else {
+              $('.getbind')
+                .find($('.el-table__body-wrapper'))
+                .css('overflow-y', '')
+            }
+          }, 0)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
     // 提交按钮
     submitForm(formName) {
-      console.log(this.ruleForm)
-      console.log(this.temp)
+      console.log(this.ruleForm, this.temp)
 
       this.$refs[formName].validate(valid => {
         // if (valid) {
@@ -420,8 +914,10 @@ export default {
           if (this.tag == '0') {
             // this.sendregister()
             console.log('注册成功')
+            this.dialogFormVisible = false
           } else {
             console.log('修改成功')
+            this.dialogFormVisible = false
           }
         }
         // } else {
@@ -456,6 +952,16 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.bindbox {
+  .el-form:nth-of-type(1) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+.bangding {
+  width: 100%;
+}
+
 .el-tag {
   border: none !important;
   padding: 0 !important;
@@ -521,5 +1027,15 @@ export default {
   margin: 12px 35px;
   display: flex;
   justify-content: space-between;
+}
+
+.mymain {
+  .el-table /deep/ td {
+    padding: 9px 0 !important;
+  }
+}
+
+.el-dialog__wrapper {
+  z-index: 1999 !important;
 }
 </style>
