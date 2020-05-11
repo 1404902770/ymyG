@@ -51,19 +51,31 @@
         <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
           <el-table-column label="产品迭代" align="center" show-overflow-tooltip min-width="100">
             <template slot-scope="scope">
-              <el-tag size="medium">{{ scope.row.code == 1 ? '第一代' : '第二代' }}</el-tag>
+              <el-tag size="medium">
+                {{
+                scope.row.code == 1 ? '第一代' : '第二代'
+                }}
+              </el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="模组名称" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column label="模组编码" align="center" show-overflow-tooltip min-width="100">
             <template slot-scope="scope">
-              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.mozu) }}</el-tag>
+              <el-tag size="medium">
+                {{
+                hexCharCodeToStr(scope.row.mozu)
+                }}
+              </el-tag>
             </template>
           </el-table-column>
 
           <el-table-column label="电箱号" align="center" show-overflow-tooltip min-width="100">
             <template slot-scope="scope">
-              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.mzid) }}</el-tag>
+              <el-tag size="medium">
+                {{
+                hexCharCodeToStr(scope.row.mzid)
+                }}
+              </el-tag>
             </template>
           </el-table-column>
 
@@ -87,7 +99,11 @@
 
           <el-table-column label="版本号" align="center" show-overflow-tooltip min-width="100">
             <template slot-scope="scope">
-              <el-tag size="medium">{{ hexCharCodeToStr(scope.row.banben) }}</el-tag>
+              <el-tag size="medium">
+                {{
+                hexCharCodeToStr(scope.row.banben)
+                }}
+              </el-tag>
             </template>
           </el-table-column>
 
@@ -99,11 +115,7 @@
 
           <el-table-column label="是否使能" align="center" show-overflow-tooltip min-width="80">
             <template slot-scope="scope">
-              <el-tag size="medium">
-                {{
-                scope.row.neng == '01' ? '使能' : '不使能'
-                }}
-              </el-tag>
+              <el-tag size="medium">{{ scope.row.neng == '01' ? '使能' : '不使能' }}</el-tag>
             </template>
           </el-table-column>
 

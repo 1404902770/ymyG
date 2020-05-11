@@ -17,17 +17,14 @@
 
     <div class="mymain">
       <template>
-        <el-table
-          :data="tableData"
-          stripe
-          :header-cell-style="headClass"
-          style="width: 100%"
-        >
+        <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
           <el-table-column label="日期" align="center" min-width="100">
             <template slot-scope="scope">
-              <span style="margin-left: 10px">{{
+              <span style="margin-left: 10px">
+                {{
                 new Date(scope.row.time * 1000).Format('yyyy-MM-dd')
-              }}</span>
+                }}
+              </span>
             </template>
           </el-table-column>
 
@@ -36,19 +33,14 @@
               <img
                 class="bannerimg"
                 :src="
-                  'http://b.yumaoyou.cn:8008/static/fengmian/' + scope.row.img
+                  'http://a.yumaoyou.cn:8008/static/fengmian/' + scope.row.img
                 "
                 alt
               />
             </template>
           </el-table-column>
 
-          <el-table-column
-            label="标题"
-            align="center"
-            min-width="150"
-            show-overflow-tooltip
-          >
+          <el-table-column label="标题" align="center" min-width="150" show-overflow-tooltip>
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.title }}</el-tag>
             </template>
@@ -61,18 +53,9 @@
           <el-table-column label="操作" align="center" min-width="100">
             <template slot-scope="scope">
               <!-- <el-button size="mini" @click="edit(scope.$index, scope.row)">修改</el-button> -->
-              <i
-                class="el-icon-edit xiugai"
-                @click="edit(scope.$index, scope.row)"
-              ></i>
-              <i
-                class="el-icon-picture-outline xiugai"
-                @click="updatepic(scope.row)"
-              ></i>
-              <i
-                class="el-icon-delete xiugai"
-                @click="deletenews(scope.$index, scope.row)"
-              ></i>
+              <i class="el-icon-edit xiugai" @click="edit(scope.$index, scope.row)"></i>
+              <i class="el-icon-picture-outline xiugai" @click="updatepic(scope.row)"></i>
+              <i class="el-icon-delete xiugai" @click="deletenews(scope.$index, scope.row)"></i>
               <!-- <el-button size="mini" type="danger" @click="deletenews(scope.$index, scope.row)">删除</el-button> -->
             </template>
           </el-table-column>
@@ -80,11 +63,7 @@
 
         <!-- 新增新闻弹框 -->
         <div class="updatenews">
-          <el-dialog
-            title="发布新闻"
-            :visible.sync="dialogFormVisible2"
-            @close="closed1"
-          >
+          <el-dialog title="发布新闻" :visible.sync="dialogFormVisible2" @close="closed1">
             <div class="news">
               <el-form
                 :model="ruleForm"
@@ -136,11 +115,7 @@
 
         <!-- 修改新闻弹框 -->
         <div class="updatenews">
-          <el-dialog
-            title="修改新闻"
-            :visible.sync="dialogFormVisible"
-            @close="closed1"
-          >
+          <el-dialog title="修改新闻" :visible.sync="dialogFormVisible" @close="closed1">
             <div class="news">
               <el-form
                 :model="ruleForm"
@@ -176,11 +151,7 @@
 
         <!-- 修该新闻封面弹框 -->
         <div class="updatenews">
-          <el-dialog
-            title="修该新闻封面"
-            :visible.sync="dialogFormVisible3"
-            width="30%"
-          >
+          <el-dialog title="修该新闻封面" :visible.sync="dialogFormVisible3" width="30%">
             <div class="news">
               <div class="upload-demo">
                 <span class="newscover">新闻封面</span>
@@ -617,7 +588,7 @@ export default {
       http
         .getnewslist({ page: this.page })
         .then(res => {
-          // console.log(res)
+          console.log(res)
           this.tableData = res.data.data
           this.total = res.data.total
         })
