@@ -10,6 +10,7 @@
         </el-breadcrumb>
       </div>-->
 
+      <!-- 顶部检索 -->
       <div class="leibei">
         <template>
           <el-select v-model="value" placeholder="请选择" @change="selectval">
@@ -21,6 +22,13 @@
             ></el-option>
           </el-select>
         </template>
+
+        <el-input
+          style="width:200px; margin-left: -66rem;"
+          v-model="search"
+          maxlength="12"
+          placeholder="输入电箱号搜索"
+        />
 
         <div class="zhuce">
           <el-button type="primary" size="small" @click="puteq">
@@ -46,9 +54,15 @@
         "time":"入库时间"
     }-->
     <!-- :data="tableData.filter(data => !search || hexCharCodeToStr(data.mzid).toLowerCase().includes(search.toLowerCase()))" -->
+    <!-- :data="tableData" -->
     <div class="mymain">
       <template>
-        <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
+        <el-table
+          :data="tableData.filter(data => !search || hexCharCodeToStr(data.mzid).toLowerCase().includes(search.toLowerCase()))"
+          stripe
+          :header-cell-style="headClass"
+          style="width: 100%"
+        >
           <el-table-column label="产品迭代" align="center" show-overflow-tooltip min-width="100">
             <template slot-scope="scope">
               <el-tag size="medium">

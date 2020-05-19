@@ -169,12 +169,6 @@ const routes = [
     component: resolve => require(['@/components/upload.vue'], resolve)
   },
 
-  // {
-  //   path: '/eq',
-  //   name: 'eq',
-  //   component: resolve => require(['@/components/eq.vue'], resolve)
-  // }
-
   {
     path: '/aaa',
     name: 'aaa',

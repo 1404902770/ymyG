@@ -37,24 +37,49 @@ export default {
     setEditor(srcurl, pushfunc) {
       // 初始化编辑器
       this.editor = new E(this.$refs.editor)
-      // this.editor.customConfig.uploadImgServer = srcurl;
-      this.editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
+
+      this.editor.customConfig.uploadImgServer = '/capi'
+
+      // this.editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
       this.editor.customConfig.uploadFileName = 'file'
       this.editor.customConfig.uploadImgMaxLength = 1
       this.editor.customConfig.withCredentials = true
       this.editor.customConfig.pasteFilterStyle = false
-      this.editor.customConfig.uploadImgHooks = {
-        // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
-        // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
-        customInsert: function(insertImg, result, editor) {
-          // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-          // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-          // result 必须是一个 JSON 格式字符串！！！否则报错
-          // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-          insertImg(result.msg)
-          pushfunc(result.dto)
-          console.log(result.dto, result.msg)
-        }
+      // this.editor.customConfig.uploadImgHooks = {
+      //   // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+      //   // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+      //   customInsert: function(insertImg, result, editor) {
+      //     // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+      //     // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+      //     // result 必须是一个 JSON 格式字符串！！！否则报错
+      //     // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+      //     insertImg(result.msg)
+      //     pushfunc(result.dto)
+      //     // console.log(result.dto, result.msg)
+      //   }
+      // }
+      this.editor.customConfig.customUploadImg = function(files, insert) {
+        // files 是 input 中选中的文件列表
+        // insert 是获取图片 url 后，插入到编辑器的方法
+        // console.log(file)
+        const data = new FormData()
+        data.append('img', files[0])
+        Vue.axios
+          .post('/capi/appv1/usdpc2/zcTextImg', data, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then(res => {
+            console.log(res)
+            insert(res.data.url)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+        // 上传代码返回结果之后，将图片插入到编辑器中
+        console.log(files)
+        // insert(imgUrl)
       }
       this.editor.customConfig.onchange = html => {
         this.content = html

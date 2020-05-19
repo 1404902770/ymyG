@@ -789,7 +789,7 @@ export default {
 }
 
 .el-table /deep/ td {
-  padding: 7px 0 !important;
+  padding: 4px 0 !important;
 }
 
 // .el-table__row {

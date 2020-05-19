@@ -159,7 +159,11 @@
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">{{ subtext }}</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">
+              {{
+              subtext
+              }}
+            </el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -212,7 +216,11 @@
               <el-table :data="tablebang" style="width: 100%" empty-text="暂无设备">
                 <el-table-column label="设备号" align="center" min-width="180">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ hexCharCodeToStr(scope.row.mzid) }}</span>
+                    <span style="margin-left: 10px">
+                      {{
+                      hexCharCodeToStr(scope.row.mzid)
+                      }}
+                    </span>
                   </template>
                 </el-table-column>
                 <el-table-column label="型号" align="center" min-width="180">
@@ -233,12 +241,20 @@
                 </el-table-column>
                 <el-table-column label="规格" align="center" min-width="90">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.guige + 'A' }}</span>
+                    <span style="margin-left: 10px">
+                      {{
+                      scope.row.guige + 'A'
+                      }}
+                    </span>
                   </template>
                 </el-table-column>
                 <el-table-column label="极数" align="center" min-width="90">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.jishu + 'P' }}</span>
+                    <span style="margin-left: 10px">
+                      {{
+                      scope.row.jishu + 'P'
+                      }}
+                    </span>
                   </template>
                 </el-table-column>
 
@@ -269,7 +285,11 @@
             <el-table :data="bangeqlist" style="width: 100%" empty-text="暂无设备">
               <el-table-column label=" 版本" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.code == '1' ? '第一代' : '第二代' }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    scope.row.code == '1' ? '第一代' : '第二代'
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="模组" align="center" min-width="180">
@@ -279,12 +299,20 @@
               </el-table-column>
               <el-table-column label="模组ID" align="center" min-width="180">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ hexCharCodeToStr(scope.row.mzid) }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    hexCharCodeToStr(scope.row.mzid)
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="漏电" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.lou == 1 ? '带漏电' : '不带漏电' }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    scope.row.lou == 1 ? '带漏电' : '不带漏电'
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label=" 型号" align="center" min-width="90">
@@ -294,12 +322,20 @@
               </el-table-column>
               <el-table-column label="规格" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.guige + 'A' }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    scope.row.guige + 'A'
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="极数" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.jishu + 'P' }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    scope.row.jishu + 'P'
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="地址" align="center" min-width="130">
@@ -328,9 +364,11 @@
               </el-table-column>
               <el-table-column label="时间" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span
-                    style="margin-left: 10px"
-                  >{{ new Date(scope.row.jihuo * 1000).Format('yy-MM-dd ') }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    new Date(scope.row.jihuo * 1000).Format('yy-MM-dd ')
+                    }}
+                  </span>
                 </template>
               </el-table-column>
 

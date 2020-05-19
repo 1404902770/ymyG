@@ -18,10 +18,10 @@ Vue.use(myechart)
 import 'font-awesome/css/font-awesome.css'
 
 // // 引入UEditor依赖
-// import '../public/static/ueditor/ueditor.config'
-// import '../public/static/ueditor/ueditor.all'
-// import '../public/static/ueditor/ueditor.parse'
-// import '../public/static/ueditor/lang/zh-cn/zh-cn'
+import '../public/static/ueditor/ueditor.config'
+import '../public/static/ueditor/ueditor.all'
+import '../public/static/ueditor/ueditor.parse'
+import '../public/static/ueditor/lang/zh-cn/zh-cn'
 
 // 引入使用elementUi
 import './element-variables.scss'
@@ -131,7 +131,8 @@ axios.interceptors.request.use(
         config.url != '/bapi/appv1/usdpc2/appBarUpdate' &&
         config.url != '/bapi/appv1/usdpc2/zcfabuImg' &&
         config.url != '/bapi/appv1/usdpc2/bannerImgUpload' &&
-        config.url != '/bapi/appv1/usdpc2/updateZcfabuImg'
+        config.url != '/bapi/appv1/usdpc2/updateZcfabuImg' &&
+        config.url != '/capi/appv1/usdpc2/zcTextImg'
       ) {
         config.data = Qs.stringify(config.data)
       }

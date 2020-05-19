@@ -20,11 +20,9 @@
         <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
           <el-table-column label="日期" align="center" min-width="100">
             <template slot-scope="scope">
-              <span style="margin-left: 10px">
-                {{
-                new Date(scope.row.time * 1000).Format('yyyy-MM-dd')
-                }}
-              </span>
+              <span
+                style="margin-left: 10px"
+              >{{ new Date(scope.row.time * 1000).Format('yyyy-MM-dd') }}</span>
             </template>
           </el-table-column>
 
@@ -101,12 +99,12 @@
               <!-- 名字，图片，网址，状态，备注，描述 -->
             </div>
 
-            <!-- <div style="width: 100%; height: 470px;">
-            <script id="editor" type="text/plain" style="width: 100%; height: 300px;"></script>
-            </div>-->
-            <div ref="editor" id="editor" class="editor">
-              <!-- <p>欢迎使用 wangEditor 富文本编辑器</p> -->
+            <div style="width: 100%; height: 470px;">
+              <script id="editor" type="text/plain" style="width: 100%; height: 300px;"></script>
             </div>
+            <!-- <div ref="editor" id="editor" class="editor">
+              <p>欢迎使用 wangEditor 富文本编辑器</p>
+            </div>-->
             <div class="subbtn">
               <el-button @click="onSubmit1">发布新闻</el-button>
             </div>
@@ -151,7 +149,12 @@
 
         <!-- 修该新闻封面弹框 -->
         <div class="updatenews">
-          <el-dialog title="修该新闻封面" :visible.sync="dialogFormVisible3" width="30%">
+          <el-dialog
+            title="修该新闻封面"
+            :visible.sync="dialogFormVisible3"
+            width="30%"
+            @close="closeupdatepic"
+          >
             <div class="news">
               <div class="upload-demo">
                 <span class="newscover">新闻封面</span>
@@ -244,9 +247,7 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '请输入新闻标题', trigger: 'blur' }],
-        senduser: [
-          { required: true, message: '请输入发布者', trigger: 'change' }
-        ]
+        senduser: [{ required: true, message: '请输入发布者', trigger: 'blur' }]
       },
       editor: '',
       editor1: '',
@@ -274,44 +275,71 @@ export default {
       this.ruleForm.name = ''
       this.ruleForm.senduser = ''
     },
+    closeupdatepic() {
+      this.$refs.upload.clearFiles()
+    },
 
     // 富文本
-    getSrcurl() {
-      this.setEditor(1, 2)
-    },
-    setEditor(srcurl, pushfunc) {
-      // 初始化编辑器
-      this.editor = new E(this.$refs.editor)
-      // this.editor.config.uploadImgUrl = '/capi/zc'
-      // this.editor.customConfig.uploadImgServer = srcurl;
-      this.editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
-      this.editor.customConfig.uploadFileName = 'file'
-      this.editor.customConfig.uploadImgMaxLength = 1
-      this.editor.customConfig.withCredentials = true
-      this.editor.customConfig.pasteFilterStyle = false
-      this.editor.customConfig.uploadImgHooks = {
-        // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
-        // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
-        customInsert: function(insertImg, result, editor) {
-          // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-          // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-          // result 必须是一个 JSON 格式字符串！！！否则报错
-          // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-          insertImg(result.msg)
-          pushfunc(result.dto)
-          // console.log(result.dto, result.msg)
-        }
-      }
+    // getSrcurl() {
+    //   this.setEditor(1, 2)
+    // },
+    // setEditor(srcurl, pushfunc) {
+    //   // 初始化编辑器
+    //   this.editor = new E(this.$refs.editor)
+    //   // this.editor.config.uploadImgUrl = '/capi/zc'
+    //   // this.editor.customConfig.uploadImgServer =
+    //   //   'http://a.yumaoyou.cn:8008/static/zcimg'
+    //   // this.editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
+    //   this.editor.customConfig.uploadFileName = 'file'
+    //   this.editor.customConfig.uploadImgMaxLength = 1
+    //   this.editor.customConfig.withCredentials = true
+    //   this.editor.customConfig.pasteFilterStyle = false
+    //   // this.editor.customConfig.uploadImgHooks = {
+    //   //   // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+    //   //   // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+    //   //   customInsert: function(insertImg, result, editor) {
+    //   //     // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+    //   //     // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+    //   //     // result 必须是一个 JSON 格式字符串！！！否则报错
+    //   //     // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+    //   //     insertImg(result.msg)
+    //   //     pushfunc(result.dto)
+    //   //     // console.log(result.dto, result.msg)
+    //   //   }
+    //   // }
+    //   this.editor.customConfig.customUploadImg = function(files, insert) {
+    //     // files 是 input 中选中的文件列表
+    //     // insert 是获取图片 url 后，插入到编辑器的方法
+    //     // console.log(file)
+    //     const data = new FormData()
+    //     data.append('img', files[0])
+    //     Vue.axios
+    //       .post('/capi/appv1/usdpc2/zcTextImg', data, {
+    //         headers: {
+    //           'Content-Type': 'multipart/form-data'
+    //         }
+    //       })
+    //       .then(res => {
+    //         console.log(res)
+    //         insert(res.data.url)
+    //       })
+    //       .catch(err => {
+    //         console.log(err)
+    //       })
+    //     // 上传代码返回结果之后，将图片插入到编辑器中
+    //     // console.log(files)
+    //     // insert(imgUrl)
+    //   }
 
-      this.editor.customConfig.onchange = html => {
-        this.content = html
-      }
-      var MenuConstructors = {}
-      function look() {}
-      MenuConstructors.look = look
+    //   this.editor.customConfig.onchange = html => {
+    //     this.content = html
+    //   }
+    //   var MenuConstructors = {}
+    //   function look() {}
+    //   MenuConstructors.look = look
 
-      this.editor.create()
-    },
+    //   this.editor.create()
+    // },
 
     // 表头样式设置
     headClass() {
@@ -374,13 +402,13 @@ export default {
     // 新增新闻接口方法
     addnewsfun() {
       // this.getUEContent()
-      var reg = /<\/?.+?\/?>/g
-      // console.log(this.content.replace(reg, ''))
+      // var reg = /\s*[^=\s+]+\s*=\s*([^=>]+)?(?=(\s+|>))/g
+      // console.log(this.content.replace(/margin/g, "", ''))
       http
         .sendnews({
           uid: localStorage.getItem('uid'),
           title: this.ruleForm.name,
-          txt: this.content.replace(reg, ''),
+          txt: this.content,
           img: this.imgurl,
           fabu: this.ruleForm.senduser
         })
@@ -406,20 +434,19 @@ export default {
     addnews() {
       this.dialogFormVisible2 = true
       let _this = this
-      $('.editor').empty()
+      // $('.editor').empty()
       setTimeout(() => {
-        _this.getSrcurl()
-
-        // _this.editor = window.UE.getEditor('editor', this.config)
-        // _this.editor.addListener('ready', () => {
-        //   _this.editor.setContent('')
-        // })
+        // _this.getSrcurl()
+        _this.editor = window.UE.getEditor('editor', this.config)
+        _this.editor.addListener('ready', () => {
+          _this.editor.setContent('')
+        })
       }, 0)
     },
 
     // 修改新闻接口方法
     updatenews() {
-      // this.content = this.editor1.getContent()
+      this.content = this.editor1.getContent()
       http
         .updatenews({
           uid: localStorage.getItem('uid'),
@@ -467,9 +494,9 @@ export default {
     },
 
     // 获取富文本内容
-    // getUEContent() {
-    //   this.content = this.editor.getContent()
-    // },
+    getUEContent() {
+      this.content = this.editor.getContent()
+    },
 
     // 修改新闻封面
     updatepic(row) {

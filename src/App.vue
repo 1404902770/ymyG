@@ -2,6 +2,9 @@
   <div id="app">
     <!-- <headnav></headnav> -->
     <router-view />
+
+    <!-- 脚注 -->
+    <!-- <div class="footer"></div> -->
   </div>
 </template>
 <script>
@@ -18,6 +21,14 @@ export default {
 </script>
 
 <style lang="less">
+.footer {
+  width: 100%;
+  height: 300px;
+
+  position: relative;
+  z-index: 100;
+  background: teal;
+}
 html,
 body,
 #app {

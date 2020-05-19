@@ -5,26 +5,14 @@
       <div class="l"></div>
       <div class="r">
         <h1>云控管理系统</h1>
-        <el-form
-          :model="ruleForm"
-          :rules="rules"
-          ref="ruleForm"
-          class="demo-ruleForm"
-        >
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
           <el-form-item prop="accountNumber">
             <img class="lb" src="../../public/static/images/lb_3.png" alt />
-            <el-input
-              v-model="ruleForm.accountNumber"
-              placeholder="请输入用户名"
-            ></el-input>
+            <el-input v-model="ruleForm.accountNumber" placeholder="请输入用户名"></el-input>
           </el-form-item>
           <el-form-item prop="Password">
             <img class="lb" src="../../public/static/images/lb_1.png" alt />
-            <el-input
-              type="password"
-              v-model="ruleForm.Password"
-              placeholder="请输入密码"
-            ></el-input>
+            <el-input type="password" v-model="ruleForm.Password" placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item prop="verificationCode">
             <img class="lb" src="../../public/static/images/lb_2.png" alt />
@@ -33,12 +21,7 @@
               placeholder="请输入验证码"
               style="width: 60%;float: left;"
             ></el-input>
-            <el-tooltip
-              class="item"
-              effect="light"
-              content="点击更新"
-              placement="bottom"
-            >
+            <el-tooltip class="item" effect="light" content="点击更新" placement="bottom">
               <p class="yzm" @click="ghyzm" v-loading="loading">
                 <span>{{ num1 }}</span>
                 <span>{{ fh }}</span>
@@ -49,9 +32,7 @@
             </el-tooltip>
           </el-form-item>
           <el-form-item style="margin-bottom:0;">
-            <el-button type="primary" class="dl" @click="submitForm('ruleForm')"
-              >登录</el-button
-            >
+            <el-button type="primary" class="dl" @click="submitForm('ruleForm')">登录</el-button>
           </el-form-item>
           <!-- <el-form-item class="AdministratorsTeacher">
             <el-button type="text" @click="AdministratorsTeacher(1)" v-if="at == 1">管理员登录</el-button>
@@ -65,7 +46,7 @@
 
 <script>
 import http from '../ajax/http'
-// import $ from "jquery";
+import $ from 'jquery'
 // import Qs from 'qs'
 import ElementUI from 'element-ui'
 import md5 from 'js-md5'
@@ -220,6 +201,85 @@ export default {
   },
   mounted() {
     this.ghyzm()
+    let _this = this
+
+    // 键盘点击回车登录
+    $('body').keydown(function() {
+      if (event.keyCode == '13') {
+        if (_this.ruleForm.verificationCode) {
+          if (Number(_this.ruleForm.verificationCode) != _this.yzms) {
+            _this.ruleForm.verificationCode = ''
+            _this.ghyzm()
+            _this.$message.warning('验证码有误,请重新填写')
+            return false
+          } else {
+            ElementUI.Loading.service({
+              fullscreen: true,
+              background: 'rgba(0,0,0,.4)'
+            })
+            // let instance = this.$axios.create()
+            http
+              .userLogin(
+                // Qs.stringify({
+                //   username: 'admin',
+                //   password: md5('admin')
+                // })
+                {
+                  username: _this.ruleForm.accountNumber,
+                  password: md5(_this.ruleForm.Password)
+                }
+              )
+              // instance({
+              //   headers: {
+              //     'Content-Type': 'application/x-www-form-urlencoded'
+              //   },
+              //   method: 'post',
+              //   url: '/api/appv1/usdpc1/userLogin',
+              //   data: Qs.stringify({
+              //     username: _this.ruleForm.accountNumber,
+              //     password: md5(_this.ruleForm.Password)
+              //   })
+              // })
+              .then(res => {
+                // console.log(res)
+                // console.log
+                if (res.data.code == 4) {
+                  setTimeout(function() {
+                    // localStorage.setItem('token', '测试token')
+                    localStorage.setItem('uid', res.data.data.uid) // 用户id：用户的唯一标识
+                    // localStorage.setItem('type', res.data.data.type) // 1、企业用户；2、个人用户；3、定制用户
+                    localStorage.setItem('username', res.data.data.username) // 用户名
+                    localStorage.setItem('lei', res.data.data.lei) // 昵称
+                    localStorage.setItem('himg', res.data.data.himg) // 户头像
+                    ElementUI.Loading.service({}).close()
+                    _this.$router.push('/funuser')
+                    // _this.$router.push('/funuser')
+                  }, 1000)
+                } else if (res.data.code == 5) {
+                  ElementUI.Loading.service({}).close()
+                  _this.$message.warning('密码错误')
+                  _this.ghyzm()
+                } else if (res.data.code == 3) {
+                  ElementUI.Loading.service({}).close()
+                  _this.$message.warning('用户名未知')
+                  _this.ghyzm()
+                } else if (res.data.code == 2) {
+                  ElementUI.Loading.service({}).close()
+                  _this.$message.warning('用户名输入错误')
+                  _this.ghyzm()
+                } else {
+                  ElementUI.Loading.service({}).close()
+                  _this.$message.warning(res.data.message)
+                  _this.ghyzm()
+                }
+              })
+          }
+        } else {
+          _this.$message.warning('请填写验证码')
+          return false
+        }
+      }
+    })
   },
   // 初始化数据
   created() {}

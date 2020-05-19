@@ -32,11 +32,11 @@
 
           <!-- <el-table-column label="地址" min-width="250" align="center"> -->
 
-          <el-table-column label="省市区" align="center" min-width="160" show-overflow-tooltip>
+          <el-table-column label="地址" align="center" min-width="160" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>
                 {{
-                scope.row.priv + '-' + scope.row.shi + '-' + scope.row.xian
+                scope.row.priv + '-' + scope.row.shi + '-' + scope.row.xian + '-' + scope.row.xiang
                 }}
               </span>
             </template>
@@ -66,13 +66,14 @@
             show-overflow-tooltip
           ></el-table-column>-->
 
-          <el-table-column
+          <!-- <el-table-column
             prop="xiang"
             label="详细地址"
             align="center"
             min-width="150"
             show-overflow-tooltip
-          ></el-table-column>
+          ></el-table-column>-->
+
           <!-- </el-table-column> -->
 
           <el-table-column
@@ -1006,8 +1007,8 @@ export default {
 }
 
 .el-table /deep/ td {
-  padding: 15px 0 !important;
-  font-size: 13px;
+  padding: 14px 0 !important;
+  font-size: 12px;
 }
 
 // .el-form-item /deep/ .el-form-item__content {

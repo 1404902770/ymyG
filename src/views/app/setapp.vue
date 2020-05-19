@@ -66,9 +66,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >立即上传</el-button
-        >
+        <el-button type="primary" @click="submitForm('ruleForm')">立即上传</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -192,35 +190,37 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           // alert('submit!')
-          http
-            .appupdate({
-              uid: this.uid,
-              type: this.ruleForm.region,
-              version: this.ruleForm.name,
-              url: this.appurl,
-              des: this.ruleForm.des,
-              hezuo: this.ruleForm.product
-            })
-            .then(res => {
-              if (res.data.code == 14) {
-                this.$message({
-                  showClose: true,
-                  message: 'App发布成功',
-                  type: 'success'
-                })
-                this.$router.go(0)
-              } else {
-                this.$message({
-                  showClose: true,
-                  message: 'App发布失败',
-                  type: 'error'
-                })
-              }
-              // console.log(res)
-            })
-            .catch(err => {
-              console.log(err)
-            })
+          if (this.uploadNum != Number(0)) {
+            http
+              .appupdate({
+                uid: this.uid,
+                type: this.ruleForm.region,
+                version: this.ruleForm.name,
+                url: this.appurl,
+                des: this.ruleForm.des,
+                hezuo: this.ruleForm.product
+              })
+              .then(res => {
+                if (res.data.code == 14) {
+                  this.$message({
+                    showClose: true,
+                    message: 'App发布成功',
+                    type: 'success'
+                  })
+                  this.$router.go(0)
+                } else {
+                  this.$message({
+                    showClose: true,
+                    message: 'App发布失败',
+                    type: 'error'
+                  })
+                }
+                // console.log(res)
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          }
         } else {
           console.log('error submit!!')
           return false
