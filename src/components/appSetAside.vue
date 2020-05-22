@@ -55,10 +55,10 @@ export default {
         {
           oneTitle: '公告管理',
           twoTitle: [
-            {
-              title: '发布公告',
-              path: '/sendnotice'
-            },
+            // {
+            //   title: '发布公告',
+            //   path: '/sendnotice'
+            // },
             {
               title: '公告列表',
               path: '/noticelist'

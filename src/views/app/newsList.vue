@@ -218,6 +218,7 @@ export default {
       config: {
         initialFrameWidth: null,
         initialFrameHeight: 350
+        // serverUrl: '/static/ueditor/controller.php'
       },
 
       // 新闻ID
