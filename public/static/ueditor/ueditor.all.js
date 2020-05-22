@@ -8830,15 +8830,6 @@
           imageUrl = this.getOpt('imageUrl'),
           serverUrl = this.getOpt('serverUrl')
 
-        // UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
-        // UE.Editor.prototype.getActionUrl = function(action) {
-        //     if (action == 'uploadimage') {
-        //         return '/admin/home/upload_ue';
-        //     } else {
-        //         return this._bkGetActionUrl.call(this, action);
-        //     }
-        // }
-
         if (!serverUrl && imageUrl) {
           serverUrl = imageUrl.replace(/^(.*[\/]).+([\.].+)$/, '$1controller$2')
         }
@@ -27483,11 +27474,11 @@
           }
 
           domUtils.on(iframe, 'load', callback)
-          // form.action = utils.formatUrl(
-          //   imageActionUrl +
-          //     (imageActionUrl.indexOf('?') == -1 ? '?' : '&') +
-          //     params
-          // )
+          form.action = utils.formatUrl(
+            imageActionUrl +
+              (imageActionUrl.indexOf('?') == -1 ? '?' : '&') +
+              params
+          )
           form.submit()
         })
 

@@ -20,8 +20,8 @@ import 'font-awesome/css/font-awesome.css'
 // // 引入UEditor依赖
 import '../public/static/ueditor/ueditor.config'
 import '../public/static/ueditor/ueditor.all'
-import '../public/static/ueditor/lang/zh-cn/zh-cn'
 import '../public/static/ueditor/ueditor.parse'
+import '../public/static/ueditor/lang/zh-cn/zh-cn'
 
 // 引入使用elementUi
 import './element-variables.scss'
