@@ -61,7 +61,7 @@
 
         <!-- 新增新闻弹框 -->
         <div class="updatenews">
-          <el-dialog title="发布新闻" :visible.sync="dialogFormVisible2" @close="closed1">
+          <el-dialog :visible.sync="dialogFormVisible2" @close="closed">
             <div class="news">
               <el-form
                 :model="ruleForm"
@@ -74,6 +74,7 @@
                   <span class="newscover">新闻封面</span>
                   <el-upload
                     action
+                    ref="upload"
                     :auto-upload="false"
                     list-type="picture-card"
                     :on-preview="handlePictureCardPreview"
@@ -106,14 +107,14 @@
               <p>欢迎使用 wangEditor 富文本编辑器</p>
             </div>-->
             <div class="subbtn">
-              <el-button @click="onSubmit1">发布新闻</el-button>
+              <el-button type="primary" @click="onSubmit1">发布新闻</el-button>
             </div>
           </el-dialog>
         </div>
 
         <!-- 修改新闻弹框 -->
         <div class="updatenews">
-          <el-dialog title="修改新闻" :visible.sync="dialogFormVisible" @close="closed1">
+          <el-dialog :visible.sync="dialogFormVisible" @close="closed1">
             <div class="news">
               <el-form
                 :model="ruleForm"
@@ -134,33 +135,26 @@
               <!-- 名字，图片，网址，状态，备注，描述 -->
             </div>
 
-            <!-- <div style="width: 100%; height: 470px;">
-            <script id="editor1" type="text/plain" style="width: 100%; height: 300px;"></script>
-            </div>-->
-            <div ref="editor" id="editor" style="width: 100%;">
-              <!-- <p>欢迎使用 wangEditor 富文本编辑器</p> -->
+            <div style="width: 100%; height: 470px;">
+              <script id="editor1" type="text/plain" style="width: 100%; height: 300px;"></script>
             </div>
 
             <div class="subbtn">
-              <el-button @click="onSubmit">修改新闻</el-button>
+              <el-button type="primary" @click="onSubmit">修改新闻</el-button>
             </div>
           </el-dialog>
         </div>
 
         <!-- 修该新闻封面弹框 -->
         <div class="updatenews">
-          <el-dialog
-            title="修该新闻封面"
-            :visible.sync="dialogFormVisible3"
-            width="30%"
-            @close="closeupdatepic"
-          >
+          <el-dialog :visible.sync="dialogFormVisible3" width="22%" @close="closeupdatepic">
             <div class="news">
               <div class="upload-demo">
                 <span class="newscover">新闻封面</span>
                 <el-upload
                   action
                   :limit="1"
+                  ref="upload"
                   :auto-upload="false"
                   list-type="picture-card"
                   :on-preview="handlePictureCardPreview"
@@ -177,7 +171,7 @@
             </div>
 
             <div style="text-align:end">
-              <el-button @click="onSubmit2">修改封面</el-button>
+              <el-button type="primary" @click="onSubmit2">修改封面</el-button>
             </div>
           </el-dialog>
         </div>
@@ -204,7 +198,7 @@
 </template>
 <script>
 import $ from 'jquery'
-import E from 'wangeditor'
+// import E from 'wangeditor'
 import http from '../../ajax/http'
 import Vue from 'vue'
 
@@ -218,7 +212,6 @@ export default {
       config: {
         initialFrameWidth: null,
         initialFrameHeight: 350
-        // serverUrl: '/static/ueditor/controller.php'
       },
 
       // 新闻ID
@@ -271,11 +264,36 @@ export default {
     }
   },
   methods: {
-    closed1() {
+    // 关闭发布新闻
+    closed(row) {
       // this.$router.go(0)
       this.ruleForm.name = ''
       this.ruleForm.senduser = ''
+
+      this.$refs.upload.clearFiles()
+
+      var ue = UE.getEditor('editor')
+      ue.ready(function() {
+        //设置编辑器的内容
+        ue.setContent('')
+      })
     },
+
+    // 关闭修改新闻
+    closed1(row) {
+      var ue1 = UE.getEditor('editor1')
+      ue1.ready(function() {
+        //设置编辑器的内容
+        try {
+          ue1.setContent(row)
+        } catch (error) {
+          // console.log(error)
+          return error
+        }
+      })
+    },
+
+    // 关闭修改封面
     closeupdatepic() {
       this.$refs.upload.clearFiles()
     },
@@ -360,7 +378,7 @@ export default {
       data.append('img', file)
 
       Vue.axios
-        .post('/bapi/appv1/usdpc2/zcfabuImg', data, {
+        .post('/aapi/appv1/usdpc2/zcfabuImg', data, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -474,23 +492,22 @@ export default {
         })
     },
 
-    // 编辑按钮
+    // 修改按钮
     edit(index, row) {
       this.id = row.id
       this.dialogFormVisible = true
       this.ruleForm.name = row.title
       this.ruleForm.senduser = row.fabu
       this.content = row.txt
-      let _this = this
-      setTimeout(() => {
-        this.getSrcurl()
-        this.editor.txt.html(this.content)
 
-        // _this.as = window.UE.getEditor('editor1', _this.config)
-        // _this.as.addListener('ready', () => {
-        //   _this.as.setContent(_this.content)
-        // })
-        // _this.$forceUpdate()
+      let _this = this
+
+      var timer = setTimeout(() => {
+        _this.editor1 = window.UE.getEditor('editor1', _this.config)
+        _this.editor1.addListener('ready', () => {
+          _this.editor1.setContent(row.txt)
+        })
+        this.closed1(row.txt)
       }, 0)
     },
 
@@ -515,7 +532,7 @@ export default {
       data.append('zid', this.zid)
 
       Vue.axios
-        .post('/bapi/appv1/usdpc2/updateZcfabuImg', data, {
+        .post('/aapi/appv1/usdpc2/updateZcfabuImg', data, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -542,10 +559,12 @@ export default {
       // this.editor.txt.html(this.content)
       // var reg = /<\/?.+?\/?>/g
       // console.log(this.content.replace(reg, ''))
+
       this.$refs['ruleForm'].validate(valid => {
         //   表单验证成功则提交数据
         if (valid) {
           // console.log(this.content)
+          this.getUEContent()
           this.addnewsfun()
         } else {
           console.log('error submit!!')
@@ -643,7 +662,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .subbtn {
-  margin-top: 20px;
+  text-align: right;
 }
 
 .el-breadcrumb {
@@ -655,9 +674,9 @@ export default {
   justify-content: space-between;
 }
 
-.newslist {
-  margin-top: 20px;
-}
+// .newslist {
+//   margin-top: 20px;
+// }
 
 .bannerimg {
   width: 50px;
@@ -720,8 +739,23 @@ export default {
     color: #666;
   }
 }
-.el-dialog__wrapper /deep/ .el-dialog {
-  margin-top: 6vh !important;
+
+.el-table /deep/ td {
+  padding: 7px 0 !important;
+}
+
+.updatenews {
+  .el-dialog__wrapper /deep/ .el-dialog {
+    margin-top: 6vh !important;
+    z-index: 1000 !important;
+  }
+  .el-dialog__wrapper {
+    z-index: 1000 !important;
+  }
+}
+
+.el-dialog__wrapper /deep/ .el-dialog__header {
+  padding: 0 !important;
 }
 
 .hide .el-upload--picture-card {

@@ -19,8 +19,8 @@ import 'font-awesome/css/font-awesome.css'
 
 // // 引入UEditor依赖
 import '../public/static/ueditor/ueditor.config'
-import '../public/static/ueditor/ueditor.all'
-import '../public/static/ueditor/ueditor.parse'
+import '../public/static/ueditor/ueditor.all.js'
+import '../public/static/ueditor/ueditor.parse.js'
 import '../public/static/ueditor/lang/zh-cn/zh-cn'
 
 // 引入使用elementUi
@@ -128,17 +128,24 @@ axios.interceptors.request.use(
     // }
     if (config.method === 'post') {
       if (
-        config.url != '/bapi/appv1/usdpc2/appBarUpdate' &&
-        config.url != '/bapi/appv1/usdpc2/zcfabuImg' &&
-        config.url != '/bapi/appv1/usdpc2/bannerImgUpload' &&
-        config.url != '/bapi/appv1/usdpc2/updateZcfabuImg' &&
-        config.url != '/capi/appv1/usdpc2/zcTextImg'
+        config.url !=
+          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/appBarUpdate' &&
+        config.url !=
+          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/zcfabuImg' &&
+        config.url !=
+          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/bannerImgUpload' &&
+        config.url !=
+          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/updateZcfabuImg' &&
+        config.url != 'http://a.yumaoyou.cn:8008/appv1/usdpc2/zcTextImg'
       ) {
         config.data = Qs.stringify(config.data)
       }
       // config.data = Qs.stringify(config.data)
     }
-    if (config.url == '/bapi/appv1/usdpc2/appBarUpdate') {
+    if (
+      config.url ==
+      'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/appBarUpdate'
+    ) {
       closeLoading()
     } else {
       showLoading()

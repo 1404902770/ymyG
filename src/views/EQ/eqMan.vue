@@ -642,6 +642,10 @@ export default {
   color: teal;
 }
 
+.el-table /deep/ td {
+  padding: 10px 0 !important;
+}
+
 .box {
   display: flex;
 }

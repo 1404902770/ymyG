@@ -53,6 +53,6 @@ body,
 }
 
 .v-modal {
-  z-index: 1998 !important;
+  z-index: 999 !important;
 }
 </style>

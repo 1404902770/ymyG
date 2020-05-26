@@ -745,7 +745,7 @@
                 if ($(this).hasClass('disabled')) {
                     return false;
                 }
-
+                
                 if (state === 'ready') {
                     uploader.upload();
                 } else if (state === 'paused') {

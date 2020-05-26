@@ -18,21 +18,25 @@
     <div class="mymain">
       <template>
         <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
-          <el-table-column label="企业名称" align="center" min-width="160" show-overflow-tooltip>
+          <el-table-column label="序号" align="center" min-width="30" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.num }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="企业名称" min-width="160" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="企业证件号" align="center" min-width="160" show-overflow-tooltip>
+          <el-table-column label="企业证件号" min-width="130" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.zjhao }}</span>
             </template>
           </el-table-column>
 
-          <!-- <el-table-column label="地址" min-width="250" align="center"> -->
-
-          <el-table-column label="地址" align="center" min-width="160" show-overflow-tooltip>
+          <el-table-column label="地址" min-width="160" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>
                 {{
@@ -42,63 +46,11 @@
             </template>
           </el-table-column>
 
-          <!-- <el-table-column
-            prop="priv"
-            label="省份"
-            align="center"
-            min-width="100"
-            show-overflow-tooltip
-          ></el-table-column>
+          <el-table-column prop="lianxiren" label="紧急联系人" min-width="100" show-overflow-tooltip></el-table-column>
 
-          <el-table-column
-            prop="shi"
-            label="市区"
-            align="center"
-            min-width="100"
-            show-overflow-tooltip
-          ></el-table-column>
+          <el-table-column prop="lxtel" label="紧急联系人电话" min-width="100" show-overflow-tooltip></el-table-column>
 
-          <el-table-column
-            prop="xian"
-            label="县"
-            align="center"
-            min-width="100"
-            show-overflow-tooltip
-          ></el-table-column>-->
-
-          <!-- <el-table-column
-            prop="xiang"
-            label="详细地址"
-            align="center"
-            min-width="150"
-            show-overflow-tooltip
-          ></el-table-column>-->
-
-          <!-- </el-table-column> -->
-
-          <el-table-column
-            prop="lianxiren"
-            label="紧急联系人"
-            align="center"
-            min-width="100"
-            show-overflow-tooltip
-          ></el-table-column>
-
-          <el-table-column
-            prop="lxtel"
-            label="紧急联系人电话"
-            align="center"
-            min-width="100"
-            show-overflow-tooltip
-          ></el-table-column>
-
-          <el-table-column
-            prop="beizhu"
-            label="备注信息"
-            align="center"
-            min-width="100"
-            show-overflow-tooltip
-          ></el-table-column>
+          <el-table-column prop="beizhu" label="备注信息" min-width="100" show-overflow-tooltip></el-table-column>
 
           <el-table-column label="操作" min-width="60" align="center">
             <template slot-scope="scope">
@@ -542,7 +494,7 @@ export default {
       // 总条数
       total: '',
       // 每页条数
-      pageSize: 10,
+      pageSize: 15,
       // 当前页
       page: '1'
     }
@@ -575,11 +527,16 @@ export default {
 
     // 获取企业列表
     getfirmlist() {
+      let num = '1'
       http
         .getlist({ page: this.page, type: 1, uid: localStorage.getItem('uid') })
         .then(res => {
           // console.log(res)
+
           this.tableData = res.data.data
+          this.tableData.forEach(val => {
+            val.num = num++
+          })
           this.total = res.data.total
         })
         .catch(err => {
@@ -1007,7 +964,7 @@ export default {
 }
 
 .el-table /deep/ td {
-  padding: 14px 0 !important;
+  padding: 13px 0 !important;
   font-size: 12px;
 }
 

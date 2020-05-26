@@ -161,7 +161,11 @@ export default {
       }
 
       Vue.axios
-        .post('/bapi/appv1/usdpc2/appBarUpdate', formData, config)
+        .post(
+          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/appBarUpdate',
+          formData,
+          config
+        )
         .then(res => {
           // console.log(res)
           this.appurl = res.data.url

@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <h1>上传App</h1>
     <!-- <input type="file" ref="fileInt" @change="changeHandle" /> -->
     <div id="uploadFile">
@@ -83,7 +82,7 @@ export default {
 
       Vue.axios
         .post(
-          'http://b.yumaoyou.cn:8008/index.php/appv1/usdpc2/appBarUpdate',
+          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/appBarUpdate',
           formData,
           config
         )

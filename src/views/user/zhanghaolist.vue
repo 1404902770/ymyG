@@ -110,7 +110,11 @@
                   <el-table :data="tablebang" style="width: 100%" empty-text="暂无设备">
                     <el-table-column label="设备号" align="center" min-width="180">
                       <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ hexCharCodeToStr(scope.row.mzid) }}</span>
+                        <span style="margin-left: 10px">
+                          {{
+                          hexCharCodeToStr(scope.row.mzid)
+                          }}
+                        </span>
                       </template>
                     </el-table-column>
                     <el-table-column label="型号" align="center" min-width="180">
@@ -126,17 +130,29 @@
                       min-width="90"
                     >
                       <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ scope.row.guige }}</span>
+                        <span style="margin-left: 10px">
+                          {{
+                          scope.row.guige
+                          }}
+                        </span>
                       </template>
                     </el-table-column>
                     <el-table-column label="规格" align="center" min-width="90">
                       <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ scope.row.guige + 'A' }}</span>
+                        <span style="margin-left: 10px">
+                          {{
+                          scope.row.guige + 'A'
+                          }}
+                        </span>
                       </template>
                     </el-table-column>
                     <el-table-column label="极数" align="center" min-width="90">
                       <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ scope.row.jishu + 'P' }}</span>
+                        <span style="margin-left: 10px">
+                          {{
+                          scope.row.jishu + 'P'
+                          }}
+                        </span>
                       </template>
                     </el-table-column>
 
@@ -148,7 +164,7 @@
                           size="mini"
                           type="danger"
                           @click="unband(scope.$index, scope.row)"
-                          v-if="code == 41 || code == 42 || code == 43"
+                          v-show="scope.row.code ? true : false"
                         >解除绑定</el-button>
                       </template>
                     </el-table-column>
@@ -180,7 +196,11 @@
             <el-table :data="bangeqlist" style="width: 100%" empty-text="暂无设备">
               <el-table-column label=" 版本" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.code == '1' ? '第一代' : '第二代' }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    scope.row.code == '1' ? '第一代' : '第二代'
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="模组" align="center" min-width="180">
@@ -190,12 +210,20 @@
               </el-table-column>
               <el-table-column label="模组ID" align="center" min-width="180">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ hexCharCodeToStr(scope.row.mzid) }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    hexCharCodeToStr(scope.row.mzid)
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="漏电" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.lou == 1 ? '带漏电' : '不带漏电' }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    scope.row.lou == 1 ? '带漏电' : '不带漏电'
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label=" 型号" align="center" min-width="90">
@@ -205,12 +233,20 @@
               </el-table-column>
               <el-table-column label="规格" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.guige + 'A' }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    scope.row.guige + 'A'
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="极数" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.jishu + 'P' }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    scope.row.jishu + 'P'
+                    }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="地址" align="center" min-width="130">
@@ -239,9 +275,11 @@
               </el-table-column>
               <el-table-column label="时间" align="center" min-width="90">
                 <template slot-scope="scope">
-                  <span
-                    style="margin-left: 10px"
-                  >{{ new Date(scope.row.jihuo * 1000).Format('yy-MM-dd ') }}</span>
+                  <span style="margin-left: 10px">
+                    {{
+                    new Date(scope.row.jihuo * 1000).Format('yy-MM-dd ')
+                    }}
+                  </span>
                 </template>
               </el-table-column>
 
@@ -448,8 +486,15 @@ export default {
           nid: this.tablebang[index].mzid
         })
         .then(res => {
-          console.log(res)
+          // console.log(res)
           this.code = res.data.code
+          this.tablebang[index].code = res.data.code
+          let arr = []
+          this.tablebang.forEach(val => {
+            arr.push(val)
+          })
+          this.tablebang = arr
+
           if (res.data.code == '41') {
             this.$message({
               showClose: true,
@@ -488,6 +533,12 @@ export default {
         })
         .then(res => {
           // console.log(res)
+          this.tablebang[index].code = ''
+          let arr = []
+          this.tablebang.forEach(val => {
+            arr.push(val)
+          })
+          this.tablebang = arr
           if (res.data.code == '41') {
             this.code = ''
             this.$message({
@@ -665,6 +716,9 @@ export default {
         .then(res => {
           // console.log(res)
           this.tablebang = res.data.data
+          this.tablebang.forEach(val => {
+            val.code = ''
+          })
         })
         .catch(err => {
           console.log(err)

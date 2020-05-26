@@ -1,5 +1,5 @@
 import Vue from 'vue'
-const urlType = 1
+const urlType = 2
 let aapi, bapi
 if (urlType == 1) {
   aapi = '/aapi'

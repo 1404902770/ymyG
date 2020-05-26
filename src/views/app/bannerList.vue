@@ -500,7 +500,7 @@ export default {
       const data = new FormData()
       data.append('img', file)
       Vue.axios
-        .post('/bapi/appv1/usdpc2/bannerImgUpload', data, {
+        .post('/aapi/appv1/usdpc2/bannerImgUpload', data, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
