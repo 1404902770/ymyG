@@ -10,7 +10,7 @@
 
       <div class="zhuce">
         <el-button type="primary" size="small" @click="gotozhuce">
-          <i class="el-icon-plus"></i>注册账号
+          <i class="el-icon-plus"></i>发布公告
         </el-button>
       </div>
     </div>
@@ -31,7 +31,7 @@
           <el-table-column label="操作" align="center" min-width="100">
             <template slot-scope="scope">
               <el-button size="mini" @click="edit(scope.$index, scope.row)">编辑</el-button>
-              <el-button size="mini" type="danger" @click="delete (scope.$index, scope.row)">删除</el-button>
+              <el-button size="mini" type="danger" @click="hanlddelete (scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -57,7 +57,7 @@
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">发布</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">{{subtxt}}</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -77,15 +77,15 @@ export default {
         },
         {
           name: '王小虎',
-          content: '上海市普陀区金沙江路 1518 弄'
+          content: '上海市普陀区金沙江路 1519 弄'
         },
         {
           name: '王小虎',
-          content: '上海市普陀区金沙江路 1518 弄'
+          content: '上海市普陀区金沙江路 1520 弄'
         },
         {
           name: '王小虎',
-          content: '上海市普陀区金沙江路 1518 弄'
+          content: '上海市普陀区金沙江路 1521 弄'
         }
       ],
 
@@ -106,6 +106,8 @@ export default {
         ]
       },
 
+      subtxt: '发布',
+
       // 发布公告弹框
       dialogFormVisible: false
     }
@@ -118,6 +120,8 @@ export default {
 
     // 点击注册按钮
     gotozhuce() {
+      this.subtxt = '发布'
+
       this.dialogFormVisible = true
     },
 
@@ -126,17 +130,21 @@ export default {
       this.$refs.ruleForm.resetFields()
 
       this.ruleForm.name = ''
-      this.ruleForm.user = ''
-      this.ruleForm.alarmcall = ''
-      this.ruleForm.note = ''
+      this.ruleForm.content = ''
     },
 
     // 发布公告接口
-    sendnoice() {},
+    sendnoice() {
+      console.log(this.ruleForm.name, this.ruleForm.content)
+    },
 
     // 提交发布公告按钮
     submitForm(formName) {
-      this.sendnoice()
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.sendnoice()
+        }
+      })
     },
 
     // 取消按钮
@@ -148,10 +156,15 @@ export default {
 
     // 编辑按钮
     edit(index, row) {
-      console.log(index, row)
+      this.subtxt = '修改'
+      // console.log(index, row)
+      this.dialogFormVisible = true
+
+      this.ruleForm.name = row.name
+      this.ruleForm.content = row.content
     },
     // 删除按钮
-    delete(index, row) {
+    hanlddelete(index, row) {
       console.log(index, row)
     }
   }
@@ -165,6 +178,10 @@ export default {
 }
 .el-breadcrumb {
   line-height: 32px;
+}
+
+.el-table td {
+  font-size: 12px;
 }
 
 // 提交取消方向

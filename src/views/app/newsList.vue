@@ -451,6 +451,9 @@ export default {
 
     // 点击新增
     addnews() {
+      this.ruleForm.name = ''
+      this.ruleForm.senduser = ''
+
       this.dialogFormVisible2 = true
       let _this = this
       // $('.editor').empty()
@@ -657,6 +660,14 @@ export default {
         hljs.highlightBlock(block)
       })
     })
+  },
+  destroyed() {
+    try {
+      this.editor.destroy()
+      this.editor1.destroy()
+    } catch (error) {
+      // console.log(error)
+    }
   }
 }
 </script>
@@ -742,6 +753,7 @@ export default {
 
 .el-table /deep/ td {
   padding: 7px 0 !important;
+  font-size: 12px;
 }
 
 .updatenews {
@@ -755,7 +767,7 @@ export default {
 }
 
 .el-dialog__wrapper /deep/ .el-dialog__header {
-  padding: 0 !important;
+  padding: 2px !important;
 }
 
 .hide .el-upload--picture-card {

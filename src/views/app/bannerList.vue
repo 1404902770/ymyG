@@ -92,6 +92,7 @@
         </el-table-column>
       </el-table>
 
+      <!-- 修改轮播图信息 -->
       <div class="bindbox">
         <el-dialog :visible.sync="dialogFormVisible" width="35%">
           <div class="banner">
@@ -129,6 +130,7 @@
         </el-dialog>
       </div>
 
+      <!-- 新增轮播图 -->
       <div class="addbanner">
         <el-dialog :visible.sync="dialogFormVisible2" width="35%" @close="closeaddbanner">
           <el-form
@@ -677,6 +679,11 @@ export default {
   font-size: 14px;
   color: #606266;
   margin-right: 12px;
+}
+
+.el-table /deep/ td {
+  padding: 7px 0 !important;
+  font-size: 12px;
 }
 
 .fun {

@@ -61,8 +61,8 @@ const routes = [
     ]
   },
 
+  // 设备管理路由
   {
-    // 设备管理路由
     path: '/eqman',
     // name: 'Equipment',
     component: resolve => require(['@/views/EQ/equipment.vue'], resolve),
@@ -135,6 +135,43 @@ const routes = [
         path: '/newslist',
         name: 'newslist',
         component: resolve => require(['@/views/app/newsList.vue'], resolve)
+      }
+    ]
+  },
+
+  // 官网设置路由
+  {
+    path: '/newsclass',
+    // name: 'Equipment',
+    component: resolve => require(['@/views/website/newshome.vue'], resolve),
+    children: [
+      // 新闻类型
+      {
+        path: '/newsclass',
+        name: 'newsclass',
+        component: resolve =>
+          require(['@/views/website/newsclass.vue'], resolve)
+      },
+      // 官网新闻列表
+      {
+        path: '/webnewslist',
+        name: 'webnewslist',
+        component: resolve =>
+          require(['@/views/website/webnewslist.vue'], resolve)
+      },
+      // 官网留言列表
+      {
+        path: '/leavemessage',
+        name: 'leavemessage',
+        component: resolve =>
+          require(['@/views/website/leavemessage.vue'], resolve)
+      },
+      // 官网招贤纳士
+      {
+        path: '/recruiting',
+        name: 'recruiting',
+        component: resolve =>
+          require(['@/views/website/recruiting.vue'], resolve)
       }
     ]
   },

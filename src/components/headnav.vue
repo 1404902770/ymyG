@@ -18,6 +18,7 @@
         <el-menu-item index="1" @click="gotoUser('1')">用户管理</el-menu-item>
         <el-menu-item index="2" @click="gotoEq('2')">设备管理</el-menu-item>
         <el-menu-item index="3" @click="gotoSetUp('3')">App设置</el-menu-item>
+        <el-menu-item index="4" @click="gotoWebSite('4')">官网设置</el-menu-item>
       </el-menu>
     </div>
     <!-- 用户信息 -->
@@ -51,21 +52,25 @@
 export default {
   data() {
     return {
-      select: [
-        {
-          oneTitle: '设备管理',
-          twoTitle: [
-            {
-              title: '设备入库',
-              path: '/equipment'
-            },
-            {
-              title: '设备管理',
-              path: '/eqman'
-            }
-          ]
-        }
-      ],
+      // select: [
+      //   {
+      //     oneTitle: '设备管理',
+      //     twoTitle: [
+      //       {
+      //         title: '设备入库',
+      //         path: '/equipment'
+      //       },
+      //       {
+      //         title: '设备管理',
+      //         path: '/eqman'
+      //       },
+      //       {
+      //         title: '官网设置',
+      //         path: '/newshome'
+      //       }
+      //     ]
+      //   }
+      // ],
       // 顶部导航选中项
       activeIndex: '',
       // 用户类型
@@ -89,6 +94,11 @@ export default {
     // App设置
     gotoSetUp(num) {
       this.$router.push({ path: '/appset' })
+      sessionStorage.setItem('num', num)
+    },
+    // 官网设置
+    gotoWebSite(num) {
+      this.$router.push({ path: '/newsclass' })
       sessionStorage.setItem('num', num)
     },
     // 退出登录

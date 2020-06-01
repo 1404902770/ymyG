@@ -18,37 +18,43 @@
     <div class="mymain">
       <template>
         <el-table :data="tableData" :header-cell-style="headClass" stripe style="width: 100%">
-          <el-table-column label="企业名称" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column label="序号" align="center" min-width="30" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.num }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="企业名称" show-overflow-tooltip min-width="160">
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.name }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="账号昵称" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column label="账号昵称" show-overflow-tooltip min-width="80">
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.nick }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="用户名" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column label="用户名" show-overflow-tooltip min-width="80">
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.username }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="电话" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column label="电话" show-overflow-tooltip min-width="70">
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.phone }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="紧急联系人" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column label="紧急联系人" show-overflow-tooltip min-width="60">
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.lianxiren }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="紧急联系人电话" align="center" show-overflow-tooltip min-width="60">
+          <el-table-column label="紧急联系人电话" show-overflow-tooltip min-width="70">
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.lxtel }}</el-tag>
             </template>
@@ -56,9 +62,7 @@
 
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">
-                <el-button type="text" size="mini" @click="dialogFormVisible = true">绑定设备</el-button>
-              </el-button>
+              <el-button type="text" size="middle" @click="handleEdit(scope.$index, scope.row)">绑定设备</el-button>
               <el-button type="text" @click="getbandeq(scope.$index, scope.row)">查看</el-button>
             </template>
           </el-table-column>
@@ -122,13 +126,7 @@
                         <span>{{ scope.row.xinghao }}</span>
                       </template>
                     </el-table-column>
-                    <el-table-column
-                      label="
-                  
-                  漏电"
-                      align="center"
-                      min-width="90"
-                    >
+                    <el-table-column label="漏电" align="center" min-width="90">
                       <template slot-scope="scope">
                         <span style="margin-left: 10px">
                           {{
@@ -176,17 +174,6 @@
         </div>
       </template>
     </div>
-
-    <!-- // code: "1"
-    // mozu: "32303139303631353132353531372020"
-    // mzid: "34474c3430354b4735563831"
-    // lou: 0
-    // xinghao: ""
-    // guige: ""
-    // jishu: ""
-    // jianzhu: "219软件开发办公室"
-    // mzname: "软件开发部"
-    // jihuo: 1577621086-->
 
     <!-- 查看弹框 -->
     <div class="getbind">
@@ -403,6 +390,7 @@ export default {
       // jisuh1: 0,
       // xinghao: 0,
 
+      // 绑定状态
       code: '',
 
       // 用户id
@@ -418,7 +406,7 @@ export default {
       // 总条数
       total: '',
       // 每页条数
-      pageSize: 10,
+      pageSize: 13,
       // 当前页
       page: 0
     }
@@ -456,10 +444,12 @@ export default {
         })
     },
 
-    // 编辑按钮
+    // 设备绑定按钮
     handleEdit(index, row) {
       // console.log(index, row)
-      this.uid = this.tableData[index].id
+      // this.id = row.id
+      this.dialogFormVisible = true
+      this.uid = row.id
     },
     // 点击确定按钮
     sure() {
@@ -473,9 +463,9 @@ export default {
 
     // bindedit
     // 绑定设备按钮
-    handlebang() {
-      // console.log(this.uid)
-    },
+    // handlebang() {
+    //   // console.log(this.uid)
+    // },
 
     // 点击绑定按钮接口
     bangidng(index, row) {
@@ -524,21 +514,16 @@ export default {
     unband(index, row) {
       // console.log(index, row)
       // console.log(this.tableData[index])
+      // console.log(this.tableData[index].id)
       // return false
       http
         .unbangeq({
-          uid: this.tableData[index].id,
+          uid: this.uid,
           gid: localStorage.getItem('uid'),
           nid: row.mzid
         })
         .then(res => {
           // console.log(res)
-          this.tablebang[index].code = ''
-          let arr = []
-          this.tablebang.forEach(val => {
-            arr.push(val)
-          })
-          this.tablebang = arr
           if (res.data.code == '41') {
             this.code = ''
             this.$message({
@@ -546,6 +531,12 @@ export default {
               message: '解除绑定成功',
               type: 'success'
             })
+            this.tablebang[index].code = ''
+            let arr = []
+            this.tablebang.forEach(val => {
+              arr.push(val)
+            })
+            this.tablebang = arr
             // this.getbandeq()
             // this.dialogFormVisible = false
           } else if (res.data.code == '43') {
@@ -567,13 +558,9 @@ export default {
         })
     },
 
-    // // 点击注册
-    // gotozhuce() {
-    //   this.$router.push({ path: '/openfunuser' })
-    // },
-
     // 点击提交注册
     submitForm(formName) {
+      var div = document.getElementsByTagName('div')[1]
       this.$refs[formName].validate(valid => {
         if (valid) {
           // alert('submit!')
@@ -644,10 +631,11 @@ export default {
     // 查看绑定设备
     getbandeq(row, row2) {
       // console.log(row2)
+      this.uid = row2.id
+
       this.dialogFormVisible3 = true
-      let id = row2.id
       http
-        .getbandeq({ uid: id })
+        .getbandeq({ uid: this.uid })
         .then(res => {
           // console.log(res)
           this.bangeqlist = res.data.data
@@ -685,6 +673,8 @@ export default {
 
     // 获取用户列表
     getuserlist() {
+      let num = '1'
+
       http
         .getuserlist({ type: 1, page: this.page })
         .then(res => {
@@ -692,6 +682,10 @@ export default {
           this.tableData = res.data.data
           this.dialogFormVisible = false
           this.total = res.data.total
+
+          this.tableData.forEach(val => {
+            val.num = num++
+          })
         })
         .catch(err => {
           console.log(err)
@@ -747,23 +741,12 @@ export default {
   background-color: transparent !important;
   color: #333 !important;
 }
-// 注册按钮
-// .zhuce {
-//   position: absolute;
-//   right: 90px;
-//   top: 80px;
-// }
 
 .mymain {
   height: 49rem;
 }
 
 .page {
-  // width: 40rem;
-  // position: relative;
-  // bottom: 0px;
-  // left: 50%;
-  // transform: translate(-50%, 0px);
   margin: 0 0 0 39.5rem;
   display: flex;
   span {
@@ -844,6 +827,7 @@ export default {
 
 .el-table /deep/ td {
   padding: 4px 0 !important;
+  font-size: 12px;
 }
 
 // .el-table__row {
@@ -859,7 +843,4 @@ export default {
 .el-dialog__wrapper {
   z-index: 1999 !important;
 }
-// .el-button {
-//   // padding: 0 0 !important;
-// }
 </style>

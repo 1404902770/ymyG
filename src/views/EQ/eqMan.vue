@@ -37,22 +37,7 @@
         </div>
       </div>
     </div>
-    <!-- "data":{
-        "code":"产品迭代：1、第一代产品，2、第二代产品",
-        "mozu":"模组名称",
-        "mzid":"电箱号",
-        "fen":"分机个数",
-        "jianzhu":"安装地址",
-        "mzname":"电箱名称",
-        "banben":"版本号",
-        "txfs":"通讯方式：02：4G"
-        
-        "btnstatu":"是否处于设置状态：00 否",
-        "heartime":"心跳时间",
-        "timer":"定时器数量",
-        "neng":"是否使能：01 使能",
-        "time":"入库时间"
-    }-->
+
     <!-- :data="tableData.filter(data => !search || hexCharCodeToStr(data.mzid).toLowerCase().includes(search.toLowerCase()))" -->
     <!-- :data="tableData" -->
     <div class="mymain">
@@ -380,7 +365,7 @@ export default {
       // 总条数
       total: '',
       // 每页条数
-      pageSize: 10,
+      pageSize: 13,
       // 当前页
       page: '1',
 
