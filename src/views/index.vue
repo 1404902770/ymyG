@@ -4,10 +4,7 @@
       <div class="leftone">
         <div class="two">
           <!-- 空心饼图 -->
-          <div
-            id="myChartfive"
-            :style="{ width: '100%', height: '100%' }"
-          ></div>
+          <div id="myChartfive" :style="{ width: '100%', height: '100%' }"></div>
         </div>
       </div>
       <div class="rightone">
@@ -257,7 +254,7 @@ export default {
               alignWithLabel: true
             },
             axisLabel: {
-              //y轴文字的配置
+              //x轴文字的配置
               textStyle: {
                 color: 'rgba(219,225,255,1)',
                 margin: 15

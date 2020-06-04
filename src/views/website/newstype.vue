@@ -24,13 +24,13 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="类型" align="center" min-width="30" show-overflow-tooltip>
+          <el-table-column label="类型" align="center" min-width="160" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.phone }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作" align="center" min-width="30">
             <template slot-scope="scope">
               <i
                 class="el-icon-delete xiugai"
@@ -110,7 +110,6 @@ export default {
 
     // 新增类型
     gotozhuce() {
-      console.log('123')
       this.dialogFormVisible = true
     },
 

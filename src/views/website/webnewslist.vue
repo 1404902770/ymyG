@@ -10,7 +10,7 @@
 
       <div class="zhuce">
         <el-button type="primary" size="small" @click="gotozhuce">
-          <i class="el-icon-plus"></i>添加新闻
+          <i class="el-icon-plus"></i>发布新闻
         </el-button>
       </div>
     </div>
@@ -24,22 +24,21 @@
             </template>
           </el-table-column>-->
 
-          <el-table-column label="标题" align="center" min-width="30" show-overflow-tooltip>
-            <template slot-scope="scope">
-              <span>{{ scope.row.title }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column label="类型" align="center" min-width="30" show-overflow-tooltip>
+          <el-table-column label="新闻类型" align="center" min-width="60" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.type }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" align="center">
+          <el-table-column label="新闻标题" align="center" min-width="100" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.title }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="操作" align="center" min-width="30">
             <template slot-scope="scope">
               <i class="el-icon-edit xiugai" title="修改新闻" @click="edit(scope.$index, scope.row)"></i>
-
               <i
                 class="el-icon-delete xiugai"
                 title="删除新闻"
@@ -77,7 +76,7 @@
           </div>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">立即新增</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">立即发布</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -147,10 +146,15 @@ export default {
         initialFrameHeight: 350
       },
 
+      // 发布新闻富文本编辑器
       editor3: '',
+      // 修改新闻富文本编辑器
       editor4: '',
-      // 富文本内容
-      content: '',
+
+      // 新增富文本内容
+      content3: '',
+      // 修改富文本内容
+      content4: '',
 
       // 点击新增
       dialogFormVisible: false,
@@ -223,14 +227,18 @@ export default {
       }, 0)
     },
 
-    // 获取富文本内容
-    getUEContent() {
-      this.content = this.editor.getContent()
+    // 获取添加富文本内容
+    getUEContent3() {
+      this.content3 = this.editor3.getContent()
+    },
+    // 获取修改富文本内容
+    getUEContent4() {
+      this.content4 = this.editor4.getContent()
     },
 
-    // 立即新增按钮
+    // 立即发布按钮
     submitForm(formName) {
-      this.getUEContent()
+      this.getUEContent3()
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert('submit!')
@@ -242,7 +250,7 @@ export default {
     },
     // 立即修改按钮
     submitFormupdate(formName) {
-      this.getUEContent()
+      this.getUEContent4()
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert('submit!')
@@ -256,6 +264,7 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
       this.dialogFormVisible = false
+      this.dialogFormVisible2 = false
     }
   },
   destroyed() {
@@ -265,7 +274,8 @@ export default {
     } catch (error) {
       // console.log(error)
     }
-  }
+  },
+  mounted() {}
 }
 </script>
 <style lang='less'>

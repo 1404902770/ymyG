@@ -5,7 +5,7 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>招贤纳士</el-breadcrumb-item>
-        <el-breadcrumb-item>招聘列</el-breadcrumb-item>
+        <el-breadcrumb-item>招聘列表</el-breadcrumb-item>
       </el-breadcrumb>
 
       <div class="zhuce">
@@ -35,6 +35,7 @@
               <span>{{ scope.row.phone }}</span>
             </template>
           </el-table-column>
+
           <el-table-column label="工作地点" align="center" min-width="120" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.phone }}</span>
@@ -53,7 +54,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="联系电话" align="center" min-width="100" show-overflow-tooltip>
+          <el-table-column label="联系电话" align="center" min-width="90" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.phone }}</span>
             </template>
@@ -62,7 +63,6 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <i class="el-icon-edit xiugai" title="修改招聘" @click="edit(scope.$index, scope.row)"></i>
-
               <i
                 class="el-icon-delete xiugai"
                 title="删除招聘"
@@ -242,15 +242,15 @@ export default {
       this.$refs[formName].resetFields()
     },
 
-    // 删除类型
+    // 删除招聘信息
     handleDelete() {},
 
-    // 新增类型
+    // 新增招聘信息
     gotozhuce() {
       this.dialogFormVisible = true
     },
 
-    // 修改招聘
+    // 修改招聘信息
     edit(index, row) {
       this.dialogFormVisible2 = true
     },
@@ -260,6 +260,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert('submit!')
+          this.dialogFormVisible = false
         } else {
           console.log('error submit!!')
           return false

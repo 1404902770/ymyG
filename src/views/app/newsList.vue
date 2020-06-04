@@ -245,8 +245,11 @@ export default {
       },
       editor: '',
       editor1: '',
-      // 富文本内容
+      // 新增富文本内容
       content: '',
+      // 修改富文本内容
+      content1: '',
+
       formLabelWidth: '120px',
       dialogTableVisible: false,
       dialogFormVisible: false,
@@ -423,11 +426,19 @@ export default {
       // this.getUEContent()
       // var reg = /\s*[^=\s+]+\s*=\s*([^=>]+)?(?=(\s+|>))/g
       // console.log(this.content.replace(/margin/g, "", ''))
+
+      var regex1 = new RegExp(
+        '(i?)(<img)(?!(.*?style=[\'"](.*)[\'"])[^>]+>)',
+        'gmi'
+      )
+      //给不含style="" 或 style='' 的img标签加上style=""
+      let htmlstr = this.content.replace(regex1, '$2 width="100%"$3')
+
       http
         .sendnews({
           uid: localStorage.getItem('uid'),
           title: this.ruleForm.name,
-          txt: this.content,
+          txt: htmlstr,
           img: this.imgurl,
           fabu: this.ruleForm.senduser
         })
@@ -468,12 +479,24 @@ export default {
 
     // 修改新闻接口方法
     updatenews() {
-      this.content = this.editor1.getContent()
+      // this.content1 = this.editor1.getContent()
+
+      // console.log(this.content1.replace(/<img [^>]*width=""*>/gi, '100%'))
+
+      // 正则给图片添加宽100%
+      var regex1 = new RegExp(
+        '(i?)(<img)(?!(.*?style=[\'"](.*)[\'"])[^>]+>)',
+        'gmi'
+      )
+      //给不含style="" 或 style='' 的img标签加上style=""
+      let htmlstr = this.content1.replace(regex1, '$2 width="100%"$3')
+      // console.log(htmlstr)
+
       http
         .updatenews({
           uid: localStorage.getItem('uid'),
           title: this.ruleForm.name,
-          txt: this.content,
+          txt: htmlstr,
           zid: this.id,
           fabu: this.ruleForm.senduser
         })
@@ -514,9 +537,13 @@ export default {
       }, 0)
     },
 
-    // 获取富文本内容
+    // 获取新增富文本内容
     getUEContent() {
       this.content = this.editor.getContent()
+    },
+    // 获取修改富文本内容
+    getUEContent1() {
+      this.content1 = this.editor1.getContent()
     },
 
     // 修改新闻封面
@@ -582,6 +609,7 @@ export default {
         //   表单验证成功则提交数据
         if (valid) {
           // console.log(this.content)
+          this.getUEContent1()
           this.updatenews()
         } else {
           console.log('error submit!!')
@@ -638,7 +666,7 @@ export default {
       http
         .getnewslist({ page: this.page })
         .then(res => {
-          console.log(res)
+          // console.log(res)
           this.tableData = res.data.data
           this.total = res.data.total
         })

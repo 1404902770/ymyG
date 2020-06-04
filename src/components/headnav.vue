@@ -98,7 +98,7 @@ export default {
     },
     // 官网设置
     gotoWebSite(num) {
-      this.$router.push({ path: '/newsclass' })
+      this.$router.push({ path: '/newstype' })
       sessionStorage.setItem('num', num)
     },
     // 退出登录
@@ -149,7 +149,7 @@ export default {
 .el-menu--horizontal {
   border: none !important;
   // margin-left: 750px !important;
-  left: 41%;
+  left: 40%;
   width: 400px;
 }
 .topnav {

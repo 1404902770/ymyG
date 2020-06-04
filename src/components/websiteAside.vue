@@ -40,7 +40,7 @@ export default {
           twoTitle: [
             {
               title: '新闻类型',
-              path: '/newsclass'
+              path: '/newstype'
             },
             {
               title: '新闻列表',

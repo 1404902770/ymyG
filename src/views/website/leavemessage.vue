@@ -5,26 +5,32 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>官网留言</el-breadcrumb-item>
-        <el-breadcrumb-item>留言板</el-breadcrumb-item>
+        <el-breadcrumb-item>留言列表</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
     <div class="mymain">
       <template>
-        <el-table :data="tableData" :header-cell-style="headClass" stripe style="width: 100%">
+        <el-table
+          :data="tableData"
+          empty-text="暂无留言"
+          :header-cell-style="headClass"
+          stripe
+          style="width: 100%"
+        >
           <el-table-column label="时间" align="center" min-width="30" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.time }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="留言" align="center" min-width="30" show-overflow-tooltip>
+          <el-table-column label="留言" align="center" min-width="160" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.context }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作" align="center" min-width="30">
             <template slot-scope="scope">
               <i
                 class="el-icon-delete xiugai"
@@ -42,11 +48,11 @@
 export default {
   data() {
     return {
-      // 表单数据
+      // 表格数据
       tableData: [
-        { time: '2020-6-1', context: '公司动态' },
-        { time: '2020-6-1', context: '公司动态' },
-        { time: '2020-6-1', context: '公司动态' }
+        // { time: '2020-6-1', context: '公司动态' },
+        // { time: '2020-6-1', context: '公司动态' },
+        // { time: '2020-6-1', context: '公司动态' }
       ]
     }
   },

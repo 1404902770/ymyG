@@ -24,7 +24,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="企业名称" show-overflow-tooltip min-width="160">
+          <el-table-column label="企业名称" show-overflow-tooltip min-width="130">
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.name }}</el-tag>
             </template>
@@ -427,7 +427,6 @@ export default {
     },
     // 关闭查看绑定设备弹框
     closelookbind() {
-      console.log('123')
       this.bangeqlist = []
     },
 
@@ -531,14 +530,15 @@ export default {
               message: '解除绑定成功',
               type: 'success'
             })
-            this.tablebang[index].code = ''
-            let arr = []
-            this.tablebang.forEach(val => {
-              arr.push(val)
-            })
-            this.tablebang = arr
+            if (this.tablebang) {
+              this.tablebang[index].code = ''
+              let arr = []
+              this.tablebang.forEach(val => {
+                arr.push(val)
+              })
+              this.tablebang = arr
+            }
             // this.getbandeq()
-            // this.dialogFormVisible = false
           } else if (res.data.code == '43') {
             this.$message({
               showClose: true,
@@ -662,7 +662,6 @@ export default {
               $('.getbind')
                 .find($('.el-table__body-wrapper'))
                 .css('overflow-y', '')
-              console.log('123')
             }
           }, 0)
         })
