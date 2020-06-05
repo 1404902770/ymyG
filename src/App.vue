@@ -49,7 +49,7 @@ body,
   margin-left: 210px;
 }
 .el-submenu .el-menu-item {
-  margin-left: 8px;
+  margin-left: 9px;
 }
 
 .v-modal {

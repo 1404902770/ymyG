@@ -197,7 +197,9 @@ export default {
     },
 
     // 删除新闻
-    handleDelete() {},
+    handleDelete(index, row) {
+      console.log(index, row)
+    },
 
     // 新增新闻
     gotozhuce() {

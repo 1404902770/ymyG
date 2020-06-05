@@ -420,7 +420,7 @@ export default {
       http
         .puteq({
           code: this.ruleForm.code,
-          nid: this.ruleForm.name,
+          nid: this.ruleForm.name.toUpperCase(),
           xinghao: this.ruleForm.region,
           guige: this.ruleForm.guige,
           jishu: this.ruleForm.jishu,

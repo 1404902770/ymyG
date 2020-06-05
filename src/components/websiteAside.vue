@@ -7,8 +7,9 @@
             <template v-if="item.twoTitle">
               <el-submenu :index="item.oneTitle" :key="item.oneTitle" style="text-align: left;">
                 <template slot="title">
-                  <i v-if="item.oneTitle == '企业用户'" class="el-icon-office-building"></i>
-                  <i v-if="item.oneTitle == '个人用户'" class="el-icon-user"></i>
+                  <i v-if="item.oneTitle == '官网新闻'" class="el-icon-news"></i>
+                  <i v-if="item.oneTitle == '官网留言'" class="el-icon-message"></i>
+                  <i v-if="item.oneTitle == '招贤纳士'" class="el-icon-document"></i>
                   <span>{{ item.oneTitle }}</span>
                 </template>
                 <el-menu-item

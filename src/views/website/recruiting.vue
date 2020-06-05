@@ -18,7 +18,7 @@
     <div class="mymain">
       <template>
         <el-table :data="tableData" :header-cell-style="headClass" stripe style="width: 100%">
-          <el-table-column label="发布日期" align="center" min-width="30" show-overflow-tooltip>
+          <el-table-column label="发布日期" align="center" min-width="50" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.num }}</span>
             </template>
