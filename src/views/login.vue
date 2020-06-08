@@ -210,7 +210,12 @@ export default {
           if (Number(_this.ruleForm.verificationCode) != _this.yzms) {
             _this.ruleForm.verificationCode = ''
             _this.ghyzm()
-            _this.$message.warning('验证码有误,请重新填写')
+            _this.$message({
+              showClose: true,
+              message: '验证码有误,请重新填写',
+              type: 'warning'
+            })
+            // _this.$message.warning('验证码有误,请重新填写')
             return false
           } else {
             ElementUI.Loading.service({

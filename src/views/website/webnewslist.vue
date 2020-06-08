@@ -24,7 +24,7 @@
             </template>
           </el-table-column>-->
 
-          <el-table-column label="新闻类型" align="center" min-width="60" show-overflow-tooltip>
+          <el-table-column label="新闻类型" align="center" min-width="40" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.type }}</span>
             </template>
@@ -33,6 +33,12 @@
           <el-table-column label="新闻标题" align="center" min-width="100" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.title }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="新闻简介" align="center" min-width="160" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.desc }}</span>
             </template>
           </el-table-column>
 
@@ -62,8 +68,9 @@
         >
           <el-form-item label="新闻类型" prop="region">
             <el-select v-model="ruleForm.region" placeholder="请选择新闻类型">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+              <el-option label="公司动态" value="公司动态"></el-option>
+              <el-option label="媒体焦点" value="媒体焦点"></el-option>
+              <el-option label="科技资讯" value="科技资讯"></el-option>
             </el-select>
           </el-form-item>
 
@@ -71,12 +78,16 @@
             <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
 
+          <el-form-item label="新闻简介" prop="desc">
+            <el-input v-model="ruleForm.desc"></el-input>
+          </el-form-item>
+
           <div style="width: 100%; height: 470px;">
             <script id="editor3" type="text/plain" style="width: 100%; height: 300px;"></script>
           </div>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">立即发布</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">{{subtext}}</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -84,7 +95,7 @@
     </div>
 
     <!-- 修改新闻 -->
-    <div class="bindbox">
+    <!-- <div class="bindbox">
       <el-dialog :visible.sync="dialogFormVisible2" width="40%" @close="closed1">
         <el-form
           :model="ruleForm"
@@ -114,7 +125,7 @@
           </el-form-item>
         </el-form>
       </el-dialog>
-    </div>
+    </div>-->
   </div>
 </template>
 <script>
@@ -123,22 +134,39 @@ export default {
     return {
       // 表单数据
       tableData: [
-        { num: '1', title: '社会实践', type: '公司动态' },
-        { num: '2', title: '社会实践', type: '媒体焦点' },
-        { num: '3', title: '社会实践', type: '科技资讯' }
+        {
+          title: '智慧用电，改写电气安全新格局',
+          type: '公司动态',
+          desc:
+            '改革开放的40年，是我国经济发展书写奇迹的40年。在改革开放的大背景下电力工业走出了一条波澜壮阔的改革突破之路，为经济增长和社会进步提供强有力的保障和巨大动力。实现了历史性的大跨越，让整个世界发生了翻天覆地的变化。'
+        },
+        {
+          title: '智慧用电--电老虎时代终结者！',
+          type: '媒体焦点',
+          desc:
+            '近年来，电气火灾一直呈高发态势。据公安部消防局统计，从已查明原因的火灾看，有10.2万起火灾是由于违反电气安装使用规定引发的，占总数的30.1%，尤其是较大火灾中有56.7%是由于电气原因引发!'
+        },
+        {
+          title: '智慧用电，改写电气安全新格局',
+          type: '科技资讯',
+          desc:
+            '改革开放的40年，是我国经济发展书写奇迹的40年。在改革开放的大背景下电力工业走出了一条波澜壮阔的改革突破之路，为经济增长和社会进步提供强有力的保障和巨大动力。实现了历史性的大跨越，让整个世界发生了翻天覆地的变化。'
+        }
       ],
 
       // 新增表单
       ruleForm: {
         name: '',
-        region: ''
+        region: '',
+        desc: ''
       },
       // 新增表单规则
       rules: {
         name: [{ required: true, message: '请输入新闻标题', trigger: 'blur' }],
         region: [
           { required: true, message: '请选择新闻类型', trigger: 'change' }
-        ]
+        ],
+        desc: [{ required: true, message: '请输入新闻简介', trigger: 'blur' }]
       },
 
       config: {
@@ -146,10 +174,13 @@ export default {
         initialFrameHeight: 350
       },
 
+      // 提交按钮文字
+      subtext: '',
+
       // 发布新闻富文本编辑器
       editor3: '',
       // 修改新闻富文本编辑器
-      editor4: '',
+      // editor4: '',
 
       // 新增富文本内容
       content3: '',
@@ -173,6 +204,10 @@ export default {
     closed(formName) {
       this.$refs[formName].resetFields()
 
+      this.ruleForm.desc = ''
+      this.ruleForm.name = ''
+      this.ruleForm.region = ''
+
       var ue = UE.getEditor('editor3')
       ue.ready(function() {
         //设置编辑器的内容
@@ -182,9 +217,9 @@ export default {
 
     // 关闭修改新闻弹框
     closed1(row) {
-      this.$refs.ruleForm.resetFields()
+      // this.$refs.ruleForm.resetFields()
 
-      var ue1 = UE.getEditor('editor4')
+      var ue1 = UE.getEditor('editor3')
       ue1.ready(function() {
         //设置编辑器的内容
         try {
@@ -203,6 +238,7 @@ export default {
 
     // 新增新闻
     gotozhuce() {
+      this.subtext = '立即发布'
       let _this = this
       // $('.editor').empty()
       setTimeout(() => {
@@ -217,15 +253,21 @@ export default {
 
     // 修改新闻
     edit(index, row) {
-      this.dialogFormVisible2 = true
+      this.subtext = '立即修改'
+      this.dialogFormVisible = true
+
+      this.ruleForm.name = row.title
+      this.ruleForm.region = row.type
+      this.ruleForm.desc = row.desc
+
       let _this = this
 
       var timer = setTimeout(() => {
-        _this.editor4 = window.UE.getEditor('editor4', _this.config)
-        _this.editor4.addListener('ready', () => {
-          _this.editor4.setContent('')
+        _this.editor3 = window.UE.getEditor('editor3', _this.config)
+        _this.editor3.addListener('ready', () => {
+          _this.editor3.setContent(row.desc)
         })
-        this.closed1('')
+        this.closed1(row.desc)
       }, 0)
     },
 
@@ -234,16 +276,28 @@ export default {
       this.content3 = this.editor3.getContent()
     },
     // 获取修改富文本内容
-    getUEContent4() {
-      this.content4 = this.editor4.getContent()
-    },
+    // getUEContent4() {
+    //   this.content4 = this.editor4.getContent()
+    // },
 
     // 立即发布按钮
     submitForm(formName) {
       this.getUEContent3()
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('submit!')
+          if (this.content3 != '') {
+            if (this.subtext == '立即发布') {
+              alert('submit!')
+            } else {
+              alert('update!')
+            }
+          } else {
+            this.$message({
+              showClose: true,
+              message: '请填写新闻内容后提交',
+              type: 'warning'
+            })
+          }
         } else {
           console.log('error submit!!')
           return false
@@ -251,17 +305,17 @@ export default {
       })
     },
     // 立即修改按钮
-    submitFormupdate(formName) {
-      this.getUEContent4()
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
+    // submitFormupdate(formName) {
+    //   this.getUEContent4()
+    //   this.$refs[formName].validate(valid => {
+    //     if (valid) {
+    //       alert('submit!')
+    //     } else {
+    //       console.log('error submit!!')
+    //       return false
+    //     }
+    //   })
+    // },
     // 取消按钮
     resetForm(formName) {
       this.$refs[formName].resetFields()
@@ -269,6 +323,8 @@ export default {
       this.dialogFormVisible2 = false
     }
   },
+  mounted() {},
+
   destroyed() {
     try {
       this.editor3.destroy()
@@ -276,8 +332,7 @@ export default {
     } catch (error) {
       // console.log(error)
     }
-  },
-  mounted() {}
+  }
 }
 </script>
 <style lang='less'>

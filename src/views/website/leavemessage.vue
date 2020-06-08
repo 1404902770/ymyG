@@ -18,15 +18,33 @@
           stripe
           style="width: 100%"
         >
-          <el-table-column label="时间" align="center" min-width="30" show-overflow-tooltip>
+          <el-table-column label="留言时间" align="center" min-width="40" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.time }}</span>
             </template>
           </el-table-column>
 
+          <el-table-column label="留言姓名" align="center" min-width="40" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.name }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="留言电话" align="center" min-width="50" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.phone }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="留言邮箱" align="center" min-width="60" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span>{{ scope.row.email }}</span>
+            </template>
+          </el-table-column>
+
           <el-table-column label="留言" align="center" min-width="160" show-overflow-tooltip>
             <template slot-scope="scope">
-              <span>{{ scope.row.context }}</span>
+              <span>{{ scope.row.message }}</span>
             </template>
           </el-table-column>
 
@@ -50,9 +68,27 @@ export default {
     return {
       // 表格数据
       tableData: [
-        // { time: '2020-6-1', context: '公司动态' },
-        // { time: '2020-6-1', context: '公司动态' },
-        // { time: '2020-6-1', context: '公司动态' }
+        {
+          time: '2020-6-1',
+          name: '俊熙',
+          phone: '10086',
+          email: 'yumaoyoukeji@163.com',
+          message: '公司动态'
+        },
+        {
+          time: '2020-6-2',
+          name: '白浩',
+          phone: '10000',
+          email: 'yumaoyoukeji@163.com',
+          message: '媒体焦点'
+        },
+        {
+          time: '2020-6-3',
+          name: '筱风',
+          phone: '10010',
+          email: 'yumaoyoukeji@163.com',
+          message: '科技资讯'
+        }
       ]
     }
   },
@@ -68,7 +104,9 @@ export default {
     },
 
     // 删除类型
-    handleDelete() {}
+    handleDelete(index, row) {
+      console.log(index, row)
+    }
   }
 }
 </script>

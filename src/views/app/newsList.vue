@@ -147,7 +147,7 @@
 
         <!-- 修该新闻封面弹框 -->
         <div class="updatenews">
-          <el-dialog :visible.sync="dialogFormVisible3" width="22%" @close="closeupdatepic">
+          <el-dialog :visible.sync="dialogFormVisible3" width="26%" @close="closeupdatepic">
             <div class="news">
               <div class="upload-demo">
                 <span class="newscover">新闻封面</span>
@@ -520,8 +520,9 @@ export default {
 
     // 修改按钮
     edit(index, row) {
-      this.id = row.id
       this.dialogFormVisible = true
+
+      this.id = row.id
       this.ruleForm.name = row.title
       this.ruleForm.senduser = row.fabu
       this.content = row.txt
