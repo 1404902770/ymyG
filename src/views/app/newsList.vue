@@ -146,7 +146,7 @@
         </div>
 
         <!-- 修该新闻封面弹框 -->
-        <div class="updatenews">
+        <div class="updatenewspic">
           <el-dialog :visible.sync="dialogFormVisible3" width="26%" @close="closeupdatepic">
             <div class="news">
               <div class="upload-demo">

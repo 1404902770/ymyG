@@ -26818,6 +26818,10 @@
         },
 
         contentchange: function() {
+          if (!me.getOpt('enableAutoSave')) {
+            return
+          }
+
           if (!saveKey) {
             return
           }

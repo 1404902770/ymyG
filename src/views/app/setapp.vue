@@ -51,17 +51,17 @@
         <el-input type="textarea" v-model="ruleForm.des"></el-input>
       </el-form-item>
 
-      <el-form-item label="合作方" prop="product">
-        <el-select v-model="ruleForm.product" placeholder="请选择类型">
-          <el-option label="云控" value="1"></el-option>
-          <el-option label="联通" value="2"></el-option>
-        </el-select>
-      </el-form-item>
-
       <el-form-item label="类型选择" prop="region">
         <el-select v-model="ruleForm.region" placeholder="请选择类型">
           <el-option label="android" value="1"></el-option>
           <el-option label="ios" value="2"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="合作方" prop="product">
+        <el-select v-model="ruleForm.product" placeholder="请选择类型">
+          <el-option label="云控" value="1"></el-option>
+          <el-option label="联通" value="2"></el-option>
         </el-select>
       </el-form-item>
 

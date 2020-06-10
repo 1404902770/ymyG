@@ -174,6 +174,17 @@
                   </template>
                 </el-select>
               </el-form-item>
+
+              <el-form-item label="设备规格" prop="guige">
+                <el-select v-model="ruleForm.guige" placeholder="请选择活动区域">
+                  <el-option label="20A" value="20"></el-option>
+                  <el-option label="32A" value="32"></el-option>
+                  <el-option label="40A" value="40"></el-option>
+                  <el-option label="63A" value="63"></el-option>
+                  <el-option label="80A" value="80"></el-option>
+                  <el-option label="100A" value="100"></el-option>
+                </el-select>
+              </el-form-item>
             </div>
 
             <div class="two">
@@ -188,6 +199,14 @@
                 <el-select v-model="ruleForm.region" placeholder="请选择设备型号">
                   <template v-for="(item, index) in region">
                     <el-option :label="item.name" :value="item.name" :key="index"></el-option>
+                  </template>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="设备极数" prop="jishu">
+                <el-select v-model="ruleForm.jishu" placeholder="请选择极数">
+                  <template v-for="(item, index) in jishu">
+                    <el-option :label="item.name" :value="item.id" :key="index"></el-option>
                   </template>
                 </el-select>
               </el-form-item>
@@ -221,7 +240,7 @@
             </el-select>
           </el-form-item>-->
 
-          <div class="three">
+          <!-- <div class="three">
             <el-form-item label="设备规格" prop="guige">
               <el-select v-model="ruleForm.guige" placeholder="请选择活动区域">
                 <el-option label="20A" value="20"></el-option>
@@ -240,7 +259,7 @@
                 </template>
               </el-select>
             </el-form-item>
-          </div>
+          </div>-->
 
           <!-- <el-form-item label="规格" prop="guige">
             <el-select v-model="ruleForm.guige" placeholder="请选择活动区域">
@@ -639,7 +658,8 @@ export default {
 // .three {
 //   float: left;
 // }
-.three {
-  display: flex;
-}
+
+// .three {
+//   display: flex;
+// }
 </style>

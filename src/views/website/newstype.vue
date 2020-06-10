@@ -24,7 +24,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="类型" align="center" min-width="160" show-overflow-tooltip>
+          <el-table-column label="新闻类型" align="center" min-width="160" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.phone }}</span>
             </template>
@@ -103,7 +103,9 @@ export default {
     },
 
     // 删除类型
-    handleDelete() {},
+    handleDelete(index, row) {
+      console.log(index, row)
+    },
 
     // 检索设备类型
     geteqtype() {},
