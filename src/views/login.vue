@@ -1,6 +1,6 @@
 <template>
   <!-- 登录 -->
-  <div class="login">
+  <div class="login" id="login">
     <div class="z1">
       <div class="l"></div>
       <div class="r">
@@ -204,7 +204,7 @@ export default {
     let _this = this
 
     // 键盘点击回车登录
-    $('body').keydown(function() {
+    $('#login').keydown(function() {
       if (event.keyCode == '13') {
         if (_this.ruleForm.verificationCode) {
           if (Number(_this.ruleForm.verificationCode) != _this.yzms) {

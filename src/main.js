@@ -57,23 +57,25 @@ Date.prototype.Format = function(fmt) {
 
 // 裕茂优 - 16进制转字符串
 Vue.prototype.hexCharCodeToStr = hexCharCodeStr => {
-  var trimedStr = hexCharCodeStr.trim()
-  var rawStr =
-    trimedStr.substr(0, 2).toLowerCase() === '0x'
-      ? trimedStr.substr(2)
-      : trimedStr
-  var len = rawStr.length
-  if (len % 2 !== 0) {
-    // elementUi.Message.error('存在非法字符!')
-    return ''
+  if (hexCharCodeStr != '') {
+    var trimedStr = hexCharCodeStr.trim()
+    var rawStr =
+      trimedStr.substr(0, 2).toLowerCase() === '0x'
+        ? trimedStr.substr(2)
+        : trimedStr
+    var len = rawStr.length
+    if (len % 2 !== 0) {
+      // elementUi.Message.error('存在非法字符!')
+      return ''
+    }
+    var curCharCode
+    var resultStr = []
+    for (var i = 0; i < len; i = i + 2) {
+      curCharCode = parseInt(rawStr.substr(i, 2), 16)
+      resultStr.push(String.fromCharCode(curCharCode))
+    }
+    return resultStr.join('')
   }
-  var curCharCode
-  var resultStr = []
-  for (var i = 0; i < len; i = i + 2) {
-    curCharCode = parseInt(rawStr.substr(i, 2), 16)
-    resultStr.push(String.fromCharCode(curCharCode))
-  }
-  return resultStr.join('')
 }
 
 // 判定input的值限制小数点后几位 和 不能大于多少或小于多少

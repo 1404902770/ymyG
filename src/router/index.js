@@ -83,24 +83,34 @@ const routes = [
 
   // 设备管理路由
   {
-    path: '/eqman',
+    path: '/equipment',
     // name: 'Equipment',
     component: resolve => require(['@/views/EQ/equipment.vue'], resolve),
     children: [
-      {
-        // 设备入库路由
-        path: '/puteq',
-        name: 'Puteq',
-        component: puteq,
-        meta: {
-          title: '设备入库'
-        }
-      },
+      // {
+      //   // 设备入库路由
+      //   path: '/puteq',
+      //   name: 'Puteq',
+      //   component: puteq,
+      //   meta: {
+      //     title: '设备入库'
+      //   }
+      // },
       {
         // 设备管理路由
         path: '/eqman',
         name: 'Eqman',
         component: eqman,
+        meta: {
+          title: '设备管理'
+        }
+      },
+      {
+        // 报警信息路由
+        path: '/alarminformation',
+        name: 'alarminformation',
+        component: resolve =>
+          require(['@/views/EQ/alarminformation.vue'], resolve),
         meta: {
           title: '设备管理'
         }

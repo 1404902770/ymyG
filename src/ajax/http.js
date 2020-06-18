@@ -64,6 +64,22 @@ const GETUSERLIST = bapi + '/appv1/usdpc2/userList'
 // 检索设备类型
 const GETEQTYPE = bapi + '/appv1/usdpc2/searchNeted'
 
+// 报警信息接口
+const GETALARMINFO = aapi + '/appv1/usdpc2/typeJingList'
+// 初始化获取下拉数据 - 所有设备
+const GETOPTIONS = aapi + '/appv1/usdpc1/allNeted'
+// 删除一台主机的报警信息
+const DELETEONEZHUJI = aapi + '/appv1/usdpc2/delMachJingInfoList'
+//删除一条线路的报警信息
+const DELETEONEXIANLU = aapi + '/appv1/usdpc2/delMachListInfoJing'
+// 删除用户的报警信息
+const DELETEUSERALAM = aapi + '/appv1/usdpc2/delUserJingInfoList'
+// 删除一条报警消息
+const DELETEONEALARM = aapi + '/push/app/shanchujing'
+
+// 获取分路
+const GETFENLU = aapi + '/appv1/usdpc1/getmzInfo'
+
 // ---------------------------轮播图接口---------------------------
 // 获取轮播图列表
 const GETBANNERLIST = bapi + '/appv1/usdpc2/bannerList'
@@ -146,6 +162,15 @@ class Http {
       url: DELETENEW,
       method: 'POST',
       data: { uid, zid }
+    })
+  }
+
+  // 获取新闻列表
+  static getnewslist({ page } = {}) {
+    return this.common({
+      url: GETNEWSLIST,
+      method: 'POST',
+      data: { page }
     })
   }
 
@@ -342,12 +367,66 @@ class Http {
     })
   }
 
-  // 获取新闻列表
-  static getnewslist({ page } = {}) {
+  // 检索报警信息
+  static getalarminfo({ uid, page, type, nid, mid } = {}) {
     return this.common({
-      url: GETNEWSLIST,
+      url: GETALARMINFO,
       method: 'POST',
-      data: { page }
+      data: { uid, page, type, nid, mid }
+    })
+  }
+
+  // 初始化获取下拉数据 - 所有设备
+  static getOptions({ uid } = {}) {
+    return this.common({
+      url: GETOPTIONS,
+      method: 'POST',
+      data: { uid }
+    })
+  }
+
+  // 删除一台主机的报警信息
+  static deleteonezhuji({ uid, nid, type, start, end } = {}) {
+    return this.common({
+      url: DELETEONEZHUJI,
+      method: 'POST',
+      data: { uid, nid, type, start, end }
+    })
+  }
+
+  //删除一条线路的报警信息
+  static deleteonexianlu({ uid, nid, mid, type, start, end } = {}) {
+    return this.common({
+      url: DELETEONEXIANLU,
+      method: 'POST',
+      data: { uid, nid, mid, type, start, end }
+    })
+  }
+
+  // 删除用户的报警信息
+  static deleteuseralam({ uid, type, start, end } = {}) {
+    return this.common({
+      url: DELETEUSERALAM,
+      method: 'POST',
+      data: { uid, type, start, end }
+    })
+  }
+
+  // 删除一条报警消息
+  static deleteonealarm({ uid, id } = {}) {
+    return this.common({
+      url: DELETEONEALARM,
+      method: 'POST',
+      data: { uid, id }
+    })
+  }
+
+  // 获取分路
+  static getfenlu({ nid } = {}) {
+    return this.common({
+      url: GETFENLU,
+      method: 'POST',
+      data: { nid }
     })
   }
 
