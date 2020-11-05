@@ -9,7 +9,10 @@ import axios from 'axios'
 import vueAxios from 'vue-axios'
 Vue.use(vueAxios, axios)
 
+Vue.prototype.$axios = axios
+
 import myechart from 'echarts'
+Vue.prototype.$echarts = myechart
 Vue.use(myechart)
 
 // import shttp from './ajax/http'
@@ -29,13 +32,17 @@ import './element-variables.scss'
 import elementUi from 'element-ui'
 Vue.use(elementUi)
 
+// dataV
+import dataV from '@jiaminghi/data-view'
+Vue.use(dataV)
+
 // momentjs
 import moment from 'moment'
 Vue.prototype.$moment = moment
 moment.locale('zh-cn') // 汉化
 
 // 时间方法
-Date.prototype.Format = function(fmt) {
+Date.prototype.Format = function (fmt) {
   var o = {
     'M+': this.getMonth() + 1, // 月份
     'd+': this.getDate(), // 日
@@ -118,7 +125,7 @@ const closeLoading = () => {
 
 // 请求拦截器
 axios.interceptors.request.use(
-  function(config) {
+  function (config) {
     // console.log(config)
     // let token = localStorage.getItem('token')
     // if (token) {
@@ -131,14 +138,14 @@ axios.interceptors.request.use(
     if (config.method === 'post') {
       if (
         config.url !=
-          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/appBarUpdate' &&
+        'http://api.yumaoyou.cn/index.php/api/admin/appBarUpdate' &&
         config.url !=
-          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/zcfabuImg' &&
+        'http://api.yumaoyou.cn/index.php/api/admin/zcfabuImg' &&
         config.url !=
-          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/bannerImgUpload' &&
+        'http://api.yumaoyou.cn/index.php/api/admin/bannerImgUpload' &&
         config.url !=
-          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/updateZcfabuImg' &&
-        config.url != 'http://a.yumaoyou.cn:8008/appv1/usdpc2/zcTextImg'
+        'http://api.yumaoyou.cn/index.php/api/admin/updateZcfabuImg' &&
+        config.url != 'http://api.yumaoyou.cn/api/admin/zcTextImg'
       ) {
         config.data = Qs.stringify(config.data)
       }
@@ -146,7 +153,7 @@ axios.interceptors.request.use(
     }
     if (
       config.url ==
-      'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/appBarUpdate'
+      'http://api.yumaoyou.cn/index.php/api/admin/appBarUpdate'
     ) {
       closeLoading()
     } else {
@@ -163,9 +170,9 @@ axios.interceptors.request.use(
 
 // // 响应拦截器
 axios.interceptors.response.use(
-  function(response) {
+  function (response) {
     // console.log(response)
-    setTimeout(function() {
+    setTimeout(function () {
       closeLoading()
     }, 500)
     // 请求成功

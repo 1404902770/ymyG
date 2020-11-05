@@ -1,100 +1,119 @@
 import Vue from 'vue'
 const urlType = 2
-let aapi, bapi
+let aapi, bapi, api
 if (urlType == 1) {
   aapi = '/aapi'
   bapi = '/aapi'
+  api = '/api'
 } else {
-  aapi = 'http://a.yumaoyou.cn:8008/index.php'
-  bapi = 'http://a.yumaoyou.cn:8008/index.php'
+  aapi = 'http://api.yumaoyou.cn/index.php/api/admin'
+  bapi = 'http://api.yumaoyou.cn/index.php/api/admin'
+  api = 'http://api.yumaoyou.cn/index.php'
+
 }
 // 用户登录
-const LOGIN = bapi + '/appv1/usdpc2/userLogin'
+const LOGIN = bapi + '/userLogin'
 
 // ---------------------------新闻图接口---------------------------
 // 新闻发布接口
-const SENDNEWS = bapi + '/appv1/usdpc2/zcfabu'
+const SENDNEWS = bapi + '/zcfabu'
 // 获取新闻列表
-const GETNEWSLIST = bapi + '/appv1/com/zclist'
+const GETNEWSLIST = bapi + '/zclist'
 // 修改新闻
-const UODATENEWS = bapi + '/appv1/usdpc2/updatezcCon'
+const UODATENEWS = bapi + '/updatezcCon'
 // 修改新闻封面
-const UPDATENEWSPIC = bapi + '/appv1/usdpc2/zcfabuImg'
+const UPDATENEWSPIC = bapi + '/zcfabuImg'
 // 删除新闻
-const DELETENEW = bapi + '/appv1/usdpc2/delzcList'
+const DELETENEW = bapi + '/delzcList'
 
 // ---------------------------App接口---------------------------
 // App更新发布
-const APPUPDATE = bapi + '/appv1/usdpc2/appUpdate'
+const APPUPDATE = bapi + '/appUpdate'
 
 // ---------------------------企业接口---------------------------
 //企业注册登记
-const REGISTERED = aapi + '/push/pc/inputCompanyInfo'
+const REGISTERED = aapi + '/inputCompanyInfo'
 // 企业开通账号
-const OPENFUNUSER = aapi + '/push/Pc/companyUser'
+const OPENFUNUSER = aapi + '/companyUser'
 // 全部企业列表
-const ALLCOMPANY = bapi + '/appv1/usdpc2/backCompany'
+const ALLCOMPANY = bapi + '/backCompany'
 
 // 企业列表
-const GETFIRMLIST = bapi + '/appv1/usdpc2/companyList'
+const GETFIRMLIST = bapi + '/companyList'
 
 // 更新企业基本信息
 
-const UPDATEQIYE = aapi + '/push/pc/updateCompanyInfo'
+const UPDATEQIYE = aapi + '/updateCompanyInfo'
 // 更新企业联系人
-const UPDATEUSER = aapi + '/push/pc/updateCompanyUserInfo'
+const UPDATEUSER = aapi + '/updateCompanyUserInfo'
 
 // ---------------------------设备接口---------------------------
 // 设备入库
-const PUTEQ = aapi + '/push/app/rukushebei'
+const PUTEQ = aapi + '/rukushebei'
 // 入库查询
-const GETEQLIST = bapi + '/appv1/usdpc2/neteList'
+const GETEQLIST = bapi + '/neteList'
 // 用户绑定设备
-const BANDEQ = aapi + '/push/pc/userBindMach'
+const BANDEQ = aapi + '/userBindMach'
 // 设备与用户解绑
-const UNBANDEQ = aapi + '/push/pc/userUnbindMach'
+const UNBANDEQ = aapi + '/userUnbindMach'
 // 绑定设备查询
-const GETBANGEQ = bapi + '/appv1/usdpc2/companyMachList'
+const GETBANGEQ = bapi + '/companyMachList'
 // 删除设备
-const DELETEEQ = aapi + '/push/pc/delNeted'
+const DELETEEQ = aapi + '/delNeted'
 
 // 用户列表
-const GETUSERLIST = bapi + '/appv1/usdpc2/userList'
+const GETUSERLIST = bapi + '/userList'
 
 // 检索设备类型
-const GETEQTYPE = bapi + '/appv1/usdpc2/searchNeted'
+const GETEQTYPE = bapi + '/searchNeted'
 
 // 报警信息接口
-const GETALARMINFO = aapi + '/appv1/usdpc2/typeJingList'
+const GETALARMINFO = aapi + '/typeJingList'
 // 初始化获取下拉数据 - 所有设备
-const GETOPTIONS = aapi + '/appv1/usdpc1/allNeted'
+const GETOPTIONS = aapi + '/allNeted'
 // 删除一台主机的报警信息
-const DELETEONEZHUJI = aapi + '/appv1/usdpc2/delMachJingInfoList'
+const DELETEONEZHUJI = aapi + '/delMachJingInfoList'
 //删除一条线路的报警信息
-const DELETEONEXIANLU = aapi + '/appv1/usdpc2/delMachListInfoJing'
+const DELETEONEXIANLU = aapi + '/delMachListInfoJing'
 // 删除用户的报警信息
-const DELETEUSERALAM = aapi + '/appv1/usdpc2/delUserJingInfoList'
+const DELETEUSERALAM = aapi + '/delUserJingInfoList'
 // 删除一条报警消息
-const DELETEONEALARM = aapi + '/push/app/shanchujing'
+const DELETEONEALARM = aapi + '/shanchujing'
 
 // 获取分路
-const GETFENLU = aapi + '/appv1/usdpc1/getmzInfo'
+const GETFENLU = aapi + '/getmzInfo'
 
 // ---------------------------轮播图接口---------------------------
 // 获取轮播图列表
-const GETBANNERLIST = bapi + '/appv1/usdpc2/bannerList'
+const GETBANNERLIST = bapi + '/bannerList'
 // 修改轮播图
-const UPDATEBANNER = bapi + '/appv1/usdpc2/bannerUpdate'
+const UPDATEBANNER = bapi + '/bannerUpdate'
 // 是否启用轮播图
-const ISBANNER = bapi + '/appv1/usdpc2/isStartUse'
+const ISBANNER = bapi + '/isStartUse'
 // 删除轮播图
-const DELETEBANNER = bapi + '/appv1/usdpc2/delBanner'
+const DELETEBANNER = bapi + '/delBanner'
 // 上传轮播图
-const ADDBANNER = bapi + '/appv1/usdpc2/addBanner'
+const ADDBANNER = bapi + '/addBanner'
 
 // ---------------------------个人用户接口---------------------------
 // 注册个人账号
-const REGISTERUSER = bapi + '/appv1/usdpc2/addBanner'
+const REGISTERUSER = bapi + '/addBanner'
+
+// ---------------------------获取行业信息---------------------------
+const HANGYE = '/b' + 'industry/acquire-children'
+
+// ---------------------------监控平台信息---------------------------
+// 获取离线主机
+const GETOUTLINE = api + '/api_4/screen/offLine'
+// 获取报警信息
+const GETBAOJING = api + '/api_4/screen/jingInfo'
+// 获取各个公司的设备
+const GETCOMEQ = api + '/api_4/screen/group_info_all'
+// 最近24小时报警次数最多的十台设备及其报警数量
+const GET24JINGMAX = api + '/api_4/screen/netedJingtwithFourJing'
+
+const GETGROUP = api + '/api_4/screen/getGroupTypeJing'
+
 
 class Http {
   static common({
@@ -289,11 +308,11 @@ class Http {
   }
 
   // 获取企业,个人用户列表
-  static getlist({ page, type, uid } = {}) {
+  static getlist({ page, limit, type, uid } = {}) {
     return this.common({
       url: GETFIRMLIST,
       method: 'POST',
-      data: { page, type, uid }
+      data: { page, limit, type, uid }
     })
   }
 
@@ -422,11 +441,11 @@ class Http {
   }
 
   // 获取分路
-  static getfenlu({ nid } = {}) {
+  static getfenlu({ nid, uid } = {}) {
     return this.common({
       url: GETFENLU,
       method: 'POST',
-      data: { nid }
+      data: { nid, uid }
     })
   }
 
@@ -476,13 +495,64 @@ class Http {
 
   // ---------------------------个人用户接口---------------------------
   // 注册个人账号
-  static registeruser({} = {}) {
+  static registeruser({ } = {}) {
     return this.common({
       url: REGISTERUSER,
       method: 'POST',
       data: {}
     })
   }
+
+  // ---------------------------获取行业信息---------------------------
+  static gethangye({ pid } = {}) {
+    return this.common({
+      url: HANGYE,
+      method: 'POST',
+      data: { pid }
+    })
+  }
+
+  // ---------------------------监控平台信息---------------------------
+  // 获取离线主机
+  static getoutline({ } = {}) {
+    return this.common({
+      url: GETOUTLINE,
+      method: 'POST',
+      data: {}
+    })
+  }
+  // 获取报警信息
+  static getbaojing({ } = {}) {
+    return this.common({
+      url: GETBAOJING,
+      method: 'POST',
+      data: {}
+    })
+  }
+  // 获取各个公司设备数
+  static getcomeq({ } = {}) {
+    return this.common({
+      url: GETCOMEQ,
+      method: 'POST',
+      data: {}
+    })
+  }
+   // 最近24小时报警次数最多的十台设备及其报警数量
+   static get24jingmax({ } = {}) {
+    return this.common({
+      url: GET24JINGMAX,
+      method: 'POST',
+      data: {}
+    })
+  }
+     // 
+     static getgroup({gid } = {}) {
+      return this.common({
+        url: GETGROUP,
+        method: 'POST',
+        data: {gid}
+      })
+    }
 }
 
 export default Http

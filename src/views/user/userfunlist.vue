@@ -9,7 +9,11 @@
       </el-breadcrumb>
 
       <div class="zhuce">
-        <el-button type="primary" size="small" @click="gotozhuce">
+        <el-button
+          type="primary"
+          size="small"
+          @click="gotozhuce"
+        >
           <i class="el-icon-plus"></i>注册账号
         </el-button>
       </div>
@@ -17,26 +21,51 @@
 
     <div class="mymain">
       <template>
-        <el-table :data="tableData" :header-cell-style="headClass" stripe style="width: 100%">
-          <el-table-column label="用户名称" align="center" show-overflow-tooltip min-width="100">
+        <el-table
+          :data="tableData"
+          :header-cell-style="headClass"
+          stripe
+          style="width: 100%"
+        >
+          <el-table-column
+            label="用户名称"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.name }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="用户账号" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="用户账号"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.zjhao }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="联系电话" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="联系电话"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.call }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="地区" align="center" min-width="100" show-overflow-tooltip>
+          <el-table-column
+            label="地区"
+            align="center"
+            min-width="100"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <el-tag size="medium">
                 {{
@@ -46,31 +75,55 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="详细地址" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="详细地址"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.xiang }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="紧急联系人" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="紧急联系人"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.lianxiren }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="紧急联系人电话" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="紧急联系人电话"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.lxtel }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="备注信息" align="center" show-overflow-tooltip min-width="100">
+          <el-table-column
+            label="备注信息"
+            align="center"
+            show-overflow-tooltip
+            min-width="100"
+          >
             <template slot-scope="scope">
               <el-tag size="medium">{{ scope.row.beizhu }}</el-tag>
             </template>
           </el-table-column>
 
-          <el-table-column label="操作" align="center" min-width="100">
+          <el-table-column
+            label="操作"
+            align="center"
+            min-width="100"
+          >
             <template slot-scope="scope">
               <i
                 class="el-icon-edit xiugai"
@@ -109,7 +162,11 @@
 
     <!-- 个人注册 -->
     <div class="zhuce">
-      <el-dialog :visible.sync="dialogFormVisible" width="45%" @close="closezhuce">
+      <el-dialog
+        :visible.sync="dialogFormVisible"
+        width="45%"
+        @close="closezhuce"
+      >
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -119,21 +176,36 @@
         >
           <div class="box">
             <div class="one">
-              <el-form-item label="用户名称" prop="name">
+              <el-form-item
+                label="用户名称"
+                prop="name"
+              >
                 <el-input v-model="ruleForm.name"></el-input>
               </el-form-item>
-              <el-form-item label="用户账号" prop="userid">
+              <el-form-item
+                label="用户账号"
+                prop="userid"
+              >
                 <el-input v-model="ruleForm.userid"></el-input>
               </el-form-item>
-              <el-form-item label="联系电话" prop="call">
+              <el-form-item
+                label="联系电话"
+                prop="call"
+              >
                 <el-input v-model.number="ruleForm.call"></el-input>
               </el-form-item>
             </div>
             <div class="two">
-              <el-form-item label="紧急联系人" prop="user">
+              <el-form-item
+                label="紧急联系人"
+                prop="user"
+              >
                 <el-input v-model="ruleForm.user"></el-input>
               </el-form-item>
-              <el-form-item label="紧急电话" prop="alarmcall">
+              <el-form-item
+                label="紧急电话"
+                prop="alarmcall"
+              >
                 <el-input v-model.number="ruleForm.alarmcall"></el-input>
               </el-form-item>
             </div>
@@ -150,16 +222,28 @@
             ></v-distpicker>
           </div>
 
-          <el-form-item label="详细地址" prop="address">
+          <el-form-item
+            label="详细地址"
+            prop="address"
+          >
             <el-input v-model="ruleForm.address"></el-input>
           </el-form-item>
 
-          <el-form-item label="备注信息" prop="note">
-            <el-input type="textarea" v-model="ruleForm.note"></el-input>
+          <el-form-item
+            label="备注信息"
+            prop="note"
+          >
+            <el-input
+              type="textarea"
+              v-model="ruleForm.note"
+            ></el-input>
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">
+            <el-button
+              type="primary"
+              @click="submitForm('ruleForm')"
+            >
               {{
               subtext
               }}
@@ -172,49 +256,111 @@
 
     <!-- 设备绑定 -->
     <div class="bindbox">
-      <el-dialog title="设备绑定" :visible.sync="dialogFormVisible2" width="60%" @close="closed1">
+      <el-dialog
+        title="设备绑定"
+        :visible.sync="dialogFormVisible2"
+        width="60%"
+        @close="closed1"
+      >
         <el-form :model="form">
-          <el-form-item label="带漏电" :label-width="formLabelWidth">
-            <el-select v-model="form.lou" placeholder="请选择活动区域" @change="geteqtype">
-              <el-option label="带漏电" value="1"></el-option>
-              <el-option label="不带漏电" value="2"></el-option>
+          <el-form-item
+            label="带漏电"
+            :label-width="formLabelWidth"
+          >
+            <el-select
+              v-model="form.lou"
+              placeholder="请选择活动区域"
+              @change="geteqtype"
+            >
+              <el-option
+                label="带漏电"
+                value="1"
+              ></el-option>
+              <el-option
+                label="不带漏电"
+                value="2"
+              ></el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item label="型号" :label-width="formLabelWidth">
+          <el-form-item
+            label="型号"
+            :label-width="formLabelWidth"
+          >
             <el-select
               v-model="form.xinghao"
               placeholder="请选择活动区域"
               @change="geteqtype"
               :disabled="form.lou == '' ? true : false"
             >
-              <el-option label="20A" value="20"></el-option>
-              <el-option label="32A" value="32"></el-option>
-              <el-option label="40A" value="40"></el-option>
-              <el-option label="63A" value="63"></el-option>
-              <el-option label="80A" value="80"></el-option>
-              <el-option label="100A" value="100"></el-option>
+              <el-option
+                label="20A"
+                value="20"
+              ></el-option>
+              <el-option
+                label="32A"
+                value="32"
+              ></el-option>
+              <el-option
+                label="40A"
+                value="40"
+              ></el-option>
+              <el-option
+                label="63A"
+                value="63"
+              ></el-option>
+              <el-option
+                label="80A"
+                value="80"
+              ></el-option>
+              <el-option
+                label="100A"
+                value="100"
+              ></el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item label="极数" :label-width="formLabelWidth">
+          <el-form-item
+            label="极数"
+            :label-width="formLabelWidth"
+          >
             <el-select
               v-model="form.jishu"
               placeholder="请选择活动区域"
               @change="geteqtype"
               :disabled="form.xinghao == '' ? true : false"
             >
-              <el-option label="1P" value="1"></el-option>
-              <el-option label="2P" value="2"></el-option>
-              <el-option label="3P" value="3"></el-option>
-              <el-option label="4P" value="4"></el-option>
+              <el-option
+                label="1P"
+                value="1"
+              ></el-option>
+              <el-option
+                label="2P"
+                value="2"
+              ></el-option>
+              <el-option
+                label="3P"
+                value="3"
+              ></el-option>
+              <el-option
+                label="4P"
+                value="4"
+              ></el-option>
             </el-select>
           </el-form-item>
 
           <div class="bangding">
             <template>
-              <el-table :data="tablebang" style="width: 100%" empty-text="暂无设备">
-                <el-table-column label="设备号" align="center" min-width="180">
+              <el-table
+                :data="tablebang"
+                style="width: 100%"
+                empty-text="暂无设备"
+              >
+                <el-table-column
+                  label="设备号"
+                  align="center"
+                  min-width="180"
+                >
                   <template slot-scope="scope">
                     <span style="margin-left: 10px">
                       {{
@@ -223,7 +369,11 @@
                     </span>
                   </template>
                 </el-table-column>
-                <el-table-column label="型号" align="center" min-width="180">
+                <el-table-column
+                  label="型号"
+                  align="center"
+                  min-width="180"
+                >
                   <template slot-scope="scope">
                     <span>{{ scope.row.xinghao }}</span>
                   </template>
@@ -239,7 +389,11 @@
                     <span style="margin-left: 10px">{{ scope.row.guige }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="规格" align="center" min-width="90">
+                <el-table-column
+                  label="规格"
+                  align="center"
+                  min-width="90"
+                >
                   <template slot-scope="scope">
                     <span style="margin-left: 10px">
                       {{
@@ -248,7 +402,11 @@
                     </span>
                   </template>
                 </el-table-column>
-                <el-table-column label="极数" align="center" min-width="90">
+                <el-table-column
+                  label="极数"
+                  align="center"
+                  min-width="90"
+                >
                   <template slot-scope="scope">
                     <span style="margin-left: 10px">
                       {{
@@ -258,10 +416,17 @@
                   </template>
                 </el-table-column>
 
-                <el-table-column label="操作" align="center" min-width="160">
+                <el-table-column
+                  label="操作"
+                  align="center"
+                  min-width="160"
+                >
                   <template slot-scope="scope">
                     <!-- <el-button size="mini" @click="handlebang(scope.$index, scope.row)">编辑</el-button> -->
-                    <el-button size="mini" @click="bangidng(scope.$index, scope.row)">绑定</el-button>
+                    <el-button
+                      size="mini"
+                      @click="bangidng(scope.$index, scope.row)"
+                    >绑定</el-button>
                     <el-button
                       size="mini"
                       type="danger"
@@ -279,11 +444,23 @@
 
     <!-- 查看弹框 -->
     <div class="getbind">
-      <el-dialog :visible.sync="dialogFormVisible3" width="95%" @close="closelookbind">
+      <el-dialog
+        :visible.sync="dialogFormVisible3"
+        width="95%"
+        @close="closelookbind"
+      >
         <div class="look">
           <template>
-            <el-table :data="bangeqlist" style="width: 100%" empty-text="暂无设备">
-              <el-table-column label=" 版本" align="center" min-width="90">
+            <el-table
+              :data="bangeqlist"
+              style="width: 100%"
+              empty-text="暂无设备"
+            >
+              <el-table-column
+                label=" 版本"
+                align="center"
+                min-width="90"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">
                     {{
@@ -292,12 +469,20 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column label="模组" align="center" min-width="180">
+              <el-table-column
+                label="模组"
+                align="center"
+                min-width="180"
+              >
                 <template slot-scope="scope">
                   <span>{{ hexCharCodeToStr(scope.row.mozu) }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="模组ID" align="center" min-width="180">
+              <el-table-column
+                label="模组ID"
+                align="center"
+                min-width="180"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">
                     {{
@@ -306,7 +491,11 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column label="漏电" align="center" min-width="90">
+              <el-table-column
+                label="漏电"
+                align="center"
+                min-width="90"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">
                     {{
@@ -315,12 +504,20 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column label=" 型号" align="center" min-width="90">
+              <el-table-column
+                label=" 型号"
+                align="center"
+                min-width="90"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">{{ scope.row.xinghao }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="规格" align="center" min-width="90">
+              <el-table-column
+                label="规格"
+                align="center"
+                min-width="90"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">
                     {{
@@ -329,7 +526,11 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column label="极数" align="center" min-width="90">
+              <el-table-column
+                label="极数"
+                align="center"
+                min-width="90"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">
                     {{
@@ -338,18 +539,30 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column label="地址" align="center" min-width="130">
+              <el-table-column
+                label="地址"
+                align="center"
+                min-width="130"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">{{ scope.row.jianzhu }}</span>
                 </template>
               </el-table-column>
-              <el-table-column label="部门" align="center" min-width="130">
+              <el-table-column
+                label="部门"
+                align="center"
+                min-width="130"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">{{ scope.row.mzname }}</span>
                 </template>
               </el-table-column>
               <!-- 当前步骤：1入库，2保留，3出库，4保留，5地方仓库，6保留，7客户仓库，8保留，9故障，10保留，11正常运行中，12被删除 -->
-              <el-table-column label="状态" align="center" min-width="90">
+              <el-table-column
+                label="状态"
+                align="center"
+                min-width="90"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">
                     {{
@@ -362,7 +575,11 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column label="时间" align="center" min-width="90">
+              <el-table-column
+                label="时间"
+                align="center"
+                min-width="90"
+              >
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">
                     {{
@@ -372,11 +589,18 @@
                 </template>
               </el-table-column>
 
-              <el-table-column label="操作" align="center">
+              <el-table-column
+                label="操作"
+                align="center"
+              >
                 <template slot-scope="scope">
                   <!-- <el-button size="mini" @click="handlebang(scope.$index, scope.row)">编辑</el-button> -->
                   <!-- <el-button size="mini" @click="bangidng(scope.$index, scope.row)">绑定</el-button> -->
-                  <el-button size="mini" type="danger" @click="unband(scope.$index, scope.row)">解除绑定</el-button>
+                  <el-button
+                    size="mini"
+                    type="danger"
+                    @click="unband(scope.$index, scope.row)"
+                  >解除绑定</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -386,7 +610,10 @@
     </div>
 
     <!-- 分页 -->
-    <div v-if="total != ''" class="page">
+    <div
+      v-if="total != ''"
+      class="page"
+    >
       <div style="line-height:32px;">
         <span>共 {{ total }} 条</span>
       </div>
@@ -628,9 +855,9 @@ export default {
     // 获取个人账号列表
     getuserlist() {
       http
-        .getlist({ page: this.page, type: 2, uid: localStorage.getItem('uid') })
+        .getlist({ page: this.page, limit: 13, type: 2, uid: localStorage.getItem('uid') })
         .then(res => {
-          console.log(res)
+          // console.log(res)
           // this.tableData = res.data.data
         })
         .catch(err => {

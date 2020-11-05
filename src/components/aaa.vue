@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div ref="editor" id="editor">
+    <div
+      ref="editor"
+      id="editor"
+    >
       <!-- <p>欢迎使用 wangEditor 富文本编辑器</p> -->
     </div>
   </div>
@@ -34,7 +37,7 @@ export default {
       this.editor.customConfig.uploadImgHooks = {
         // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
         // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
-        customInsert: function(insertImg, result, editor) {
+        customInsert: function (insertImg, result, editor) {
           // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
           // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
           // result 必须是一个 JSON 格式字符串！！！否则报错

@@ -249,12 +249,6 @@ const routes = [
     ]
   },
 
-  // {
-  //   path: '/demo',
-  //   name: 'demo',
-  //   component: resolve => require(['@/views/demo.vue'], resolve)
-  // },
-
   // 登陆路由
   {
     path: '/',
@@ -266,6 +260,18 @@ const routes = [
     path: '/index',
     name: 'index',
     component: resolve => require(['@/views/index.vue'], resolve)
+  },
+  // 监控路由
+  {
+    path: '/monitoring',
+    name: 'monitoring',
+    component: resolve => require(['@/views/monitoring.vue'], resolve)
+  },
+  // 监控路由
+  {
+    path: '/home',
+    name: 'home',
+    component: resolve => require(['@/views/home.vue'], resolve)
   }
 
   // {

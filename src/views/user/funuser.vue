@@ -9,7 +9,11 @@
       </el-breadcrumb>
 
       <div class="zhuce">
-        <el-button type="primary" size="small" @click="gotozhuce">
+        <el-button
+          type="primary"
+          size="small"
+          @click="gotozhuce"
+        >
           <i class="el-icon-plus"></i>企业注册
         </el-button>
       </div>
@@ -17,26 +21,48 @@
 
     <div class="mymain">
       <template>
-        <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
-          <el-table-column label="序号" align="center" min-width="30" show-overflow-tooltip>
+        <el-table
+          :data="tableData"
+          stripe
+          :header-cell-style="headClass"
+          style="width: 100%"
+        >
+          <el-table-column
+            label="序号"
+            align="center"
+            min-width="30"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <span>{{ scope.row.num }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="企业名称" min-width="160" show-overflow-tooltip>
+          <el-table-column
+            label="企业名称"
+            min-width="160"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="企业证件号" min-width="130" show-overflow-tooltip>
+          <el-table-column
+            label="企业证件号"
+            min-width="130"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <span>{{ scope.row.zjhao }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="地址" min-width="160" show-overflow-tooltip>
+          <el-table-column
+            label="地址"
+            min-width="160"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <span>
                 {{
@@ -46,13 +72,32 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="lianxiren" label="紧急联系人" min-width="100" show-overflow-tooltip></el-table-column>
+          <el-table-column
+            prop="lianxiren"
+            label="紧急联系人"
+            min-width="100"
+            show-overflow-tooltip
+          ></el-table-column>
 
-          <el-table-column prop="lxtel" label="紧急联系人电话" min-width="100" show-overflow-tooltip></el-table-column>
+          <el-table-column
+            prop="lxtel"
+            label="紧急联系人电话"
+            min-width="100"
+            show-overflow-tooltip
+          ></el-table-column>
 
-          <el-table-column prop="beizhu" label="备注信息" min-width="100" show-overflow-tooltip></el-table-column>
+          <el-table-column
+            prop="beizhu"
+            label="备注信息"
+            min-width="100"
+            show-overflow-tooltip
+          ></el-table-column>
 
-          <el-table-column label="操作" min-width="60" align="center">
+          <el-table-column
+            label="操作"
+            min-width="60"
+            align="center"
+          >
             <template slot-scope="scope">
               <i
                 class="el-icon-document-copy xiugai"
@@ -81,7 +126,11 @@
 
     <!-- 企业注册 -->
     <div class="zhuce">
-      <el-dialog :visible.sync="dialogFormVisible2" width="45%" @close="closezhuce">
+      <el-dialog
+        :visible.sync="dialogFormVisible2"
+        width="45%"
+        @close="closezhuce"
+      >
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -91,21 +140,36 @@
         >
           <div class="box">
             <div class="one">
-              <el-form-item label="企业名称" prop="name">
+              <el-form-item
+                label="企业名称"
+                prop="name"
+              >
                 <el-input v-model="ruleForm.name"></el-input>
               </el-form-item>
-              <el-form-item label="证件号码" prop="userid">
+              <el-form-item
+                label="证件号码"
+                prop="userid"
+              >
                 <el-input v-model="ruleForm.userid"></el-input>
               </el-form-item>
-              <el-form-item label="联系电话" prop="call">
+              <el-form-item
+                label="联系电话"
+                prop="call"
+              >
                 <el-input v-model.number="ruleForm.call"></el-input>
               </el-form-item>
             </div>
             <div class="two">
-              <el-form-item label="紧急联系人" prop="user">
+              <el-form-item
+                label="紧急联系人"
+                prop="user"
+              >
                 <el-input v-model="ruleForm.user"></el-input>
               </el-form-item>
-              <el-form-item label="紧急电话" prop="alarmcall">
+              <el-form-item
+                label="紧急电话"
+                prop="alarmcall"
+              >
                 <el-input v-model.number="ruleForm.alarmcall"></el-input>
               </el-form-item>
             </div>
@@ -140,17 +204,24 @@
             ></v-distpicker>
           </div>
 
-          <el-form-item label="详细地址" prop="address">
+          <el-form-item
+            label="详细地址"
+            prop="address"
+          >
             <el-input v-model="ruleForm.address"></el-input>
           </el-form-item>
 
           <!-- 行业 -->
           <div class="selectHangye">
             <span class="newscover">选择行业</span>
-            <el-select v-model="value1" placeholder="请选择" @change="a1">
+            <el-select
+              v-model="value1"
+              placeholder="请选择"
+              @change="a1"
+            >
               <el-option
                 v-for="item in options1"
-                :key="item.value"
+                :key="item.id"
                 :label="item.text"
                 :value="item.text"
               ></el-option>
@@ -165,7 +236,7 @@
             >
               <el-option
                 v-for="item in options2"
-                :key="item.value"
+                :key="item.id"
                 :label="item.text"
                 :value="item.text"
                 no-data-text="请先选择第一个"
@@ -181,7 +252,7 @@
             >
               <el-option
                 v-for="item in options3"
-                :key="item.value"
+                :key="item.id"
                 :label="item.text"
                 :value="item.text"
               ></el-option>
@@ -196,19 +267,28 @@
             >
               <el-option
                 v-for="item in options4"
-                :key="item.value"
+                :key="item.id"
                 :label="item.text"
                 :value="item.text"
               ></el-option>
             </el-select>
           </div>
 
-          <el-form-item label="备注信息" prop="note">
-            <el-input type="textarea" v-model="ruleForm.note"></el-input>
+          <el-form-item
+            label="备注信息"
+            prop="note"
+          >
+            <el-input
+              type="textarea"
+              v-model="ruleForm.note"
+            ></el-input>
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm('ruleForm')">立即注册</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm('ruleForm')"
+            >立即注册</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -217,7 +297,10 @@
 
     <!-- 修改企业列表 -->
     <div class="updateqiye">
-      <el-dialog :visible.sync="dialogFormVisible" @close="closeupdate">
+      <el-dialog
+        :visible.sync="dialogFormVisible"
+        @close="closeupdate"
+      >
         <el-form
           :model="updataqiyelist"
           :rules="rules"
@@ -225,10 +308,16 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="企业名称" prop="name1">
+          <el-form-item
+            label="企业名称"
+            prop="name1"
+          >
             <el-input v-model="updataqiyelist.name"></el-input>
           </el-form-item>
-          <el-form-item label="证件号码" prop="zjhao">
+          <el-form-item
+            label="证件号码"
+            prop="zjhao"
+          >
             <el-input v-model="updataqiyelist.zjhao"></el-input>
           </el-form-item>
           <!-- <el-form-item label="电话" prop="call">
@@ -246,14 +335,22 @@
             ></v-distpicker>
           </div>
 
-          <el-form-item label="详细地址" prop="xiang">
+          <el-form-item
+            label="详细地址"
+            prop="xiang"
+          >
             <el-input v-model="updataqiyelist.xiang"></el-input>
           </el-form-item>
 
           <!-- 行业 -->
           <div class="selectHangye">
             <span class="newscover">选择行业</span>
-            <el-select v-model="value1" placeholder="请选择" @click="b1" @change="a1">
+            <el-select
+              v-model="value1"
+              placeholder="请选择"
+              @click="b1"
+              @change="a1"
+            >
               <el-option
                 v-for="item in options1"
                 :key="item.value"
@@ -310,12 +407,21 @@
             </el-select>
           </div>
 
-          <el-form-item label="备注信息" prop="beizhu">
-            <el-input type="textarea" v-model="updataqiyelist.beizhu"></el-input>
+          <el-form-item
+            label="备注信息"
+            prop="beizhu"
+          >
+            <el-input
+              type="textarea"
+              v-model="updataqiyelist.beizhu"
+            ></el-input>
           </el-form-item>
 
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm1('ruleForm')">提交</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm1('ruleForm')"
+            >提交</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -324,7 +430,10 @@
 
     <!-- 修改联系人列表 -->
     <div class="updatelxren">
-      <el-dialog :visible.sync="dialogFormVisible3" width="25%">
+      <el-dialog
+        :visible.sync="dialogFormVisible3"
+        width="25%"
+      >
         <el-form
           :model="updataqiyelist"
           :rules="rules"
@@ -332,14 +441,23 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="联系人名称" prop="lianxiren">
+          <el-form-item
+            label="联系人名称"
+            prop="lianxiren"
+          >
             <el-input v-model="updatelxrenlist.lianxiren"></el-input>
           </el-form-item>
-          <el-form-item label="联系人电话" prop="lxtel">
+          <el-form-item
+            label="联系人电话"
+            prop="lxtel"
+          >
             <el-input v-model="updatelxrenlist.lxtel"></el-input>
           </el-form-item>
           <el-form-item class="fun">
-            <el-button type="primary" @click="submitForm2('ruleForm')">修改</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm2('ruleForm')"
+            >修改</el-button>
             <el-button @click="resetForm('ruleForm')">取消</el-button>
           </el-form-item>
         </el-form>
@@ -496,7 +614,7 @@ export default {
       // 每页条数
       pageSize: 15,
       // 当前页
-      page: '1'
+      page: 1
     }
   },
 
@@ -529,7 +647,7 @@ export default {
     getfirmlist() {
       let num = '1'
       http
-        .getlist({ page: this.page, type: 1, uid: localStorage.getItem('uid') })
+        .getlist({ page: this.page, limit: 13, type: 1, uid: localStorage.getItem('uid') })
         .then(res => {
           // console.log(res)
 
@@ -559,6 +677,7 @@ export default {
       this.temp.address__city = data.city.value
       this.temp.address__dist = data.area.value
     },
+
     // 选择第一个行业
     a1(aa) {
       // console.log(aa)
@@ -596,13 +715,59 @@ export default {
       }
     },
 
-    // 行业选中后的回调
-    handleChange(value) {
-      // console.log(value)
-    },
+    // // 选择第一个行业
+    // a1(aa) {
+    //   // console.log(aa)
+    //   http.gethangye({ pid: aa }).then(res => {
+    //     // console.log(res)
+    //     this.options2 = res.data.data
+    //   }).catch(err => {
+    //     // console.log(err)
+    //   })
+
+    //   this.value2 = ''
+    //   this.value3 = ''
+    //   this.value4 = ''
+    // },
+    // // 选择第二个行业
+    // a2(aa) {
+    //   http.gethangye({ pid: aa }).then(res => {
+    //     // console.log(res)
+    //     this.options3 = res.data.data
+    //   }).catch(err => {
+    //     // console.log(err)
+    //   })
+    //   this.value3 = ''
+    //   this.value4 = ''
+    // },
+    // // 选择第三个行业
+    // a3(aa) {
+    //   http.gethangye({ pid: aa }).then(res => {
+    //     // console.log(res)
+    //     this.options4 = res.data.data
+    //   }).catch(err => {
+    //     // console.log(err)
+    //   })
+    //   this.value4 = ''
+
+    //   if (!this.options4) {
+    //     this.value4 = ''
+    //     this.tiptext = '无'
+    //   }
+    // },
 
     province(e) {
       // console.log(e)
+    },
+
+    // 获取行业信息
+    gethangye() {
+      http.gethangye().then(res => {
+        // console.log(res)
+        this.options1 = res.data.data
+      }).catch(err => {
+        // console.log(err)
+      })
     },
 
     // 获取json文件的行业信息
@@ -610,12 +775,12 @@ export default {
       var _this = this
       Vue.axios
         .get('hangye.json')
-        .then(function(response) {
+        .then(function (response) {
           // console.log(response)
           _this.options1 = response.data
           _this.updatehangye = response.data
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error)
         })
     },
@@ -688,7 +853,7 @@ export default {
     },
 
     // 数据处理
-    dodata() {},
+    dodata() { },
 
     // 点击修改企业
     updateqiye1(row, row2) {
@@ -878,6 +1043,8 @@ export default {
     this.a1()
     this.a2()
     this.a3()
+
+    // this.gethangye()
   }
 }
 </script>

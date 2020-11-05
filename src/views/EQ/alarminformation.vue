@@ -4,19 +4,36 @@
     <div class="topbox">
       <!-- 顶部检索 -->
       <div class="leibei">
-        <el-form ref="form" :model="form" class="demo-ruleForm clearfix" label-width="100px">
-          <el-form-item label="选择用户" prop="user">
-            <el-select v-model="form.user" filterable placeholder="全部" @change="getOptions">
+        <el-form
+          ref="form"
+          :model="form"
+          class="demo-ruleForm clearfix"
+          label-width="100px"
+          size='mini'
+        >
+          <el-form-item
+            label="选择用户"
+            prop="user"
+          >
+            <el-select
+              v-model="form.user"
+              filterable
+              placeholder="全部"
+              @change="getOptions"
+            >
               <el-option
                 v-for="(item,index) in useroptions"
                 :label="item.name"
-                :value="item.uid"
+                :value="item.id"
                 :key="index"
               ></el-option>
             </el-select>
           </el-form-item>
 
-          <el-form-item label="电箱设备号" prop="region">
+          <el-form-item
+            label="电箱设备号"
+            prop="region"
+          >
             <el-select
               :disabled="form.user==''?true:false"
               v-model="form.region"
@@ -34,7 +51,10 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item label="选择分路" prop="fenlu1">
+          <el-form-item
+            label="选择分路"
+            prop="fenlu1"
+          >
             <el-select
               :disabled="form.region==''?true:false"
               v-model="form.fenlu1"
@@ -53,17 +73,52 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item label="处理查询" prop="pu">
-            <el-select v-model="form.pu" placeholder="全部" @change="getinfo" clearable>
-              <el-option label="欠压告警" value="1"></el-option>
-              <el-option label="过压预警" value="2"></el-option>
-              <el-option label="过压报警" value="3"></el-option>
-              <el-option label="电流预警" value="4"></el-option>
-              <el-option label="电流告警" value="5"></el-option>
-              <el-option label="电流报警" value="6"></el-option>
-              <el-option label="漏电流报警" value="7"></el-option>
-              <el-option label="温度报警" value="8"></el-option>
-              <el-option label="分机报警" value="9"></el-option>
+          <el-form-item
+            label="处理查询"
+            prop="pu"
+          >
+            <el-select
+              v-model="form.pu"
+              placeholder="全部"
+              @change="getinfo"
+              clearable
+            >
+              <el-option
+                label="欠压告警"
+                value="1"
+              ></el-option>
+              <el-option
+                label="过压预警"
+                value="2"
+              ></el-option>
+              <el-option
+                label="过压报警"
+                value="3"
+              ></el-option>
+              <el-option
+                label="电流预警"
+                value="4"
+              ></el-option>
+              <el-option
+                label="电流告警"
+                value="5"
+              ></el-option>
+              <el-option
+                label="电流报警"
+                value="6"
+              ></el-option>
+              <el-option
+                label="漏电流报警"
+                value="7"
+              ></el-option>
+              <el-option
+                label="温度报警"
+                value="8"
+              ></el-option>
+              <el-option
+                label="分机报警"
+                value="9"
+              ></el-option>
             </el-select>
           </el-form-item>
 
@@ -84,18 +139,23 @@
       </div>
       <div class="btn">
         <el-button
+          size='mini'
           :disabled="form.region==''?true:false"
           style="margin-left:15px"
           type="primary"
           @click="deleteinfo"
         >删除主机报警</el-button>
+
         <el-button
+          size='mini'
           :disabled="form.fenlu1==''?true:false"
           style="margin-left:15px"
           type="primary"
           @click="deletefenlu"
         >删除线路报警</el-button>
+
         <el-button
+          size='mini'
           :disabled="form.region || form.fenlu1 !=''?true:false"
           style="margin-left:15px"
           type="primary"
@@ -108,7 +168,12 @@
     <!-- :data="tableData" -->
     <div class="mymain">
       <template>
-        <el-table :header-cell-style="headClass" :data="tableData" stripe style="width: 100%">
+        <el-table
+          :header-cell-style="headClass"
+          :data="tableData"
+          stripe
+          style="width: 100%"
+        >
           <el-table-column
             prop="nid"
             show-overflow-tooltip
@@ -137,7 +202,13 @@
             align="center"
             min-width="80"
           ></el-table-column>
-          <el-table-column prop="aa" show-overflow-tooltip label="线路" align="center" min-width="60"></el-table-column>
+          <el-table-column
+            prop="aa"
+            show-overflow-tooltip
+            label="线路"
+            align="center"
+            min-width="60"
+          ></el-table-column>
           <el-table-column
             prop="local"
             show-overflow-tooltip
@@ -183,9 +254,17 @@
             min-width="100"
           ></el-table-column>
 
-          <el-table-column label="操作" align="center" show-overflow-tooltip min-width="70">
+          <el-table-column
+            label="操作"
+            align="center"
+            show-overflow-tooltip
+            min-width="70"
+          >
             <template slot-scope="scope">
-              <i class="el-icon-delete xiugai" @click="deleteeq(scope.$index, scope.row)"></i>
+              <i
+                class="el-icon-delete xiugai"
+                @click="deleteeq(scope.$index, scope.row)"
+              ></i>
             </template>
           </el-table-column>
         </el-table>
@@ -226,6 +305,9 @@ export default {
         fenlu1: ''
       },
 
+      // 要删除账号的uid
+      deluid: '',
+
       // 分路
       fenlu: [],
 
@@ -261,7 +343,7 @@ export default {
 
     // 表格删除按钮
     deleteeq(index, row) {
-      console.log(index, row)
+      // console.log(index, row)
       let id = row.id
 
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -306,6 +388,7 @@ export default {
         .getallcompany({ uid: localStorage.getItem('uid') })
         .then(res => {
           this.useroptions = res.data.data
+          // console.log(res)
         })
         .catch(err => {
           console.log(err)
@@ -442,7 +525,7 @@ export default {
 
       if (this.value2 == '') {
         http
-          .deleteuseralam({ uid: localStorage, type: 0, start: 0, end: 0 })
+          .deleteuseralam({ uid: this.deluid, type: 0, start: 0, end: 0 })
           .then(res => {
             if (res.data.code == 51) {
               this.$message({
@@ -485,7 +568,6 @@ export default {
 
     // 删除一条线路的报警信息
     deletefenlu() {
-      console.log('123')
       let a = new Date(this.value2[0])
       let b = new Date(this.value2[1])
       let start = a.getTime() / 1000
@@ -502,7 +584,7 @@ export default {
             end: 0
           })
           .then(res => {
-            console.log(res)
+            // console.log(res)
             if (res.data.code == 48) {
               this.$message({
                 showClose: true,
@@ -537,7 +619,8 @@ export default {
     },
 
     // 初始化获取下拉数据 - 所有设备
-    getOptions() {
+    getOptions(val) {
+      this.deluid = val
       this.form.region = ''
       http.getOptions({ uid: this.form.user }).then(res => {
         // console.log(res)
@@ -548,7 +631,7 @@ export default {
 
     // 获取分路
     getfenlu(val) {
-      http.getfenlu({ nid: val }).then(res => {
+      http.getfenlu({ nid: val, uid: localStorage.getItem('uid'), }).then(res => {
         this.fenlu = res.data.data
       })
       this.getalarminfo()

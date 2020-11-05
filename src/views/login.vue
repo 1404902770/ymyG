@@ -1,28 +1,66 @@
 <template>
   <!-- 登录 -->
-  <div class="login" id="login">
+  <div
+    class="login"
+    id="login"
+  >
     <div class="z1">
       <div class="l"></div>
       <div class="r">
         <h1>云控管理系统</h1>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+        <el-form
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          class="demo-ruleForm"
+        >
           <el-form-item prop="accountNumber">
-            <img class="lb" src="../../public/static/images/lb_3.png" alt />
-            <el-input v-model="ruleForm.accountNumber" placeholder="请输入用户名"></el-input>
+            <img
+              class="lb"
+              src="../../public/static/images/lb_3.png"
+              alt
+            />
+            <el-input
+              v-model="ruleForm.accountNumber"
+              placeholder="请输入用户名"
+            ></el-input>
           </el-form-item>
+
           <el-form-item prop="Password">
-            <img class="lb" src="../../public/static/images/lb_1.png" alt />
-            <el-input type="password" v-model="ruleForm.Password" placeholder="请输入密码"></el-input>
+            <img
+              class="lb"
+              src="../../public/static/images/lb_1.png"
+              alt
+            />
+            <el-input
+              type="password"
+              v-model="ruleForm.Password"
+              placeholder="请输入密码"
+            ></el-input>
           </el-form-item>
+
           <el-form-item prop="verificationCode">
-            <img class="lb" src="../../public/static/images/lb_2.png" alt />
+            <img
+              class="lb"
+              src="../../public/static/images/lb_2.png"
+              alt
+            />
             <el-input
               v-model="ruleForm.verificationCode"
               placeholder="请输入验证码"
               style="width: 60%;float: left;"
             ></el-input>
-            <el-tooltip class="item" effect="light" content="点击更新" placement="bottom">
-              <p class="yzm" @click="ghyzm" v-loading="loading">
+            <el-tooltip
+              class="item"
+              effect="light"
+              content="点击更新"
+              placement="bottom"
+            >
+              <p
+                class="yzm"
+                @click="ghyzm"
+                v-loading="loading"
+              >
                 <span>{{ num1 }}</span>
                 <span>{{ fh }}</span>
                 <span>{{ num2 }}</span>
@@ -31,8 +69,13 @@
               </p>
             </el-tooltip>
           </el-form-item>
+
           <el-form-item style="margin-bottom:0;">
-            <el-button type="primary" class="dl" @click="submitForm('ruleForm')">登录</el-button>
+            <el-button
+              type="primary"
+              class="dl"
+              @click="submitForm('ruleForm')"
+            >登录</el-button>
           </el-form-item>
           <!-- <el-form-item class="AdministratorsTeacher">
             <el-button type="text" @click="AdministratorsTeacher(1)" v-if="at == 1">管理员登录</el-button>
@@ -56,8 +99,10 @@ export default {
     return {
       // 账号密码验证码
       ruleForm: {
-        accountNumber: 'admin',
-        Password: '123456',
+        accountNumber: '',
+        // accountNumber: 'admin',
+        Password: '',
+        // Password: '123456',
         verificationCode: ''
       },
       // 表单格式判定
@@ -118,7 +163,7 @@ export default {
                   // console.log(res)
                   // console.log
                   if (res.data.code == 4) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                       // localStorage.setItem('token', '测试token')
                       localStorage.setItem('uid', res.data.data.uid) // 用户id：用户的唯一标识
                       // localStorage.setItem('type', res.data.data.type) // 1、企业用户；2、个人用户；3、定制用户
@@ -194,7 +239,7 @@ export default {
         _this.yzms = num1 + num2
       }
       _this.loading = true
-      setTimeout(function() {
+      setTimeout(function () {
         _this.loading = false
       }, 1000)
     }
@@ -204,7 +249,7 @@ export default {
     let _this = this
 
     // 键盘点击回车登录
-    $('#login').keydown(function() {
+    $('#login').keydown(function () {
       if (event.keyCode == '13') {
         if (_this.ruleForm.verificationCode) {
           if (Number(_this.ruleForm.verificationCode) != _this.yzms) {
@@ -249,7 +294,7 @@ export default {
                 // console.log(res)
                 // console.log
                 if (res.data.code == 4) {
-                  setTimeout(function() {
+                  setTimeout(function () {
                     // localStorage.setItem('token', '测试token')
                     localStorage.setItem('uid', res.data.data.uid) // 用户id：用户的唯一标识
                     // localStorage.setItem('type', res.data.data.type) // 1、企业用户；2、个人用户；3、定制用户
@@ -287,7 +332,7 @@ export default {
     })
   },
   // 初始化数据
-  created() {}
+  created() { }
 }
 </script>
 

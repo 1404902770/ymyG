@@ -10,46 +10,75 @@
       </el-breadcrumb>
 
       <div class="add">
-        <el-button type="primary" size="small" @click="addbanner">
+        <el-button
+          type="primary"
+          size="small"
+          @click="addbanner"
+        >
           <i class="el-icon-plus"></i>新增轮播图
         </el-button>
       </div>
     </div>
 
     <template>
-      <el-table :data="tableData" stripe :header-cell-style="headClass" style="width: 100%">
-        <el-table-column label="名称" align="center" min-width="120">
+      <el-table
+        :data="tableData"
+        stripe
+        :header-cell-style="headClass"
+        style="width: 100%"
+      >
+        <el-table-column
+          label="名称"
+          align="center"
+          min-width="120"
+        >
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.name }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="轮播图" align="center" min-width="130">
+        <el-table-column
+          label="轮播图"
+          align="center"
+          min-width="130"
+        >
           <template slot-scope="scope">
             <!-- <el-tag size="medium">{{ scope.row.name }}</el-tag> -->
             <img
               class="bannerimg"
               :src="
-                'http://b.yumaoyou.cn:8008/admin/background/' + scope.row.img
+                'http://api.yumaoyou.cn/admin/background/' + scope.row.img
               "
               alt
             />
           </template>
         </el-table-column>
 
-        <el-table-column label="链接地址" align="center" min-width="150">
+        <el-table-column
+          label="链接地址"
+          align="center"
+          min-width="150"
+        >
           <template slot-scope="scope">
             <el-tag size="medium">{{ scope.row.url }}</el-tag>
           </template>
         </el-table-column>
 
-        <el-table-column label="描述" align="center" min-width="180">
+        <el-table-column
+          label="描述"
+          align="center"
+          min-width="180"
+        >
           <template slot-scope="scope">
             <el-tag size="medium">{{ scope.row.desc }}</el-tag>
           </template>
         </el-table-column>
 
-        <el-table-column label="状态" align="center" min-width="120">
+        <el-table-column
+          label="状态"
+          align="center"
+          min-width="120"
+        >
           <template slot-scope="scope">
             <el-switch
               v-model="scope.row.status"
@@ -63,13 +92,21 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="备注" align="center" min-width="160">
+        <el-table-column
+          label="备注"
+          align="center"
+          min-width="160"
+        >
           <template slot-scope="scope">
             <el-tag size="medium">{{ scope.row.beizhu }}</el-tag>
           </template>
         </el-table-column>
 
-        <el-table-column label="时间" align="center" min-width="100">
+        <el-table-column
+          label="时间"
+          align="center"
+          min-width="100"
+        >
           <template slot-scope="scope">
             <el-tag size="medium">
               {{
@@ -79,10 +116,20 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" align="center" min-width="100">
+        <el-table-column
+          label="操作"
+          align="center"
+          min-width="100"
+        >
           <template slot-scope="scope">
-            <i class="el-icon-edit xiugai" @click="handedit(scope.$index, scope.row)"></i>
-            <i class="el-icon-delete xiugai" @click="handdelete(scope.$index, scope.row)"></i>
+            <i
+              class="el-icon-edit xiugai"
+              @click="handedit(scope.$index, scope.row)"
+            ></i>
+            <i
+              class="el-icon-delete xiugai"
+              @click="handdelete(scope.$index, scope.row)"
+            ></i>
 
             <!-- <el-button size="mini" @click="handedit(scope.$index, scope.row)">
               <el-button type="text" size="mini" @click="dialogFormVisible = true">修改</el-button>
@@ -94,7 +141,10 @@
 
       <!-- 修改轮播图信息 -->
       <div class="bindbox">
-        <el-dialog :visible.sync="dialogFormVisible" width="35%">
+        <el-dialog
+          :visible.sync="dialogFormVisible"
+          width="35%"
+        >
           <div class="banner">
             <el-form
               :model="ruleForm"
@@ -103,24 +153,42 @@
               label-width="100px"
               class="demo-ruleForm"
             >
-              <el-form-item label="名称" prop="name">
+              <el-form-item
+                label="名称"
+                prop="name"
+              >
                 <el-input v-model="ruleForm.name"></el-input>
               </el-form-item>
 
-              <el-form-item label="备注" prop="beizhu">
+              <el-form-item
+                label="备注"
+                prop="beizhu"
+              >
                 <el-input v-model="ruleForm.beizhu"></el-input>
               </el-form-item>
 
-              <el-form-item label="链接地址" prop="url">
+              <el-form-item
+                label="链接地址"
+                prop="url"
+              >
                 <el-input v-model="ruleForm.url"></el-input>
               </el-form-item>
 
-              <el-form-item label="描述" prop="desc">
-                <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+              <el-form-item
+                label="描述"
+                prop="desc"
+              >
+                <el-input
+                  type="textarea"
+                  v-model="ruleForm.desc"
+                ></el-input>
               </el-form-item>
 
               <el-form-item class="fun">
-                <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
+                <el-button
+                  type="primary"
+                  @click="submitForm('ruleForm')"
+                >修改</el-button>
                 <el-button @click="resetForm('ruleForm')">取消</el-button>
               </el-form-item>
             </el-form>
@@ -132,7 +200,11 @@
 
       <!-- 新增轮播图 -->
       <div class="addbanner">
-        <el-dialog :visible.sync="dialogFormVisible2" width="35%" @close="closeaddbanner">
+        <el-dialog
+          :visible.sync="dialogFormVisible2"
+          width="35%"
+          @close="closeaddbanner"
+        >
           <el-form
             :model="ruleFormadd"
             :rules="rulesadd"
@@ -141,11 +213,17 @@
             class="demo-ruleForm"
           >
             <div style="display:flex">
-              <el-form-item label="名称" prop="name">
+              <el-form-item
+                label="名称"
+                prop="name"
+              >
                 <el-input v-model="ruleFormadd.name2"></el-input>
               </el-form-item>
 
-              <el-form-item label="网址" prop="addressurl">
+              <el-form-item
+                label="网址"
+                prop="addressurl"
+              >
                 <el-input v-model="ruleFormadd.addressurl2"></el-input>
               </el-form-item>
             </div>
@@ -161,11 +239,20 @@
             <div style="display:flex">
               <div class="status">
                 <span class="stauscover">状态</span>
-                <el-radio v-model="radio" label="1">启用</el-radio>
-                <el-radio v-model="radio" label="0">不启用</el-radio>
+                <el-radio
+                  v-model="radio"
+                  label="1"
+                >启用</el-radio>
+                <el-radio
+                  v-model="radio"
+                  label="0"
+                >不启用</el-radio>
               </div>
 
-              <el-form-item label="备注" prop="note">
+              <el-form-item
+                label="备注"
+                prop="note"
+              >
                 <el-input v-model="ruleFormadd.note2"></el-input>
               </el-form-item>
             </div>
@@ -194,16 +281,29 @@
                 <i class="el-icon-plus"></i>
               </el-upload>
               <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="dialogImageUrl" alt />
+                <img
+                  width="100%"
+                  :src="dialogImageUrl"
+                  alt
+                />
               </el-dialog>
             </div>
 
-            <el-form-item label="描述" prop="desc">
-              <el-input type="textarea" v-model="ruleFormadd.desc2"></el-input>
+            <el-form-item
+              label="描述"
+              prop="desc"
+            >
+              <el-input
+                type="textarea"
+                v-model="ruleFormadd.desc2"
+              ></el-input>
             </el-form-item>
 
             <el-form-item align="right">
-              <el-button type="primary" @click="submitFormadd('ruleForm')">立即创建</el-button>
+              <el-button
+                type="primary"
+                @click="submitFormadd('ruleForm')"
+              >立即创建</el-button>
               <el-button @click="resetFormadd('ruleForm')">取消</el-button>
             </el-form-item>
           </el-form>
@@ -502,7 +602,7 @@ export default {
       const data = new FormData()
       data.append('img', file)
       Vue.axios
-        .post('/aapi/appv1/usdpc2/bannerImgUpload', data, {
+        .post('http://api.yumaoyou.cn/index.php/api/admin/bannerImgUpload', data, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

@@ -3,7 +3,11 @@
     <div class="topnav">
       <!-- logo图标 -->
       <div class="logo">
-        <img class="logopic" src="../../public/static/images/logo.png" alt />
+        <img
+          class="logopic"
+          src="../../public/static/images/logo.png"
+          alt
+        />
         <span class="logotitle">后台管理系统</span>
       </div>
       <!-- 顶部导航按钮 -->
@@ -15,14 +19,38 @@
         @select="handleSelect"
         router
       >
-        <el-menu-item index="1" @click="gotoUser('1')">用户管理</el-menu-item>
-        <el-menu-item index="2" @click="gotoEq('2')">设备管理</el-menu-item>
-        <el-menu-item index="3" @click="gotoSetUp('3')">App设置</el-menu-item>
-        <el-menu-item index="4" @click="gotoWebSite('4')">官网设置</el-menu-item>
+        <el-menu-item
+          index="1"
+          @click="gotoUser('1')"
+        >用户管理</el-menu-item>
+        <el-menu-item
+          index="2"
+          @click="gotoEq('2')"
+        >设备管理</el-menu-item>
+        <el-menu-item
+          index="3"
+          @click="gotoSetUp('3')"
+        >App设置</el-menu-item>
+        <!-- <el-menu-item
+          index="4"
+          @click="gotoWebSite('4')"
+        >官网设置</el-menu-item> -->
       </el-menu>
     </div>
     <!-- 用户信息 -->
     <div class="userInfo">
+      <div
+        class="jiankong"
+        @click="gotoMonitoring"
+      >
+        <img
+          class="jiankongimg"
+          src="../../public/static/images/jiankong.png"
+          alt=""
+        />
+        <span>监控</span>
+      </div>
+
       <template v-if="this.lei == 1">
         <div class="userName">总管理员</div>
       </template>
@@ -34,7 +62,11 @@
         <el-dropdown @command="commond">
           <span class="el-dropdown-link">
             <div class="userpic">
-              <img class="userheadpic" src="../..//public/static/images/logo.png" alt />
+              <img
+                class="userheadpic"
+                src="../..//public/static/images/logo.png"
+                alt
+              />
             </div>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
@@ -81,6 +113,12 @@ export default {
     handleSelect(key, keyPath) {
       // console.log(key, keyPath)
     },
+    // 点击进入监控页
+    gotoMonitoring() {
+      // this.$router.push({ path: "/monitoring" })
+      this.$router.push({ path: "/home" })
+    },
+
     // 点击用户管理按钮
     gotoUser(num) {
       this.$router.push({ path: '/funuser' })
@@ -141,6 +179,21 @@ export default {
   top: 15px;
   right: 50px;
   display: flex;
+  .jiankong {
+    display: flex;
+    margin-right: 15px;
+    margin-top: -6px;
+    flex-direction: column;
+    .jiankongimg {
+      width: 27px;
+    }
+    span {
+      font-size: 14px;
+    }
+  }
+  .jiankong:hover {
+    cursor: pointer;
+  }
 }
 /* 顶部导航 */
 .headnav {

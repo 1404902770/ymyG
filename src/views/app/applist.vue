@@ -5,8 +5,14 @@
     <div id="uploadFile">
       <!-- <h4>上传文件：</h4> -->
       <p class="input-zone">
-        <span v-if="filename" class="selectText">{{ filename }}</span>
-        <span v-else class="selectText">请选择文件上传</span>
+        <span
+          v-if="filename"
+          class="selectText"
+        >{{ filename }}</span>
+        <span
+          v-else
+          class="selectText"
+        >请选择文件上传</span>
 
         <input
           type="file"
@@ -20,7 +26,10 @@
 
       <p>上传进度：</p>
       <div class="progress-wrapper">
-        <div class="progress-progress" :style="uploadStyle"></div>
+        <div
+          class="progress-progress"
+          :style="uploadStyle"
+        ></div>
         <div class="progress-rate">{{ (uploadRate * 100).toFixed(2) }}%</div>
       </div>
     </div>
@@ -45,7 +54,7 @@ export default {
   },
   methods: {
     // 进度条和上传方法
-    upload: function(e) {
+    upload: function (e) {
       var vm = this
       var formData = new FormData()
       formData.append('name', 'Alax')
@@ -53,12 +62,12 @@ export default {
         var file = e.target.files[i] //取第1个文件
         formData.append('app', file)
         vm.filename = file.name
-        console.log(file)
+        // console.log(file)
       }
 
       var config = {
         headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress: function(e) {
+        onUploadProgress: function (e) {
           // console.log('进度：')
           // console.log(e)
 
@@ -82,12 +91,12 @@ export default {
 
       Vue.axios
         .post(
-          'http://a.yumaoyou.cn:8008/index.php/appv1/usdpc2/appBarUpdate',
+          'http://api.yumaoyou.cn/index.php/api/admin/appBarUpdate',
           formData,
           config
         )
         .then(res => {
-          console.log(res)
+          // console.log(res)
           localStorage.setItem('appurl', res.data.url)
           this.$message({
             message: '上传成功',
@@ -122,7 +131,7 @@ export default {
     //     })
     // }
   },
-  mounted() {}
+  mounted() { }
 }
 </script>
 <style lang="less" scoped>
