@@ -10,7 +10,7 @@
   "dependencies": {
     "@jiaminghi/data-view": "^2.10.0",
     "@tinymce/tinymce-vue": "^3.2.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "codemirror": "^5.53.2",
     "core-js": "^3.6.4",
